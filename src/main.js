@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   document.head.appendChild(animationStyles)
   
-  console.log('ðŸ”¥ Tibia Build Forge inicializado com sucesso!')
-  console.log('ðŸ“± AplicaÃ§Ã£o responsiva ativa')
-  console.log('ðŸ—ï¸ Arquitetura modular carregada')
+  console.log('🔥 Tibia Build Forge inicializado com sucesso!')
+  console.log('📱 Aplicação responsiva ativa')
+  console.log('🏗️ Arquitetura modular carregada')
 })

@@ -36,22 +36,22 @@ export class HomeRenderer {
     return `
       <section class="hero-section">
         <div class="hero-content">
-          <h1 class="hero-title">âš”ï¸ Tibia Build Forge</h1>
+          <h1 class="hero-title">⚔️ Tibia Build Forge</h1>
           <p class="hero-description">
-            Crie e compartilhe builds Ã©picas para o mundo de Tibia. 
-            Otimize seu personagem com as melhores combinaÃ§Ãµes de equipamentos.
+            Crie e compartilhe builds épicas para o mundo de Tibia. 
+            Otimize seu personagem com as melhores combinações de equipamentos.
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary btn-large" data-action="create-new-build">
-              ðŸ”¨ Criar Nova Build
+              🔨 Criar Nova Build
             </button>
             <button class="btn btn-secondary btn-large" data-page="classes">
-              ðŸ‘¥ Ver Classes
+              👥 Ver Classes
             </button>
           </div>
         </div>
         <div class="hero-image">
-          <div class="tibia-logo">ðŸ°</div>
+          <div class="tibia-logo">🏰</div>
         </div>
       </section>
     `
@@ -64,24 +64,24 @@ export class HomeRenderer {
     
     return `
       <section class="stats-section">
-        <h2 class="stats-title">ðŸ“Š EstatÃ­sticas da Forja</h2>
+        <h2 class="stats-title">📊 Estatísticas da Forja</h2>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-icon">âš”ï¸</div>
+            <div class="stat-icon">⚔️</div>
             <div class="stat-info">
               <div class="stat-number">${totalBuilds}</div>
-              <div class="stat-label">Builds DisponÃ­veis</div>
+              <div class="stat-label">Builds Disponíveis</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">ðŸ›¡ï¸</div>
+            <div class="stat-icon">🛡️</div>
             <div class="stat-info">
               <div class="stat-number">${totalEquipments}</div>
               <div class="stat-label">Equipamentos</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">ðŸ‘¥</div>
+            <div class="stat-icon">👥</div>
             <div class="stat-info">
               <div class="stat-number">${totalClasses}</div>
               <div class="stat-label">Classes</div>
@@ -98,7 +98,7 @@ export class HomeRenderer {
     return `
       <section class="featured-section">
         <div class="section-header">
-          <h2 class="section-title">ðŸŒŸ Builds em Destaque</h2>
+          <h2 class="section-title">🌟 Builds em Destaque</h2>
           <p class="section-subtitle">Builds mais populares da comunidade</p>
         </div>
         <div class="builds-grid">
@@ -134,7 +134,7 @@ export class HomeRenderer {
         </div>
         <div class="build-actions">
           <button class="btn btn-primary btn-sm" data-action="view-build" data-build-id="${build.id}">
-            ðŸ‘ï¸ Ver Detalhes
+            👁️ Ver Detalhes
           </button>
         </div>
       </article>
@@ -162,24 +162,24 @@ export class HomeRenderer {
   
   getSlotIcon(slot) {
     const icons = {
-      weapon: 'âš”ï¸',
-      armor: 'ðŸ›¡ï¸',
-      shield: 'ðŸ›¡ï¸',
-      helmet: 'â›‘ï¸'
+      weapon: '⚔️',
+      armor: '🛡️',
+      shield: '🛡️',
+      helmet: '⛑️'
     }
-    return icons[slot] || 'â“'
+    return icons[slot] || '❓'
   }
   
   renderBuildStatsPreview(build) {
     const totalStats = this.calculateBuildStats(build)
     
     const statsToShow = [
-      { icon: 'âš”ï¸', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
-      { icon: 'ðŸ›¡ï¸', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
-      { icon: 'â¤ï¸', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
-      { icon: 'ðŸ’™', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
-      { icon: 'âœ¨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
-      { icon: 'ðŸŽ¯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
+      { icon: '⚔️', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
+      { icon: '🛡️', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
+      { icon: '❤️', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
+      { icon: '💙', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
+      { icon: '✨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
+      { icon: '🎯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
     ].filter(stat => stat.show)
     
     return statsToShow.map(stat => `

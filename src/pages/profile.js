@@ -43,11 +43,11 @@ export class ProfileRenderer {
     container.innerHTML = `
       <div class="profile-container">
         <div class="not-logged-in">
-          <div class="not-logged-icon">ðŸ”’</div>
-          <h2>Ãrea Restrita</h2>
-          <p>VocÃª precisa estar logado para acessar seu perfil</p>
+          <div class="not-logged-icon">🔒</div>
+          <h2>Área Restrita</h2>
+          <p>Você precisa estar logado para acessar seu perfil</p>
           <button class="btn btn-primary btn-large" data-page="login">
-            ðŸ”‘ Fazer Login
+            🔑 Fazer Login
           </button>
         </div>
       </div>
@@ -77,16 +77,16 @@ export class ProfileRenderer {
               </span>
             </div>
             <div class="profile-email">
-              ðŸ“§ ${this.user.email}
+              📧 ${this.user.email}
             </div>
           </div>
           
           <div class="profile-actions">
             <button class="btn btn-primary" data-action="edit-profile">
-              âœï¸ Editar Perfil
+              ✏️ Editar Perfil
             </button>
             <button class="btn btn-secondary" data-action="logout">
-              ðŸšª Sair
+              🚪 Sair
             </button>
           </div>
         </div>
@@ -100,11 +100,11 @@ export class ProfileRenderer {
     
     return `
       <section class="profile-stats">
-        <h2 class="section-title">ðŸ“Š EstatÃ­sticas</h2>
+        <h2 class="section-title">📊 Estatísticas</h2>
         
         <div class="stats-grid">
           <div class="stat-box">
-            <div class="stat-icon">âš”ï¸</div>
+            <div class="stat-icon">⚔️</div>
             <div class="stat-details">
               <div class="stat-value">${userBuilds.length}</div>
               <div class="stat-label">Builds Criadas</div>
@@ -112,15 +112,15 @@ export class ProfileRenderer {
           </div>
           
           <div class="stat-box">
-            <div class="stat-icon">ðŸ“ˆ</div>
+            <div class="stat-icon">📈</div>
             <div class="stat-details">
               <div class="stat-value">${this.user.level}</div>
-              <div class="stat-label">NÃ­vel do Personagem</div>
+              <div class="stat-label">Nível do Personagem</div>
             </div>
           </div>
           
           <div class="stat-box">
-            <div class="stat-icon">â­</div>
+            <div class="stat-icon">⭐</div>
             <div class="stat-details">
               <div class="stat-value">${favoriteBuild ? favoriteBuild.name : 'Nenhuma'}</div>
               <div class="stat-label">Build Favorita</div>
@@ -137,9 +137,9 @@ export class ProfileRenderer {
     return `
       <section class="profile-builds">
         <div class="section-header">
-          <h2 class="section-title">ðŸŽ’ Minhas Builds</h2>
+          <h2 class="section-title">🎒 Minhas Builds</h2>
           <button class="btn btn-primary" data-action="create-new-build">
-            âž• Criar Nova Build
+            ➕ Criar Nova Build
           </button>
         </div>
         
@@ -180,13 +180,13 @@ export class ProfileRenderer {
         
         <div class="build-card-actions">
           <button class="btn btn-sm btn-primary" data-action="view-build-details" data-build-id="${build.id}">
-            ðŸ‘ï¸ Ver
+            👁️ Ver
           </button>
           <button class="btn btn-sm btn-secondary" data-action="edit-build" data-build-id="${build.id}">
-            âœï¸ Editar
+            ✏️ Editar
           </button>
           <button class="btn btn-sm btn-danger" data-action="delete-build" data-build-id="${build.id}">
-            ðŸ—‘ï¸ Excluir
+            🗑️ Excluir
           </button>
         </div>
       </article>
@@ -196,11 +196,11 @@ export class ProfileRenderer {
   renderEmptyBuilds() {
     return `
       <div class="empty-builds">
-        <div class="empty-icon">ðŸ“¦</div>
+        <div class="empty-icon">📦</div>
         <h3>Nenhuma Build Criada</h3>
-        <p>Comece criando sua primeira build Ã©pica!</p>
+        <p>Comece criando sua primeira build épica!</p>
         <button class="btn btn-primary btn-large" data-action="create-new-build">
-          ðŸ”¨ Criar Primeira Build
+          🔨 Criar Primeira Build
         </button>
       </div>
     `
@@ -225,27 +225,27 @@ export class ProfileRenderer {
   
   getSlotIcon(slot) {
     const icons = {
-      weapon: 'âš”ï¸',
-      armor: 'ðŸ›¡ï¸',
-      helmet: 'â›‘ï¸',
-      shield: 'ðŸ›¡ï¸',
-      boots: 'ðŸ‘¢',
-      ring: 'ðŸ’',
-      necklace: 'ðŸ“¿'
+      weapon: '⚔️',
+      armor: '🛡️',
+      helmet: '⛑️',
+      shield: '🛡️',
+      boots: '👢',
+      ring: '💍',
+      necklace: '📿'
     }
-    return icons[slot] || 'â“'
+    return icons[slot] || '❓'
   }
   
   renderBuildStatsPreview(build) {
     const totalStats = this.calculateBuildStats(build)
     
     const statsToShow = [
-      { icon: 'âš”ï¸', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
-      { icon: 'ðŸ›¡ï¸', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
-      { icon: 'â¤ï¸', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
-      { icon: 'ðŸ’™', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
-      { icon: 'âœ¨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
-      { icon: 'ðŸŽ¯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
+      { icon: '⚔️', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
+      { icon: '🛡️', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
+      { icon: '❤️', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
+      { icon: '💙', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
+      { icon: '✨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
+      { icon: '🎯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
     ].filter(stat => stat.show)
     
     return statsToShow.map(stat => `
@@ -321,16 +321,16 @@ export class ProfileRenderer {
       <div class="modal-backdrop" data-action="close-modal"></div>
       <div class="modal-content">
         <div class="modal-header">
-          <h2>âœï¸ Editar Perfil</h2>
-          <button class="modal-close" data-action="close-modal">âœ•</button>
+          <h2>✏️ Editar Perfil</h2>
+          <button class="modal-close" data-action="close-modal">✕</button>
         </div>
         
         <form class="edit-profile-form" id="edit-profile-form">
           <div class="form-section">
-            <h3>InformaÃ§Ãµes BÃ¡sicas</h3>
+            <h3>Informações Básicas</h3>
             
             <div class="form-group">
-              <label for="edit-username">ðŸ‘¤ Username</label>
+              <label for="edit-username">👤 Username</label>
               <input 
                 type="text" 
                 id="edit-username" 
@@ -341,7 +341,7 @@ export class ProfileRenderer {
             </div>
             
             <div class="form-group">
-              <label for="edit-email">ðŸ“§ Email</label>
+              <label for="edit-email">📧 Email</label>
               <input 
                 type="email" 
                 id="edit-email" 
@@ -353,10 +353,10 @@ export class ProfileRenderer {
           </div>
           
           <div class="form-section">
-            <h3>InformaÃ§Ãµes de Personagem</h3>
+            <h3>Informações de Personagem</h3>
             
             <div class="form-group">
-              <label for="edit-level">ðŸ“ˆ NÃ­vel</label>
+              <label for="edit-level">📈 Nível</label>
               <input 
                 type="number" 
                 id="edit-level" 
@@ -369,7 +369,7 @@ export class ProfileRenderer {
             </div>
             
             <div class="form-group">
-              <label for="edit-class">âš”ï¸ Classe Principal</label>
+              <label for="edit-class">⚔️ Classe Principal</label>
               <select id="edit-class" class="form-input">
                 <option value="Knight" ${this.user.mainClass === 'Knight' ? 'selected' : ''}>Knight</option>
                 <option value="Paladin" ${this.user.mainClass === 'Paladin' ? 'selected' : ''}>Paladin</option>
@@ -381,15 +381,15 @@ export class ProfileRenderer {
           
           <div class="form-section">
             <h3>Foto de Perfil</h3>
-            <p class="form-hint">ðŸ’¡ A foto do perfil Ã© baseada na sua classe selecionada</p>
+            <p class="form-hint">💡 A foto do perfil é baseada na sua classe selecionada</p>
           </div>
           
           <div class="modal-actions">
             <button type="button" class="btn btn-secondary" data-action="close-modal">
-              âŒ Cancelar
+              ❌ Cancelar
             </button>
             <button type="submit" class="btn btn-primary" data-action="save-profile">
-              ðŸ’¾ Salvar AlteraÃ§Ãµes
+              💾 Salvar Alterações
             </button>
           </div>
         </form>
@@ -422,12 +422,12 @@ export class ProfileRenderer {
     const mainClass = document.getElementById('edit-class').value
     
     if (!username || !email || !level) {
-      this.showNotification('âŒ Preencha todos os campos!', 'error')
+      this.showNotification('❌ Preencha todos os campos!', 'error')
       return
     }
     
     if (level < 1 || level > 9999) {
-      this.showNotification('âŒ NÃ­vel invÃ¡lido! (1-9999)', 'error')
+      this.showNotification('❌ Nível inválido! (1-9999)', 'error')
       return
     }
     
@@ -439,7 +439,7 @@ export class ProfileRenderer {
     localStorage.setItem('tibia-user', JSON.stringify(this.user))
     
     this.closeEditProfileModal()
-    this.showNotification('âœ… Perfil atualizado com sucesso!', 'success')
+    this.showNotification('✅ Perfil atualizado com sucesso!', 'success')
     
     setTimeout(() => {
       this.render()
@@ -449,7 +449,7 @@ export class ProfileRenderer {
   handleLogout() {
     if (confirm('Tem certeza que deseja sair?')) {
       localStorage.removeItem('tibia-user')
-      this.showNotification('ðŸ‘‹ AtÃ© logo!', 'success')
+      this.showNotification('👋 Até logo!', 'success')
       
       setTimeout(() => {
         document.dispatchEvent(new CustomEvent('navigate-to-page', {
@@ -461,7 +461,7 @@ export class ProfileRenderer {
   
   handleDeleteBuild(buildId) {
     if (confirm('Tem certeza que deseja excluir esta build?')) {
-      this.showNotification('ðŸ—‘ï¸ Build excluÃ­da com sucesso!', 'success')
+      this.showNotification('🗑️ Build excluída com sucesso!', 'success')
       setTimeout(() => this.render(), 500)
     }
   }

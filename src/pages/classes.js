@@ -7,39 +7,39 @@ export class ClassesRenderer {
     this.classes = [
       {
         name: 'Knight',
-        icon: 'ðŸ›¡ï¸',
+        icon: '🛡️',
         description: 'Tanque robusto com alta defesa e vida. Especializado em combate corpo a corpo.',
         primaryStats: ['defense', 'health'],
         weapons: ['sword', 'axe', 'club'],
         armor: 'heavy',
         playstyle: 'Tanque/DPS Melee',
-        difficulty: 'FÃ¡cil',
+        difficulty: 'Fácil',
         pros: [
-          'Alta resistÃªncia fÃ­sica',
+          'Alta resistência física',
           'Excelente para PvP',
-          'FÃ¡cil de jogar',
+          'Fácil de jogar',
           'Boa para iniciantes'
         ],
         cons: [
           'Baixa velocidade de hunt',
           'Dependente de supplies',
-          'Limitado Ã  distÃ¢ncia',
+          'Limitado à distância',
           'Caro para upar'
         ],
         builds: this.data.builds.filter(build => build.class === 'Knight')
       },
       {
         name: 'Paladin',
-        icon: 'ðŸ¹',
-        description: 'VersÃ¡til combatente Ã  distÃ¢ncia com boa mobilidade e utilidade.',
+        icon: '🏹',
+        description: 'Versátil combatente à distância com boa mobilidade e utilidade.',
         primaryStats: ['accuracy', 'health'],
         weapons: ['bow', 'crossbow'],
         armor: 'medium',
-        playstyle: 'DPS Ranged/UtilitÃ¡rio',
-        difficulty: 'MÃ©dio',
+        playstyle: 'DPS Ranged/Utilitário',
+        difficulty: 'Médio',
         pros: [
-          'Versatilidade incomparÃ¡vel',
-          'Bom damage Ã  distÃ¢ncia',
+          'Versatilidade incomparável',
+          'Bom damage à distância',
           'Healing e support',
           'Mobilidade excelente'
         ],
@@ -53,35 +53,35 @@ export class ClassesRenderer {
       },
       {
         name: 'Druid',
-        icon: 'ðŸŒ¿',
-        description: 'Mago da natureza com foco em cura e magias de Ã¡rea.',
+        icon: '🌿',
+        description: 'Mago da natureza com foco em cura e magias de área.',
         primaryStats: ['magic', 'mana'],
         weapons: ['rod'],
         armor: 'light',
         playstyle: 'Healer/Support/AoE',
-        difficulty: 'MÃ©dio-Alto',
+        difficulty: 'Médio-Alto',
         pros: [
           'Melhor healer do jogo',
           'Excelente para team hunt',
           'Strong AoE spells',
-          'Versatilidade mÃ¡gica'
+          'Versatilidade mágica'
         ],
         cons: [
-          'Baixa defesa fÃ­sica',
+          'Baixa defesa física',
           'Dependente de mana',
           'Caro para manter',
-          'VulnerÃ¡vel sozinho'
+          'Vulnerável sozinho'
         ],
         builds: this.data.builds.filter(build => build.class === 'Druid')
       },
       {
         name: 'Sorcerer',
-        icon: 'ðŸ”®',
-        description: 'Mago destruidor com o maior dano mÃ¡gico do jogo.',
+        icon: '🔮',
+        description: 'Mago destruidor com o maior dano mágico do jogo.',
         primaryStats: ['magic', 'mana'],
         weapons: ['wand'],
         armor: 'light',
-        playstyle: 'DPS MÃ¡gico/Burst',
+        playstyle: 'DPS Mágico/Burst',
         difficulty: 'Alto',
         pros: [
           'Highest magical damage',
@@ -131,10 +131,10 @@ export class ClassesRenderer {
     return `
       <header class="classes-header">
         <div class="header-content">
-          <h1 class="page-title">ðŸ‘¥ Classes de Tibia</h1>
+          <h1 class="page-title">👥 Classes de Tibia</h1>
           <p class="page-subtitle">
-            Descubra as quatro vocaÃ§Ãµes Ãºnicas de Tibia. Cada classe oferece um estilo de jogo distinto 
-            com habilidades, equipamentos e estratÃ©gias especÃ­ficas.
+            Descubra as quatro vocações únicas de Tibia. Cada classe oferece um estilo de jogo distinto 
+            com habilidades, equipamentos e estratégias específicas.
           </p>
         </div>
         <div class="header-stats">
@@ -176,28 +176,28 @@ export class ClassesRenderer {
         
         <div class="class-details">
           <div class="detail-row">
-            <span class="detail-label">ðŸŽ¯ Estilo:</span>
+            <span class="detail-label">🎯 Estilo:</span>
             <span class="detail-value">${classInfo.playstyle}</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">âš”ï¸ Armas:</span>
+            <span class="detail-label">⚔️ Armas:</span>
             <span class="detail-value">${classInfo.weapons.join(', ')}</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">ðŸ›¡ï¸ Armadura:</span>
+            <span class="detail-label">🛡️ Armadura:</span>
             <span class="detail-value">${classInfo.armor}</span>
           </div>
         </div>
         
         <div class="class-pros-cons">
           <div class="pros-section">
-            <h4 class="pros-title">âœ… Vantagens</h4>
+            <h4 class="pros-title">✅ Vantagens</h4>
             <ul class="pros-list">
               ${classInfo.pros.map(pro => `<li>${pro}</li>`).join('')}
             </ul>
           </div>
           <div class="cons-section">
-            <h4 class="cons-title">âŒ Desvantagens</h4>
+            <h4 class="cons-title">❌ Desvantagens</h4>
             <ul class="cons-list">
               ${classInfo.cons.map(con => `<li>${con}</li>`).join('')}
             </ul>
@@ -205,7 +205,7 @@ export class ClassesRenderer {
         </div>
         
         <div class="class-builds">
-          <h4 class="builds-title">ðŸ”¨ Builds DisponÃ­veis (${classInfo.builds.length})</h4>
+          <h4 class="builds-title">🔨 Builds Disponíveis (${classInfo.builds.length})</h4>
           ${classInfo.builds.length > 0 ? `
             <div class="builds-preview">
               ${classInfo.builds.slice(0, 2).map(build => this.renderBuildPreview(build)).join('')}
@@ -216,16 +216,16 @@ export class ClassesRenderer {
               ` : ''}
             </div>
           ` : `
-            <p class="no-builds">Nenhuma build disponÃ­vel ainda.</p>
+            <p class="no-builds">Nenhuma build disponível ainda.</p>
           `}
         </div>
         
         <div class="class-actions">
           <button class="btn btn-primary" data-action="view-class-builds" data-class="${classInfo.name}">
-            ðŸ‘ï¸ Ver Builds
+            👁️ Ver Builds
           </button>
           <button class="btn btn-secondary" data-action="create-class-build" data-class="${classInfo.name}">
-            ðŸ”§ Criar Build
+            🔧 Criar Build
           </button>
         </div>
       </article>
@@ -247,18 +247,18 @@ export class ClassesRenderer {
   renderComparisonTable() {
     return `
       <section class="comparison-section">
-        <h2 class="section-title">ðŸ“Š ComparaÃ§Ã£o de Classes</h2>
+        <h2 class="section-title">📊 Comparação de Classes</h2>
         <div class="comparison-container">
           <div class="comparison-table">
             <div class="table-header">
-              <div class="header-cell">CaracterÃ­stica</div>
+              <div class="header-cell">Característica</div>
               ${this.classes.map(c => `<div class="header-cell class-header">${c.icon} ${c.name}</div>`).join('')}
             </div>
             
             ${this.renderComparisonRow('Dificuldade', this.classes.map(c => c.difficulty))}
             ${this.renderComparisonRow('Estilo de Jogo', this.classes.map(c => c.playstyle))}
             ${this.renderComparisonRow('Tipo de Armadura', this.classes.map(c => c.armor))}
-            ${this.renderComparisonRow('Builds DisponÃ­veis', this.classes.map(c => c.builds.length))}
+            ${this.renderComparisonRow('Builds Disponíveis', this.classes.map(c => c.builds.length))}
           </div>
         </div>
       </section>
@@ -463,9 +463,9 @@ export class ClassesRenderer {
         letter-spacing: 0.5px;
       }
       
-      .difficulty-fÃ¡cil { background: #10b981; color: white; }
-      .difficulty-mÃ©dio { background: #f59e0b; color: white; }
-      .difficulty-mÃ©dio-alto { background: #f97316; color: white; }
+      .difficulty-fácil { background: #10b981; color: white; }
+      .difficulty-médio { background: #f59e0b; color: white; }
+      .difficulty-médio-alto { background: #f97316; color: white; }
       .difficulty-alto { background: #ef4444; color: white; }
       
       .class-description {

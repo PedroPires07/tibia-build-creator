@@ -23,17 +23,17 @@ export class LoginRenderer {
     return `
       <div class="login-card">
         <div class="login-header">
-          <div class="login-icon">ðŸ°</div>
+          <div class="login-icon">🏰</div>
           <h1 class="login-title">Tibia Build Forge</h1>
           <p class="login-subtitle">Entre para gerenciar suas builds</p>
         </div>
         
         <div class="login-tabs">
           <button class="tab-btn active" data-mode="login">
-            ðŸ”‘ Entrar
+            🔑 Entrar
           </button>
           <button class="tab-btn" data-mode="register">
-            âš”ï¸ Registrar
+            ⚔️ Registrar
           </button>
         </div>
         
@@ -43,7 +43,7 @@ export class LoginRenderer {
         </div>
         
         <div class="login-footer">
-          <p>Ao entrar, vocÃª concorda com nossos termos de serviÃ§o</p>
+          <p>Ao entrar, você concorda com nossos termos de serviço</p>
         </div>
       </div>
     `
@@ -54,7 +54,7 @@ export class LoginRenderer {
       <form class="auth-form login-form active" id="login-form">
         <div class="form-group">
           <label for="login-email" class="form-label">
-            ðŸ“§ Email ou Username
+            📧 Email ou Username
           </label>
           <input 
             type="text" 
@@ -67,7 +67,7 @@ export class LoginRenderer {
         
         <div class="form-group">
           <label for="login-password" class="form-label">
-            ðŸ” Senha
+            🔐 Senha
           </label>
           <input 
             type="password" 
@@ -87,7 +87,7 @@ export class LoginRenderer {
         </div>
         
         <button type="submit" class="btn btn-primary btn-large btn-full">
-          ðŸ”‘ Entrar
+          🔑 Entrar
         </button>
       </form>
     `
@@ -98,20 +98,20 @@ export class LoginRenderer {
       <form class="auth-form register-form" id="register-form">
         <div class="form-group">
           <label for="register-username" class="form-label">
-            ðŸ‘¤ Username
+            👤 Username
           </label>
           <input 
             type="text" 
             id="register-username" 
             class="form-input"
-            placeholder="Escolha um username Ãºnico"
+            placeholder="Escolha um username único"
             required
           />
         </div>
         
         <div class="form-group">
           <label for="register-email" class="form-label">
-            ðŸ“§ Email
+            📧 Email
           </label>
           <input 
             type="email" 
@@ -124,13 +124,13 @@ export class LoginRenderer {
         
         <div class="form-group">
           <label for="register-password" class="form-label">
-            ðŸ” Senha
+            🔐 Senha
           </label>
           <input 
             type="password" 
             id="register-password" 
             class="form-input"
-            placeholder="MÃ­nimo 6 caracteres"
+            placeholder="Mínimo 6 caracteres"
             required
             minlength="6"
           />
@@ -138,7 +138,7 @@ export class LoginRenderer {
         
         <div class="form-group">
           <label for="register-confirm" class="form-label">
-            âœ… Confirmar Senha
+            ✅ Confirmar Senha
           </label>
           <input 
             type="password" 
@@ -151,26 +151,26 @@ export class LoginRenderer {
         
         <div class="form-group">
           <label for="register-class" class="form-label">
-            ðŸ›¡ï¸ Classe Principal
+            🛡️ Classe Principal
           </label>
           <select id="register-class" class="form-input" required>
             <option value="" disabled selected>Selecione sua classe</option>
-            <option value="Knight">âš”ï¸ Knight</option>
-            <option value="Paladin">ðŸ¹ Paladin</option>
-            <option value="Sorcerer">ðŸ”® Sorcerer</option>
-            <option value="Druid">ðŸŒ¿ Druid</option>
+            <option value="Knight">⚔️ Knight</option>
+            <option value="Paladin">🏹 Paladin</option>
+            <option value="Sorcerer">🔮 Sorcerer</option>
+            <option value="Druid">🌿 Druid</option>
           </select>
         </div>
 
         <div class="form-options">
           <label class="checkbox-label">
             <input type="checkbox" id="accept-terms" required />
-            <span>Aceito os <a href="#">termos de serviÃ§o</a></span>
+            <span>Aceito os <a href="#">termos de serviço</a></span>
           </label>
         </div>
         
         <button type="submit" class="btn btn-primary btn-large btn-full">
-          âš”ï¸ Criar Conta
+          ⚔️ Criar Conta
         </button>
       </form>
     `
@@ -227,7 +227,7 @@ export class LoginRenderer {
     const password = document.getElementById('login-password').value
     const remember = document.getElementById('remember-me').checked
     
-    this.showNotification('ðŸ”‘ Login realizado com sucesso!', 'success')
+    this.showNotification('🔑 Login realizado com sucesso!', 'success')
     
     const existingUser = (() => {
       try { return JSON.parse(localStorage.getItem('tibia-user')) } catch { return null }
@@ -260,21 +260,21 @@ export class LoginRenderer {
     const mainClass = document.getElementById('register-class').value
 
     if (password !== confirm) {
-      this.showNotification('âŒ As senhas nÃ£o coincidem!', 'error')
+      this.showNotification('❌ As senhas não coincidem!', 'error')
       return
     }
     
     if (!acceptTerms) {
-      this.showNotification('âŒ VocÃª deve aceitar os termos de serviÃ§o!', 'error')
+      this.showNotification('❌ Você deve aceitar os termos de serviço!', 'error')
       return
     }
 
     if (!mainClass) {
-      this.showNotification('âŒ Selecione sua classe principal!', 'error')
+      this.showNotification('❌ Selecione sua classe principal!', 'error')
       return
     }
 
-    this.showNotification('âš”ï¸ Conta criada com sucesso! Bem-vindo!', 'success')
+    this.showNotification('⚔️ Conta criada com sucesso! Bem-vindo!', 'success')
    
     const mockUser = {
       username: username,

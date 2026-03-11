@@ -73,14 +73,14 @@ export class CreateBuildRenderer {
     return `
       <header class="build-header">
         <div class="header-content">
-          <h1 class="page-title">ðŸ”¨ Criar Nova Build</h1>
+          <h1 class="page-title">🔨 Criar Nova Build</h1>
           <p class="page-subtitle">
-            Monte a build perfeita para seu personagem. Configure equipamentos e veja as estatÃ­sticas em tempo real.
+            Monte a build perfeita para seu personagem. Configure equipamentos e veja as estatísticas em tempo real.
           </p>
         </div>
         <div class="header-actions">
           <button class="btn btn-outline" id="reset-build">
-            ðŸ”„ Resetar Build
+            🔄 Resetar Build
           </button>
         </div>
       </header>
@@ -92,7 +92,7 @@ export class CreateBuildRenderer {
       <section class="build-form-section">
         <div class="form-grid">
           <div class="form-group">
-            <label for="build-name" class="form-label">ðŸ“ Nome da Build</label>
+            <label for="build-name" class="form-label">📝 Nome da Build</label>
             <input 
               type="text" 
               id="build-name" 
@@ -103,26 +103,26 @@ export class CreateBuildRenderer {
           </div>
           
           <div class="form-group">
-            <label for="build-class" class="form-label">ðŸ‘¥ Classe</label>
+            <label for="build-class" class="form-label">👥 Classe</label>
             <select id="build-class" class="form-select">
               <option value="">Selecione uma classe</option>
               <option value="Knight" ${this.currentBuild.class === 'Knight' ? 'selected' : ''}>
-                ðŸ›¡ï¸ Knight
+                🛡️ Knight
               </option>
               <option value="Paladin" ${this.currentBuild.class === 'Paladin' ? 'selected' : ''}>
-                ðŸ¹ Paladin
+                🏹 Paladin
               </option>
               <option value="Druid" ${this.currentBuild.class === 'Druid' ? 'selected' : ''}>
-                ðŸŒ¿ Druid
+                🌿 Druid
               </option>
               <option value="Sorcerer" ${this.currentBuild.class === 'Sorcerer' ? 'selected' : ''}>
-                ðŸ”® Sorcerer
+                🔮 Sorcerer
               </option>
             </select>
           </div>
           
           <div class="form-group">
-            <label for="build-level" class="form-label">â« Level</label>
+            <label for="build-level" class="form-label">⏫ Level</label>
             <input 
               type="number" 
               id="build-level" 
@@ -139,25 +139,25 @@ export class CreateBuildRenderer {
   
   renderEquipmentSelector() {
     const equipmentSlots = [
-      { id: 'helmet', name: 'Capacete', icon: 'â›‘ï¸' },
-      { id: 'armor', name: 'Armadura', icon: 'ðŸ›¡ï¸' },
-      { id: 'weapon', name: 'Arma', icon: 'âš”ï¸' },
-      { id: 'shield', name: 'Escudo', icon: 'ðŸ›¡ï¸' },
-      { id: 'boots', name: 'Botas', icon: 'ðŸ‘¢' },
-      { id: 'ring', name: 'Anel', icon: 'ðŸ’' },
-      { id: 'necklace', name: 'Colar', icon: 'ðŸ“¿' }
+      { id: 'helmet', name: 'Capacete', icon: '⛑️' },
+      { id: 'armor', name: 'Armadura', icon: '🛡️' },
+      { id: 'weapon', name: 'Arma', icon: '⚔️' },
+      { id: 'shield', name: 'Escudo', icon: '🛡️' },
+      { id: 'boots', name: 'Botas', icon: '👢' },
+      { id: 'ring', name: 'Anel', icon: '💍' },
+      { id: 'necklace', name: 'Colar', icon: '📿' }
     ]
     
     return `
       <section class="equipment-section">
-        <h2 class="section-title">âš”ï¸ Equipamentos</h2>
+        <h2 class="section-title">⚔️ Equipamentos</h2>
         <div class="equipment-slots-grid">
           ${equipmentSlots.map(slot => this.renderEquipmentSlot(slot)).join('')}
         </div>
         
         <div class="equipment-browser">
           <div class="browser-header">
-            <h3 class="browser-title">ðŸŽ’ Navegador de Equipamentos</h3>
+            <h3 class="browser-title">🎒 Navegador de Equipamentos</h3>
             <div class="browser-filters">
               <select id="equipment-type-filter" class="filter-select">
                 <option value="">Todos os tipos</option>
@@ -166,7 +166,7 @@ export class CreateBuildRenderer {
                 <option value="shield">Escudos</option>
                 <option value="helmet">Capacetes</option>
                 <option value="boots">Botas</option>
-                <option value="ring">AnÃ©is</option>
+                <option value="ring">Anéis</option>
                 <option value="necklace">Colares</option>
               </select>
               
@@ -174,8 +174,8 @@ export class CreateBuildRenderer {
                 <option value="">Todas as raridades</option>
                 <option value="common">Comum</option>
                 <option value="rare">Raro</option>
-                <option value="epic">Ã‰pico</option>
-                <option value="legendary">LendÃ¡rio</option>
+                <option value="epic">Épico</option>
+                <option value="legendary">Lendário</option>
               </select>
             </div>
           </div>
@@ -218,7 +218,7 @@ export class CreateBuildRenderer {
             ${item.stats ? this.renderItemStats(item.stats) : ''}
           </div>
         </div>
-        <button class="remove-item-btn" title="Remover item">âŒ</button>
+        <button class="remove-item-btn" title="Remover item">❌</button>
       </div>
     `
   }
@@ -226,7 +226,7 @@ export class CreateBuildRenderer {
   renderEmptySlot() {
     return `
       <div class="empty-slot">
-        <div class="empty-slot-icon">âž•</div>
+        <div class="empty-slot-icon">➕</div>
         <div class="empty-slot-text">Clique para equipar</div>
       </div>
     `
@@ -243,14 +243,14 @@ export class CreateBuildRenderer {
   
   getStatIcon(stat) {
     const icons = {
-      attack: 'âš”ï¸',
-      defense: 'ðŸ›¡ï¸',
-      health: 'â¤ï¸',
-      mana: 'ðŸ’™',
-      accuracy: 'ðŸŽ¯',
-      magic: 'âœ¨'
+      attack: '⚔️',
+      defense: '🛡️',
+      health: '❤️',
+      mana: '💙',
+      accuracy: '🎯',
+      magic: '✨'
     }
-    return icons[stat] || 'ðŸ“Š'
+    return icons[stat] || '📊'
   }
   
   renderEquipmentList() {
@@ -288,7 +288,7 @@ export class CreateBuildRenderer {
         <div class="card-actions">
           <button class="btn btn-primary btn-sm equip-item-btn" 
                   ${isEquipped ? 'disabled' : ''}>
-            ${isEquipped ? 'âœ… Equipado' : 'âš¡ Equipar'}
+            ${isEquipped ? '✅ Equipado' : '⚡ Equipar'}
           </button>
         </div>
       </article>
@@ -299,10 +299,10 @@ export class CreateBuildRenderer {
     return `
       <section class="build-preview-section">
         <div class="preview-header">
-          <h2 class="section-title">ðŸ‘ï¸ Preview da Build</h2>
+          <h2 class="section-title">👁️ Preview da Build</h2>
           <div class="preview-actions">
             <button class="btn btn-success" id="save-build">
-              ðŸ’¾ Salvar Build
+              💾 Salvar Build
             </button>
           </div>
         </div>
@@ -323,7 +323,7 @@ export class CreateBuildRenderer {
           </div>
           
           <div class="stats-preview">
-            <h4 class="stats-title">ðŸ“Š EstatÃ­sticas Totais</h4>
+            <h4 class="stats-title">📊 Estatísticas Totais</h4>
             <div class="stats-grid">
               ${this.renderStatsPreview()}
             </div>
@@ -337,10 +337,10 @@ export class CreateBuildRenderer {
     const totalStats = this.calculateTotalStats()
     
     return [
-      { name: 'Ataque', value: totalStats.attack, icon: 'âš”ï¸' },
-      { name: 'Defesa', value: totalStats.defense, icon: 'ðŸ›¡ï¸' },
-      { name: 'Vida', value: totalStats.health, icon: 'â¤ï¸' },
-      { name: 'Mana', value: totalStats.mana, icon: 'ðŸ’™' }
+      { name: 'Ataque', value: totalStats.attack, icon: '⚔️' },
+      { name: 'Defesa', value: totalStats.defense, icon: '🛡️' },
+      { name: 'Vida', value: totalStats.health, icon: '❤️' },
+      { name: 'Mana', value: totalStats.mana, icon: '💙' }
     ].map(stat => `
       <div class="stat-preview">
         <div class="stat-icon">${stat.icon}</div>
@@ -426,7 +426,7 @@ export class CreateBuildRenderer {
     })
 
     document.getElementById('reset-build')?.addEventListener('click', () => {
-      if (confirm('Tem certeza que deseja resetar toda a build? Esta aÃ§Ã£o nÃ£o pode ser desfeita.')) {
+      if (confirm('Tem certeza que deseja resetar toda a build? Esta ação não pode ser desfeita.')) {
         this.resetBuild()
       }
     })
@@ -588,7 +588,7 @@ export class CreateBuildRenderer {
       if (filteredEquipment.length === 0) {
         equipmentGrid.innerHTML = `
           <div class="no-equipment-message">
-            <p>ðŸ˜• Nenhum equipamento encontrado com os filtros aplicados.</p>
+            <p>😕 Nenhum equipamento encontrado com os filtros aplicados.</p>
           </div>
         `
       } else {
@@ -650,7 +650,7 @@ export class CreateBuildRenderer {
     
     const equipmentCount = Object.keys(this.currentBuild.equipment).length
     if (equipmentCount === 0) {
-      if (!confirm('Esta build nÃ£o tem nenhum equipamento. Deseja salvar mesmo assim?')) {
+      if (!confirm('Esta build não tem nenhum equipamento. Deseja salvar mesmo assim?')) {
         return
       }
     }
@@ -662,14 +662,14 @@ export class CreateBuildRenderer {
         id: Date.now(), // ID baseado em timestamp
         ...this.currentBuild,
         createdAt: new Date().toISOString(),
-        description: `Build criada pelo usuÃ¡rio`
+        description: `Build criada pelo usuário`
       }
       
       existingBuilds.push(newBuild)
       
       localStorage.setItem('userBuilds', JSON.stringify(existingBuilds))
       
-      this.showNotification('âœ… Build salva com sucesso!', 'success')
+      this.showNotification('✅ Build salva com sucesso!', 'success')
       
       setTimeout(() => {
         if (confirm('Build salva! Deseja criar outra build?')) {
@@ -681,7 +681,7 @@ export class CreateBuildRenderer {
       
     } catch (error) {
       console.error('Erro ao salvar build:', error)
-      this.showNotification('âŒ Erro ao salvar build. Tente novamente.', 'error')
+      this.showNotification('❌ Erro ao salvar build. Tente novamente.', 'error')
     }
   }
   
@@ -851,7 +851,8 @@ export class CreateBuildRenderer {
         max-height: 48px !important;
         width: auto !important;
         height: auto !important;
-        object-fit: contain !important
+        object-fit: contain !important;
+      }
       
       .item-info {
         flex: 1;
@@ -1194,7 +1195,7 @@ export class CreateBuildRenderer {
         font-size: 1.1rem;
       }
       
-      /* Melhorar aparÃªncia do botÃ£o Equipar */
+      /* Melhorar aparência do botão Equipar */
       .equip-item-btn {
         width: 100%;
         padding: 10px;
@@ -1213,7 +1214,7 @@ export class CreateBuildRenderer {
         box-shadow: 0 4px 12px rgba(186, 85, 211, 0.4);
       }
       
-      /* Item jÃ¡ equipado */
+      /* Item já equipado */
       .equipment-card.equipped {
         border-color: #10b981;
         background: rgba(16, 185, 129, 0.05);
@@ -1223,7 +1224,7 @@ export class CreateBuildRenderer {
         color: #10b981;
       }
       
-      /* Melhorar aparÃªncia dos slots vazios */
+      /* Melhorar aparência dos slots vazios */
       .equipment-slot .empty-slot {
         cursor: pointer;
         transition: all 0.3s ease;
@@ -1249,8 +1250,8 @@ export class CreateBuildRenderer {
     notification.className = 'class-preselected-notification'
     notification.innerHTML = `
       <div class="notification-content">
-        <span class="notification-icon">âœ…</span>
-        <span class="notification-text">Classe <strong>${className}</strong> prÃ©-selecionada!</span>
+        <span class="notification-icon">✅</span>
+        <span class="notification-text">Classe <strong>${className}</strong> pré-selecionada!</span>
       </div>
     `
     

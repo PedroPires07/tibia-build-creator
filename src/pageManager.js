@@ -80,7 +80,7 @@ export class PageManager {
     const isLoggedIn = localStorage.getItem('tibia-user')
     
     if (protectedPages.includes(pageId) && !isLoggedIn) {
-      this.showNotification('ðŸ”’ VocÃª precisa estar logado para acessar esta pÃ¡gina!')
+      this.showNotification('🔒 Você precisa estar logado para acessar esta página!')
       pageId = 'login'
     }
     
@@ -156,7 +156,7 @@ export class PageManager {
   
   performSearch(query) {
     if (!query || query.trim() === '') {
-      this.showNotification('âš ï¸ Digite algo para buscar!')
+      this.showNotification('⚠️ Digite algo para buscar!')
       return
     }
     
@@ -178,7 +178,7 @@ export class PageManager {
       })
       
       if (buildResults.length === 0 && equipmentResults.length === 0) {
-        this.showNotification(`âŒ Nenhum resultado encontrado para "${query}"`)
+        this.showNotification(`❌ Nenhum resultado encontrado para "${query}"`)
       } else {
         this.showSearchResults(query, buildResults, equipmentResults)
       }
@@ -192,7 +192,7 @@ export class PageManager {
       this.buildsRenderer.filterBySearch(query, builds)
       
       const totalResults = builds.length + equipment.length
-      this.showNotification(`ðŸ” ${totalResults} resultado(s) encontrado(s) para "${query}"`)
+      this.showNotification(`🔍 ${totalResults} resultado(s) encontrado(s) para "${query}"`)
     }, 100)
   }
   
@@ -214,7 +214,7 @@ export class PageManager {
         this.equipmentsRenderer.filterEquipment(element.dataset.filter)
         break
       default:
-        console.log('AÃ§Ã£o nÃ£o implementada:', action)
+        console.log('Ação não implementada:', action)
     }
   }
   
@@ -261,7 +261,7 @@ export class PageManager {
   }
   
   copyBuild(buildId) {
-    this.showNotification('Build copiada para Ã¡rea de transferÃªncia!')
+    this.showNotification('Build copiada para área de transferência!')
   }
   
   viewBuildDetails(buildId) {

@@ -124,23 +124,23 @@ export function getItemImage(itemName, itemType = 'sword') {
 
 function getEmojiByType(type) {
   const emoiMap = {
-    'sword': 'âš”ï¸',
-    'axe': 'ðŸª“', 
-    'club': 'ðŸ”¨',
-    'bow': 'ðŸ¹',
-    'crossbow': 'ðŸ¹',
-    'wand': 'ðŸª„',
-    'rod': 'ðŸ”®',
-    'spear': 'ðŸ—¡ï¸',
-    'distance': 'ðŸ¹',
-    'armor': 'âš”ï¸',
-    'helmet': 'â›‘ï¸',
-    'shield': 'ðŸ›¡ï¸',
-    'boots': 'ðŸ‘¢',
-    'ring': 'ðŸ’',
-    'necklace': 'ðŸ“¿',
-    'amulet': 'ðŸ“¿',
-    'default': 'â­'
+    'sword': '⚔️',
+    'axe': '🪓', 
+    'club': '🔨',
+    'bow': '🏹',
+    'crossbow': '🏹',
+    'wand': '🪄',
+    'rod': '🔮',
+    'spear': '🗡️',
+    'distance': '🏹',
+    'armor': '⚔️',
+    'helmet': '⛑️',
+    'shield': '🛡️',
+    'boots': '👢',
+    'ring': '💍',
+    'necklace': '📿',
+    'amulet': '📿',
+    'default': '⭐'
   };
   
   return emoiMap[type.toLowerCase()] || emoiMap.default;
@@ -148,27 +148,27 @@ function getEmojiByType(type) {
 
 export function getRarityIcon(rarity) {
   const rarityColors = {
-    'common': 'âšª',
-    'uncommon': 'ðŸŸ¢', 
-    'rare': 'ðŸ”µ',
-    'epic': 'ðŸŸ£',
-    'legendary': 'ðŸŸ '
+    'common': '⚪',
+    'uncommon': '🟢', 
+    'rare': '🔵',
+    'epic': '🟣',
+    'legendary': '🟠'
   };
-  return rarityColors[rarity?.toLowerCase()] || 'âšª';
+  return rarityColors[rarity?.toLowerCase()] || '⚪';
 }
 
 export function getClassIcon(className) {
   const classIcons = {
-    'knight': 'ðŸ›¡ï¸',
-    'paladin': 'ðŸ¹',
-    'sorcerer': 'âš¡',
-    'druid': 'ðŸŒ¿',
-    'elite knight': 'âš”ï¸',
-    'royal paladin': 'ðŸŽ¯',
-    'master sorcerer': 'ðŸ”¥',
-    'elder druid': 'ðŸƒ'
+    'knight': '🛡️',
+    'paladin': '🏹',
+    'sorcerer': '⚡',
+    'druid': '🌿',
+    'elite knight': '⚔️',
+    'royal paladin': '🎯',
+    'master sorcerer': '🔥',
+    'elder druid': '🍃'
   };
-  return classIcons[className?.toLowerCase()] || 'â­';
+  return classIcons[className?.toLowerCase()] || '⭐';
 }
 
 export function getIconForItemType(type) {
@@ -189,7 +189,7 @@ export function createIconElement(iconData, alt = '', className = 'item-icon') {
   }
   
   
-  return `<span class="${className}" style="font-size:1.5rem;">â­</span>`;
+  return `<span class="${className}" style="font-size:1.5rem;">⭐</span>`;
 }
 
 export function addTibiaImageStyles() {
