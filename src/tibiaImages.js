@@ -1,14 +1,10 @@
-// Sistema de Imagens Originais do Tibia - Multiple Sources
-// URLs das imagens oficiais dos itens do Tibia de fontes alternativas
-
-// Base URLs para imagens do Tibia (múltiplas fontes)
 const TIBIA_FANDOM = 'https://tibia.fandom.com/wiki/Special:Redirect/file';
 const ITEM_IMAGES_CDN = 'https://www.tibiawiki.com.br/images';
+const TIBIA_FANDOM_STATIC = 'https://static.wikia.nocookie.net/tibia/images';
+const TIBIA_WIKI_BR = 'https://www.tibiawiki.com.br/wiki/Especial:Redirecionar/ficheiro';
 
-// Imagens originais dos itens por nome específico
+
 export const TIBIA_ORIGINAL_IMAGES = {
-  // ===== ARMAS =====
-  // Swords
   'soulcutter': `${TIBIA_FANDOM}/Soulcutter.gif`,
   'spiritthorn-sword': `${TIBIA_FANDOM}/Spiritthorn_Sword.gif`,
   'falcon-longsword': `${TIBIA_FANDOM}/Falcon_Longsword.gif`,
@@ -19,7 +15,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'giant-sword': `${TIBIA_FANDOM}/Giant_Sword.gif`,
   'bloody-edge': `${TIBIA_FANDOM}/Bloody_Edge.gif`,
   
-  // Axes
   'soulbiter': `${TIBIA_FANDOM}/Soulbiter.gif`,
   'falcon-battleaxe': `${TIBIA_FANDOM}/Falcon_Battleaxe.gif`,
   'lion-axe': `${TIBIA_FANDOM}/Lion_Axe.gif`,
@@ -28,7 +23,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'dragon-slayer': `${TIBIA_FANDOM}/Dragon_Slayer.gif`,
   'guardian-axe': `${TIBIA_FANDOM}/Guardian_Axe.gif`,
   
-  // Clubs
   'soulmaimer': `${TIBIA_FANDOM}/Soulmaimer.gif`,
   'falcon-mace': `${TIBIA_FANDOM}/Falcon_Mace.gif`,
   'lion-hammer': `${TIBIA_FANDOM}/Lion_Hammer.gif`,
@@ -36,7 +30,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'war-hammer': `${TIBIA_FANDOM}/War_Hammer.gif`,
   'hammer-of-wrath': `${TIBIA_FANDOM}/Hammer_of_Wrath.gif`,
   
-  // Distance Weapons
   'soulpiercer': `${TIBIA_FANDOM}/Soulpiercer.gif`,
   'falcon-bow': `${TIBIA_FANDOM}/Falcon_Bow.gif`,
   'lion-longbow': `${TIBIA_FANDOM}/Lion_Longbow.gif`,
@@ -45,7 +38,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'crossbow': `${TIBIA_FANDOM}/Crossbow.gif`,
   'modified-crossbow': `${TIBIA_FANDOM}/Modified_Crossbow.gif`,
   
-  // Magic Weapons - Wands
   'soulhexer': `${TIBIA_FANDOM}/Soulhexer.gif`,
   'falcon-wand': `${TIBIA_FANDOM}/Falcon_Wand.gif`,
   'lion-wand': `${TIBIA_FANDOM}/Lion_Wand.gif`,
@@ -53,7 +45,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'magic-light-wand': `${TIBIA_FANDOM}/Magic_Light_Wand.gif`,
   'wand-of-dragonbreath': `${TIBIA_FANDOM}/Wand_of_Dragonbreath.gif`,
   
-  // Magic Weapons - Rods
   'soulbasher': `${TIBIA_FANDOM}/Soulbasher.gif`,
   'falcon-rod': `${TIBIA_FANDOM}/Falcon_Rod.gif`,
   'lion-rod': `${TIBIA_FANDOM}/Lion_Rod.gif`,
@@ -61,7 +52,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'moonlight-rod': `${TIBIA_FANDOM}/Moonlight_Rod.gif`,
   'necrotic-rod': `${TIBIA_FANDOM}/Necrotic_Rod.gif`,
   
-  // ===== ARMADURAS =====
   'spiritthorn-armor': `${TIBIA_FANDOM}/Spiritthorn_Armor.gif`,
   'falcon-plate': `${TIBIA_FANDOM}/Falcon_Plate.gif`,
   'lion-plate': `${TIBIA_FANDOM}/Lion_Plate.gif`,
@@ -71,7 +61,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'blue-robe': `${TIBIA_FANDOM}/Blue_Robe.gif`,
   'magician-robe': `${TIBIA_FANDOM}/Magician_Robe.gif`,
   
-  // ===== CAPACETES =====
   'falcon-coif': `${TIBIA_FANDOM}/Falcon_Coif.gif`,
   'lion-spangenhelm': `${TIBIA_FANDOM}/Lion_Spangenhelm.gif`,
   'crown-helmet': `${TIBIA_FANDOM}/Crown_Helmet.gif`,
@@ -80,7 +69,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'warrior-helmet': `${TIBIA_FANDOM}/Warrior_Helmet.gif`,
   'mystic-turban': `${TIBIA_FANDOM}/Mystic_Turban.gif`,
   
-  // ===== ESCUDOS =====
   'falcon-escutcheon': `${TIBIA_FANDOM}/Falcon_Escutcheon.gif`,
   'lion-shield': `${TIBIA_FANDOM}/Lion_Shield.gif`,
   'crown-shield': `${TIBIA_FANDOM}/Crown_Shield.gif`,
@@ -89,13 +77,11 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'steel-shield': `${TIBIA_FANDOM}/Steel_Shield.gif`,
   'demon-shield': `${TIBIA_FANDOM}/Demon_Shield.gif`,
   
-  // ===== BOTAS =====
   'pair-of-soulwalkers': `${TIBIA_FANDOM}/Pair_of_Soulwalkers.gif`,
   'falcon-boots': `${TIBIA_FANDOM}/Falcon_Boots.gif`,
   'golden-boots': `${TIBIA_FANDOM}/Golden_Boots.gif`,
   'boots-of-haste': `${TIBIA_FANDOM}/Boots_of_Haste.gif`,
   
-  // ===== ANÉIS =====
   'might-ring': `${TIBIA_FANDOM}/Might_Ring.gif`,
   'ring-of-healing': `${TIBIA_FANDOM}/Ring_of_Healing.gif`,
   'time-ring': `${TIBIA_FANDOM}/Time_Ring.gif`,
@@ -103,7 +89,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'energy-ring': `${TIBIA_FANDOM}/Energy_Ring.gif`,
   'ring-of-the-sky': `${TIBIA_FANDOM}/Ring_of_the_Sky.gif`,
   
-  // ===== AMULETOS =====
   'amulet-of-loss': `${TIBIA_FANDOM}/Amulet_of_Loss.gif`,
   'stone-skin-amulet': `${TIBIA_FANDOM}/Stone_Skin_Amulet.gif`,
   'strange-talisman': `${TIBIA_FANDOM}/Strange_Talisman.gif`,
@@ -112,7 +97,6 @@ export const TIBIA_ORIGINAL_IMAGES = {
   'protection-amulet': `${TIBIA_FANDOM}/Protection_Amulet.gif`
 };
 
-// Função para criar slug do nome do item (combinar com keys das imagens)
 function createItemSlug(itemName) {
   if (!itemName) return '';
   return itemName.toLowerCase()
@@ -121,112 +105,93 @@ function createItemSlug(itemName) {
     .replace(/[^\w-]/g, '');
 }
 
-// Função principal para obter imagem do item
 export function getItemImage(itemName, itemType = 'sword') {
   const slug = createItemSlug(itemName);
   const originalImage = TIBIA_ORIGINAL_IMAGES[slug];
   
-  // Debug log
-  if (typeof console !== 'undefined') {
-    console.log(`[TibiaImages] Item: ${itemName}, Slug: ${slug}, Found: ${!!originalImage}`);
-  }
-  
   if (originalImage) {
     const fallbackEmoji = getEmojiByType(itemType);
     
-    // Criar elemento com múltiplas tentativas de fontes
     return `<img src="${originalImage}" 
                  alt="${itemName}" 
                  class="tibia-item-img" 
                  loading="lazy"
-                 referrerpolicy="no-referrer"
-                 onerror="this.onerror=null; console.warn('Erro ao carregar: ${itemName}'); this.parentElement.innerHTML='<span class=\\'emoji-fallback\\'>${fallbackEmoji}</span>';" />`;
+                 onerror="this.style.display='none'; var fallback=document.createElement('span'); fallback.className='emoji-fallback'; fallback.textContent='${fallbackEmoji}'; this.parentElement.appendChild(fallback);" />`;
   }
   
-  // Se não encontrar imagem específica, usar fallback emoji
-  if (typeof console !== 'undefined') {
-    console.warn(`[TibiaImages] Imagem não encontrada para: ${itemName} (${slug})`);
-  }
   return `<span class="emoji-fallback">${getEmojiByType(itemType)}</span>`;
 }
 
-// Função para obter emoji baseado no tipo
 function getEmojiByType(type) {
   const emoiMap = {
-    'sword': '⚔️',
-    'axe': '🪓', 
-    'club': '🔨',
-    'bow': '🏹',
-    'crossbow': '🏹',
-    'wand': '🪄',
-    'rod': '🔮',
-    'spear': '🗡️',
-    'distance': '🏹',
-    'armor': '⚔️',
-    'helmet': '⛑️',
-    'shield': '🛡️',
-    'boots': '👢',
-    'ring': '💍',
-    'necklace': '📿',
-    'amulet': '📿',
-    'default': '⭐'
+    'sword': 'âš”ï¸',
+    'axe': 'ðŸª“', 
+    'club': 'ðŸ”¨',
+    'bow': 'ðŸ¹',
+    'crossbow': 'ðŸ¹',
+    'wand': 'ðŸª„',
+    'rod': 'ðŸ”®',
+    'spear': 'ðŸ—¡ï¸',
+    'distance': 'ðŸ¹',
+    'armor': 'âš”ï¸',
+    'helmet': 'â›‘ï¸',
+    'shield': 'ðŸ›¡ï¸',
+    'boots': 'ðŸ‘¢',
+    'ring': 'ðŸ’',
+    'necklace': 'ðŸ“¿',
+    'amulet': 'ðŸ“¿',
+    'default': 'â­'
   };
   
   return emoiMap[type.toLowerCase()] || emoiMap.default;
 }
 
-// Função para obter ícone por raridade
 export function getRarityIcon(rarity) {
   const rarityColors = {
-    'common': '⚪',
-    'uncommon': '🟢', 
-    'rare': '🔵',
-    'epic': '🟣',
-    'legendary': '🟠'
+    'common': 'âšª',
+    'uncommon': 'ðŸŸ¢', 
+    'rare': 'ðŸ”µ',
+    'epic': 'ðŸŸ£',
+    'legendary': 'ðŸŸ '
   };
-  return rarityColors[rarity?.toLowerCase()] || '⚪';
+  return rarityColors[rarity?.toLowerCase()] || 'âšª';
 }
 
-// Função para obter ícone por classe
 export function getClassIcon(className) {
   const classIcons = {
-    'knight': '🛡️',
-    'paladin': '🏹',
-    'sorcerer': '⚡',
-    'druid': '🌿',
-    'elite knight': '⚔️',
-    'royal paladin': '🎯',
-    'master sorcerer': '🔥',
-    'elder druid': '🍃'
+    'knight': 'ðŸ›¡ï¸',
+    'paladin': 'ðŸ¹',
+    'sorcerer': 'âš¡',
+    'druid': 'ðŸŒ¿',
+    'elite knight': 'âš”ï¸',
+    'royal paladin': 'ðŸŽ¯',
+    'master sorcerer': 'ðŸ”¥',
+    'elder druid': 'ðŸƒ'
   };
-  return classIcons[className?.toLowerCase()] || '⭐';
+  return classIcons[className?.toLowerCase()] || 'â­';
 }
 
-// Função para obter ícone por tipo de item (compatibilidade com sistema antigo)
 export function getIconForItemType(type) {
   return getEmojiByType(type);
 }
 
-// Função para compatibilidade - retorna HTML da imagem do item
 export function getItemIcon(itemName, itemType) {
   return getItemImage(itemName, itemType);
 }
 
-// Função melhorada para criar elemento de ícone
 export function createIconElement(iconData, alt = '', className = 'item-icon') {
   if (typeof iconData === 'string' && iconData.includes('<img')) {
-    return iconData; // Já é HTML
+    return iconData; 
   }
   
   if (typeof iconData === 'string') {
     return `<span class="${className}" style="font-size:1.5rem;">${iconData}</span>`;
   }
   
-  // Fallback
-  return `<span class="${className}" style="font-size:1.5rem;">⭐</span>`;
+  
+  return `<span class="${className}" style="font-size:1.5rem;">â­</span>`;
 }
 
-// Estilos CSS para imagens do Tibia
 export function addTibiaImageStyles() {
   if (document.getElementById('tibia-images-styles')) return;
   
@@ -235,10 +200,10 @@ export function addTibiaImageStyles() {
   style.textContent = `
     /* Estilos para imagens originais do Tibia */
     .tibia-item-img {
-      width: 100%;
-      height: 100%;
-      max-width: 48px;
-      max-height: 48px;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
       image-rendering: pixelated;
       image-rendering: -moz-crisp-edges;
@@ -247,23 +212,16 @@ export function addTibiaImageStyles() {
       border: none;
       transition: transform 0.2s ease;
       display: block;
-      margin: 0 auto;
     }
     
     .tibia-item-img:hover {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
     
-    .item-icon .tibia-item-img {
-      width: 100%;
-      height: 100%;
+    .item-icon .tibia-item-img,
+    .equipment-icon .tibia-item-img {
       max-width: 100%;
       max-height: 100%;
-    }
-    
-    .equipment-icon .tibia-item-img {
-      width: 32px;
-      height: 32px;
     }
     
     .emoji-fallback {
@@ -299,7 +257,6 @@ export function addTibiaImageStyles() {
   document.head.appendChild(style);
 }
 
-// Inicializar estilos quando o módulo for importado
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', addTibiaImageStyles);
@@ -308,7 +265,6 @@ if (typeof document !== 'undefined') {
   }
 }
 
-// Export default para compatibilidade
 export default {
   getItemImage,
   getRarityIcon,

@@ -1,4 +1,3 @@
-// Equipments Page Renderer - Página dedicada a equipamentos
 import { tibiaData } from '../data/tibiaData.js'
 import { getItemImage, getRarityIcon, addTibiaImageStyles } from '../tibiaImages.js'
 
@@ -46,9 +45,9 @@ export class EquipmentsRenderer {
     return `
       <header class="equipment-header">
         <div class="header-content">
-          <h1 class="page-title">⚔️ Equipamentos do Tibia</h1>
+          <h1 class="page-title">âš”ï¸ Equipamentos do Tibia</h1>
           <p class="page-subtitle">
-            Explore todos os equipamentos disponíveis e descubra os melhores itens para seu personagem.
+            Explore todos os equipamentos disponÃ­veis e descubra os melhores itens para seu personagem.
           </p>
         </div>
         <div class="header-stats">
@@ -72,7 +71,7 @@ export class EquipmentsRenderer {
           <div class="search-box">
             <input type="text" 
                    id="search-input" 
-                   placeholder="🔍 Buscar equipamento por nome..."
+                   placeholder="ðŸ” Buscar equipamento por nome..."
                    value="${this.currentFilter.search}">
           </div>
           
@@ -86,25 +85,25 @@ export class EquipmentsRenderer {
     return `
       <select id="type-filter" class="filter-select">
         <option value="">Todos os tipos</option>
-        <option value="weapon" ${this.currentFilter.type === 'weapon' ? 'selected' : ''}>⚔️ Armas</option>
-        <option value="armor" ${this.currentFilter.type === 'armor' ? 'selected' : ''}>🛡️ Armaduras</option>
-        <option value="shield" ${this.currentFilter.type === 'shield' ? 'selected' : ''}>🛡️ Escudos</option>
-        <option value="helmet" ${this.currentFilter.type === 'helmet' ? 'selected' : ''}>⛑️ Capacetes</option>
-        <option value="boots" ${this.currentFilter.type === 'boots' ? 'selected' : ''}>👢 Botas</option>
-        <option value="ring" ${this.currentFilter.type === 'ring' ? 'selected' : ''}>💍 Anéis</option>
-        <option value="necklace" ${this.currentFilter.type === 'necklace' ? 'selected' : ''}>📿 Colares</option>
+        <option value="weapon" ${this.currentFilter.type === 'weapon' ? 'selected' : ''}>âš”ï¸ Armas</option>
+        <option value="armor" ${this.currentFilter.type === 'armor' ? 'selected' : ''}>ðŸ›¡ï¸ Armaduras</option>
+        <option value="shield" ${this.currentFilter.type === 'shield' ? 'selected' : ''}>ðŸ›¡ï¸ Escudos</option>
+        <option value="helmet" ${this.currentFilter.type === 'helmet' ? 'selected' : ''}>â›‘ï¸ Capacetes</option>
+        <option value="boots" ${this.currentFilter.type === 'boots' ? 'selected' : ''}>ðŸ‘¢ Botas</option>
+        <option value="ring" ${this.currentFilter.type === 'ring' ? 'selected' : ''}>ðŸ’ AnÃ©is</option>
+        <option value="necklace" ${this.currentFilter.type === 'necklace' ? 'selected' : ''}>ðŸ“¿ Colares</option>
       </select>
       
       <select id="rarity-filter" class="filter-select">
         <option value="">Todas as raridades</option>
         <option value="comum" ${this.currentFilter.rarity === 'comum' ? 'selected' : ''}>Comum</option>
         <option value="raro" ${this.currentFilter.rarity === 'raro' ? 'selected' : ''}>Raro</option>
-        <option value="epico" ${this.currentFilter.rarity === 'epico' ? 'selected' : ''}>Épico</option>
-        <option value="lendario" ${this.currentFilter.rarity === 'lendario' ? 'selected' : ''}>Lendário</option>
+        <option value="epico" ${this.currentFilter.rarity === 'epico' ? 'selected' : ''}>Ã‰pico</option>
+        <option value="lendario" ${this.currentFilter.rarity === 'lendario' ? 'selected' : ''}>LendÃ¡rio</option>
       </select>
       
       <select id="level-filter" class="filter-select">
-        <option value="">Todos os níveis</option>
+        <option value="">Todos os nÃ­veis</option>
         <option value="1-50" ${this.currentFilter.level === '1-50' ? 'selected' : ''}>Lv. 1-50</option>
         <option value="51-100" ${this.currentFilter.level === '51-100' ? 'selected' : ''}>Lv. 51-100</option>
         <option value="101-200" ${this.currentFilter.level === '101-200' ? 'selected' : ''}>Lv. 101-200</option>
@@ -119,7 +118,7 @@ export class EquipmentsRenderer {
     return `
       <section class="equipment-section">
         <div class="section-header">
-          <h2 class="section-title">⚔️ Equipamentos Disponíveis</h2>
+          <h2 class="section-title">âš”ï¸ Equipamentos DisponÃ­veis</h2>
           <div class="results-count">${filteredEquipment.length} itens encontrados</div>
         </div>
         
@@ -129,7 +128,7 @@ export class EquipmentsRenderer {
         
         ${filteredEquipment.length === 0 ? `
           <div class="no-results">
-            <div class="no-results-icon">⚔️</div>
+            <div class="no-results-icon">âš”ï¸</div>
             <h3>Nenhum equipamento encontrado</h3>
             <p>Tente ajustar os filtros de busca.</p>
           </div>
@@ -153,7 +152,7 @@ export class EquipmentsRenderer {
         
         ${item.level ? `
           <div class="item-level">
-            <span class="level-label">Lv. Mín:</span>
+            <span class="level-label">Lv. MÃ­n:</span>
             <span class="level-value">${item.level}</span>
           </div>
         ` : ''}
@@ -178,10 +177,10 @@ export class EquipmentsRenderer {
         
         <div class="card-actions">
           <button class="btn btn-primary btn-sm" data-action="view-item-details" data-item-id="${item.id}">
-            👁️ Detalhes
+            ðŸ‘ï¸ Detalhes
           </button>
           <button class="btn btn-secondary btn-sm" data-page="create-build" data-item-id="${item.id}">
-            ➕ Usar na Build
+            âž• Usar na Build
           </button>
         </div>
       </article>
@@ -212,7 +211,7 @@ export class EquipmentsRenderer {
       defense: 'Defesa', 
       health: 'Vida',
       mana: 'Mana',
-      accuracy: 'Precisão',
+      accuracy: 'PrecisÃ£o',
       magic: 'Magia',
       armor: 'Armadura',
       speed: 'Velocidade'
@@ -275,7 +274,6 @@ export class EquipmentsRenderer {
   }
   
   addEventListeners() {
-    // Filters
     document.getElementById('search-input')?.addEventListener('input', (e) => {
       this.currentFilter.search = e.target.value
       this.applyFilters()
@@ -298,7 +296,6 @@ export class EquipmentsRenderer {
   }
   
   applyFilters() {
-    // Re-render apenas a seção de conteúdo
     const section = document.querySelector('.equipment-section')
     if (section) {
       const parent = section.parentElement
@@ -329,21 +326,20 @@ export class EquipmentsRenderer {
         justify-content: space-between;
         align-items: center;
         margin-bottom: 40px;
-        padding: 30px;
-        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-        border-radius: 20px;
-        color: white;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--color-border);
       }
       
       .page-title {
         font-size: clamp(2rem, 4vw, 3rem);
+        color: var(--color-primary);
         margin-bottom: 15px;
       }
       
       .page-subtitle {
         font-size: 1.2rem;
         line-height: 1.6;
-        opacity: 0.95;
+        color: var(--color-text-secondary);
         max-width: 600px;
       }
       
@@ -361,11 +357,14 @@ export class EquipmentsRenderer {
         font-size: 2.5rem;
         font-weight: bold;
         margin-bottom: 5px;
+        color: var(--color-secondary);
+        background: none;
+        padding: 0;
       }
       
       .stat-label {
         font-size: 1rem;
-        opacity: 0.9;
+        color: var(--color-text-secondary);
       }
       
       /* Filters */
@@ -643,7 +642,7 @@ export class EquipmentsRenderer {
           flex-direction: column;
           text-align: center;
           gap: 25px;
-          padding: 25px 20px;
+          padding-bottom: 20px;
         }
         
         .header-stats {

@@ -1,4 +1,3 @@
-// Classes Page Renderer - Página de classes responsiva
 import { tibiaData } from '../data/tibiaData.js'
 import { getClassIcon, getRarityIcon } from '../tibiaImages.js'
 
@@ -8,39 +7,39 @@ export class ClassesRenderer {
     this.classes = [
       {
         name: 'Knight',
-        icon: '🛡️',
+        icon: 'ðŸ›¡ï¸',
         description: 'Tanque robusto com alta defesa e vida. Especializado em combate corpo a corpo.',
         primaryStats: ['defense', 'health'],
         weapons: ['sword', 'axe', 'club'],
         armor: 'heavy',
         playstyle: 'Tanque/DPS Melee',
-        difficulty: 'Fácil',
+        difficulty: 'FÃ¡cil',
         pros: [
-          'Alta resistência física',
+          'Alta resistÃªncia fÃ­sica',
           'Excelente para PvP',
-          'Fácil de jogar',
+          'FÃ¡cil de jogar',
           'Boa para iniciantes'
         ],
         cons: [
           'Baixa velocidade de hunt',
           'Dependente de supplies',
-          'Limitado à distância',
+          'Limitado Ã  distÃ¢ncia',
           'Caro para upar'
         ],
         builds: this.data.builds.filter(build => build.class === 'Knight')
       },
       {
         name: 'Paladin',
-        icon: '🏹',
-        description: 'Versátil combatente à distância com boa mobilidade e utilidade.',
+        icon: 'ðŸ¹',
+        description: 'VersÃ¡til combatente Ã  distÃ¢ncia com boa mobilidade e utilidade.',
         primaryStats: ['accuracy', 'health'],
         weapons: ['bow', 'crossbow'],
         armor: 'medium',
-        playstyle: 'DPS Ranged/Utilitário',
-        difficulty: 'Médio',
+        playstyle: 'DPS Ranged/UtilitÃ¡rio',
+        difficulty: 'MÃ©dio',
         pros: [
-          'Versatilidade incomparável',
-          'Bom damage à distância',
+          'Versatilidade incomparÃ¡vel',
+          'Bom damage Ã  distÃ¢ncia',
           'Healing e support',
           'Mobilidade excelente'
         ],
@@ -54,35 +53,35 @@ export class ClassesRenderer {
       },
       {
         name: 'Druid',
-        icon: '🌿',
-        description: 'Mago da natureza com foco em cura e magias de área.',
+        icon: 'ðŸŒ¿',
+        description: 'Mago da natureza com foco em cura e magias de Ã¡rea.',
         primaryStats: ['magic', 'mana'],
         weapons: ['rod'],
         armor: 'light',
         playstyle: 'Healer/Support/AoE',
-        difficulty: 'Médio-Alto',
+        difficulty: 'MÃ©dio-Alto',
         pros: [
           'Melhor healer do jogo',
           'Excelente para team hunt',
           'Strong AoE spells',
-          'Versatilidade mágica'
+          'Versatilidade mÃ¡gica'
         ],
         cons: [
-          'Baixa defesa física',
+          'Baixa defesa fÃ­sica',
           'Dependente de mana',
           'Caro para manter',
-          'Vulnerável sozinho'
+          'VulnerÃ¡vel sozinho'
         ],
         builds: this.data.builds.filter(build => build.class === 'Druid')
       },
       {
         name: 'Sorcerer',
-        icon: '🔮',
-        description: 'Mago destruidor com o maior dano mágico do jogo.',
+        icon: 'ðŸ”®',
+        description: 'Mago destruidor com o maior dano mÃ¡gico do jogo.',
         primaryStats: ['magic', 'mana'],
         weapons: ['wand'],
         armor: 'light',
-        playstyle: 'DPS Mágico/Burst',
+        playstyle: 'DPS MÃ¡gico/Burst',
         difficulty: 'Alto',
         pros: [
           'Highest magical damage',
@@ -104,7 +103,6 @@ export class ClassesRenderer {
   render() {
     const classesContent = document.querySelector('#classes-page .content')
     if (!classesContent) {
-      // Se não há .content div, renderizar direto na página
       const classesPage = document.querySelector('#classes-page')
       if (!classesPage) return
       
@@ -133,10 +131,10 @@ export class ClassesRenderer {
     return `
       <header class="classes-header">
         <div class="header-content">
-          <h1 class="page-title">👥 Classes de Tibia</h1>
+          <h1 class="page-title">ðŸ‘¥ Classes de Tibia</h1>
           <p class="page-subtitle">
-            Descubra as quatro vocações únicas de Tibia. Cada classe oferece um estilo de jogo distinto 
-            com habilidades, equipamentos e estratégias específicas.
+            Descubra as quatro vocaÃ§Ãµes Ãºnicas de Tibia. Cada classe oferece um estilo de jogo distinto 
+            com habilidades, equipamentos e estratÃ©gias especÃ­ficas.
           </p>
         </div>
         <div class="header-stats">
@@ -178,28 +176,28 @@ export class ClassesRenderer {
         
         <div class="class-details">
           <div class="detail-row">
-            <span class="detail-label">🎯 Estilo:</span>
+            <span class="detail-label">ðŸŽ¯ Estilo:</span>
             <span class="detail-value">${classInfo.playstyle}</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">⚔️ Armas:</span>
+            <span class="detail-label">âš”ï¸ Armas:</span>
             <span class="detail-value">${classInfo.weapons.join(', ')}</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">🛡️ Armadura:</span>
+            <span class="detail-label">ðŸ›¡ï¸ Armadura:</span>
             <span class="detail-value">${classInfo.armor}</span>
           </div>
         </div>
         
         <div class="class-pros-cons">
           <div class="pros-section">
-            <h4 class="pros-title">✅ Vantagens</h4>
+            <h4 class="pros-title">âœ… Vantagens</h4>
             <ul class="pros-list">
               ${classInfo.pros.map(pro => `<li>${pro}</li>`).join('')}
             </ul>
           </div>
           <div class="cons-section">
-            <h4 class="cons-title">❌ Desvantagens</h4>
+            <h4 class="cons-title">âŒ Desvantagens</h4>
             <ul class="cons-list">
               ${classInfo.cons.map(con => `<li>${con}</li>`).join('')}
             </ul>
@@ -207,7 +205,7 @@ export class ClassesRenderer {
         </div>
         
         <div class="class-builds">
-          <h4 class="builds-title">🔨 Builds Disponíveis (${classInfo.builds.length})</h4>
+          <h4 class="builds-title">ðŸ”¨ Builds DisponÃ­veis (${classInfo.builds.length})</h4>
           ${classInfo.builds.length > 0 ? `
             <div class="builds-preview">
               ${classInfo.builds.slice(0, 2).map(build => this.renderBuildPreview(build)).join('')}
@@ -218,16 +216,16 @@ export class ClassesRenderer {
               ` : ''}
             </div>
           ` : `
-            <p class="no-builds">Nenhuma build disponível ainda.</p>
+            <p class="no-builds">Nenhuma build disponÃ­vel ainda.</p>
           `}
         </div>
         
         <div class="class-actions">
           <button class="btn btn-primary" data-action="view-class-builds" data-class="${classInfo.name}">
-            👁️ Ver Builds
+            ðŸ‘ï¸ Ver Builds
           </button>
           <button class="btn btn-secondary" data-action="create-class-build" data-class="${classInfo.name}">
-            🔧 Criar Build
+            ðŸ”§ Criar Build
           </button>
         </div>
       </article>
@@ -249,18 +247,18 @@ export class ClassesRenderer {
   renderComparisonTable() {
     return `
       <section class="comparison-section">
-        <h2 class="section-title">📊 Comparação de Classes</h2>
+        <h2 class="section-title">ðŸ“Š ComparaÃ§Ã£o de Classes</h2>
         <div class="comparison-container">
           <div class="comparison-table">
             <div class="table-header">
-              <div class="header-cell">Característica</div>
+              <div class="header-cell">CaracterÃ­stica</div>
               ${this.classes.map(c => `<div class="header-cell class-header">${c.icon} ${c.name}</div>`).join('')}
             </div>
             
             ${this.renderComparisonRow('Dificuldade', this.classes.map(c => c.difficulty))}
             ${this.renderComparisonRow('Estilo de Jogo', this.classes.map(c => c.playstyle))}
             ${this.renderComparisonRow('Tipo de Armadura', this.classes.map(c => c.armor))}
-            ${this.renderComparisonRow('Builds Disponíveis', this.classes.map(c => c.builds.length))}
+            ${this.renderComparisonRow('Builds DisponÃ­veis', this.classes.map(c => c.builds.length))}
           </div>
         </div>
       </section>
@@ -277,12 +275,10 @@ export class ClassesRenderer {
   }
   
   addEventListeners() {
-    // Remove listeners anteriores se existirem
     if (this.clickHandler) {
       document.removeEventListener('click', this.clickHandler)
     }
     
-    // Criar handler reutilizável
     this.clickHandler = (e) => {
       const action = e.target.dataset.action
       
@@ -310,7 +306,6 @@ export class ClassesRenderer {
   }
   
   viewClassBuilds(className) {
-    // Navegar para página de equipamentos filtrada por classe
     const event = new CustomEvent('navigate-to-page', { 
       detail: { page: 'equipment', filter: { class: className } }
     })
@@ -319,7 +314,6 @@ export class ClassesRenderer {
   
   createClassBuild(className) {
     console.log('Creating build for class:', className)
-    // Navegar para criar build com classe pré-selecionada
     const event = new CustomEvent('navigate-to-page', { 
       detail: { page: 'create-build', preselect: { class: className } }
     })
@@ -327,7 +321,6 @@ export class ClassesRenderer {
   }
   
   viewBuildDetails(buildId) {
-    // Visualizar detalhes da build
     const event = new CustomEvent('show-build-details', { 
       detail: { buildId }
     })
@@ -353,21 +346,20 @@ export class ClassesRenderer {
         justify-content: space-between;
         align-items: center;
         margin-bottom: 50px;
-        padding: 30px;
-        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-        border-radius: 20px;
-        color: white;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--color-border);
       }
       
       .page-title {
         font-size: clamp(2rem, 4vw, 3rem);
+        color: var(--color-primary);
         margin-bottom: 15px;
       }
       
       .page-subtitle {
         font-size: 1.2rem;
         line-height: 1.6;
-        opacity: 0.95;
+        color: var(--color-text-secondary);
         max-width: 600px;
       }
       
@@ -387,11 +379,14 @@ export class ClassesRenderer {
         font-size: 2.5rem;
         font-weight: bold;
         margin-bottom: 5px;
+        color: var(--color-secondary);
+        background: none;
+        padding: 0;
       }
       
       .stat-label {
         font-size: 1rem;
-        opacity: 0.9;
+        color: var(--color-text-secondary);
       }
       
       /* Classes Grid */
@@ -468,9 +463,9 @@ export class ClassesRenderer {
         letter-spacing: 0.5px;
       }
       
-      .difficulty-fácil { background: #10b981; color: white; }
-      .difficulty-médio { background: #f59e0b; color: white; }
-      .difficulty-médio-alto { background: #f97316; color: white; }
+      .difficulty-fÃ¡cil { background: #10b981; color: white; }
+      .difficulty-mÃ©dio { background: #f59e0b; color: white; }
+      .difficulty-mÃ©dio-alto { background: #f97316; color: white; }
       .difficulty-alto { background: #ef4444; color: white; }
       
       .class-description {
@@ -717,7 +712,7 @@ export class ClassesRenderer {
           flex-direction: column;
           text-align: center;
           gap: 25px;
-          padding: 25px 20px;
+          padding-bottom: 20px;
         }
         
         .header-stats {

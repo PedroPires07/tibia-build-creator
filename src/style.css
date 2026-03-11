@@ -1,35 +1,29 @@
 :root {
-  /* Paleta de cores medievais - Alto Contraste */
-  --color-primary: #A0522D;        /* Marrom sienna mais vibrante */
-  --color-primary-dark: #6B3410;   /* Marrom escuro forte */
-  --color-secondary: #FFD700;      /* Dourado brilhante */
-  --color-accent: #4A7C8C;         /* Azul acinzentado vibrante */
-  --color-success: #7CB342;        /* Verde vibrante */
-  --color-danger: #D32F2F;         /* Vermelho forte */
-  --color-warning: #FFA726;        /* Laranja/dourado vibrante */
+  --color-primary: #A0522D;
+  --color-primary-dark: #6B3410;
+  --color-secondary: #FFD700;
+  --color-accent: #4A7C8C;
+  --color-success: #7CB342;
+  --color-danger: #D32F2F;
+  --color-warning: #FFA726;
   
-  /* Tons neutros - Alto Contraste */
-  --color-bg-dark: #0D0D0D;        /* Preto profundo */
-  --color-bg-medium: #1F1F1F;      /* Cinza muito escuro */
-  --color-bg-light: #FFF8DC;       /* Bege claro */
-  --color-text-light: #FFEDD5;     /* Texto claro brilhante */
-  --color-text-dark: #1A1A1A;      /* Preto para contraste em fundos claros */
+  --color-bg-dark: #0D0D0D;
+  --color-bg-medium: #1F1F1F;
+  --color-bg-light: #FFF8DC;
+  --color-text-light: #FFEDD5;
+  --color-text-dark: #1A1A1A;
   
-  /* Cards e elementos - Alto Contraste */
   --color-card-bg: linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%);
-  --color-card-border: #FFD700;    /* Dourado brilhante */
+  --color-card-border: #FFD700;
   --color-hover: rgba(255, 215, 0, 0.3);
   
-  /* Sombras */
   --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.5);
   --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.6);
   --shadow-glow: 0 0 20px rgba(255, 215, 0, 0.5);
   
-  /* Tipografia */
   --font-primary: 'Cinzel', serif;
   --font-body: 'Crimson Text', serif;
   
-  /* Espaçamentos */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -38,7 +32,6 @@
   --spacing-xxl: 3rem;
 }
 
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
@@ -59,7 +52,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Background pattern pseudo-elemento para textura */
 body::before {
   content: '';
   position: fixed;
@@ -80,7 +72,6 @@ body::before {
   padding: 0 var(--spacing-lg);
 }
 
-/* Header */
 .main-header {
   background: linear-gradient(135deg, #1A0F08 0%, #0D0D0D 100%);
   border-bottom: 3px solid var(--color-secondary);
@@ -194,7 +185,6 @@ body::before {
   transform: scale(1.05);
 }
 
-/* Main Content */
 .main-content {
   padding: var(--spacing-xl) 0;
 }
@@ -213,7 +203,6 @@ body::before {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hero Section */
 .hero-section {
   background: var(--color-card-bg);
   border: 2px solid var(--color-card-border);
@@ -296,7 +285,6 @@ body::before {
   color: var(--color-text-light);
 }
 
-/* Buttons */
 .btn {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   border: 2px solid var(--color-secondary);
@@ -361,7 +349,6 @@ body::before {
   color: var(--color-text-dark);
 }
 
-/* Content Grid */
 .content-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -387,7 +374,6 @@ body::before {
   padding-bottom: var(--spacing-sm);
 }
 
-/* Featured Builds */
 .featured-builds {
   grid-column: 1 / -1;
 }
@@ -493,7 +479,6 @@ body::before {
   justify-content: flex-end;
 }
 
-/* Popular Classes */
 .classes-grid {
   display: grid;
   gap: var(--spacing-md);
@@ -542,7 +527,6 @@ body::before {
   font-weight: 600;
 }
 
-/* Recent Builds */
 .recent-list {
   display: flex;
   flex-direction: column;
@@ -577,7 +561,6 @@ body::before {
   opacity: 0.95;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .content-grid {
     grid-template-columns: 1fr;
@@ -642,7 +625,6 @@ body::before {
   }
 }
 
-/* Estilos para Tela 2: Cadastro de Build */
 .page-header {
   text-align: center;
   margin-bottom: var(--spacing-xxl);
@@ -839,7 +821,6 @@ body::before {
   border-radius: 12px;
 }
 
-/* Estilos para Tela 3: Classes */
 .classes-container {
   display: flex;
   flex-direction: column;
@@ -964,7 +945,6 @@ body::before {
   text-align: center;
 }
 
-/* Estilos para Tela 4: Equipamentos */
 .equipment-filters {
   background: var(--color-card-bg);
   border: 2px solid var(--color-card-border);
@@ -1164,16 +1144,48 @@ body::before {
   text-align: center;
 }
 
-/* Estilos para Tela 5: Detalhes da Build */
 .build-detail-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
   background: var(--color-card-bg);
   border: 2px solid var(--color-card-border);
   border-radius: 12px;
-  padding: var(--spacing-xl);
-  margin-bottom: var(--spacing-xl);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.detail-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-header-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.detail-header-info {
+  flex-shrink: 0;
+}
+
+.build-detail-header .build-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  color: var(--color-secondary);
+  margin-bottom: 10px;
+}
+
+.build-detail-header .build-description {
+  flex: 1;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+  padding-top: 4px;
 }
 
 .build-title-section h2 {
@@ -1291,7 +1303,7 @@ body::before {
   transition: width 0.3s ease;
 }
 
-.stat-value {
+.stats-grid .stat-value {
   min-width: 40px;
   text-align: center;
   background: var(--color-secondary);
@@ -1489,7 +1501,7 @@ body::before {
 }
 
 .strategy-tips li:before {
-  content: "💡 ";
+  content: "ðŸ’¡ ";
   margin-right: var(--spacing-xs);
 }
 
@@ -1582,7 +1594,6 @@ body::before {
 .rec-tag.boss { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; }
 .rec-tag.group { background: linear-gradient(135deg, #228B22, #32CD32); }
 
-/* Notificações */
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -1594,7 +1605,6 @@ body::before {
   }
 }
 
-/* Responsive adicional para as novas telas */
 @media (max-width: 1024px) {
   .form-grid {
     grid-template-columns: 1fr;
@@ -1616,10 +1626,20 @@ body::before {
 
 @media (max-width: 768px) {
   .build-detail-header {
-    flex-direction: column;
-    gap: var(--spacing-lg);
+    padding: 20px;
+    gap: 16px;
   }
-  
+
+  .detail-header-body {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .detail-header-top .btn {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
   .equipment-filters {
     padding: var(--spacing-lg);
   }
@@ -1638,7 +1658,6 @@ body::before {
   }
 }
 
-/* === Sistema de Ícones para Itens === */
 .item-icon, .build-icon {
   width: 48px;
   height: 48px;
@@ -1655,7 +1674,6 @@ body::before {
   overflow: hidden;
 }
 
-/* === Ícones SVG com Fallback === */
 .icon-svg {
   width: 100%;
   height: 100%;
@@ -1671,7 +1689,6 @@ body::before {
   transform: scale(1.1);
 }
 
-/* Categorias de ícones por raridade */
 .icon-common {
   filter: hue-rotate(0deg) brightness(1);
 }
@@ -1709,15 +1726,14 @@ body::before {
   box-shadow: 0 0 15px rgba(186, 85, 211, 0.4);
 }
 
-/* Alinhamento global para todos os elementos dentro dos ícones */
 .item-icon *, .build-icon *, 
 .equipment-icon *, .class-icon *,
 .rarity-icon * {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1 !important;
@@ -1745,7 +1761,7 @@ body::before {
 
 .item-details {
   flex: 1;
-  min-width: 0; /* Allows flex items to shrink */
+  min-width: 0;
 }
 
 .item-name {
@@ -1805,7 +1821,6 @@ body::before {
   border: 1px solid #81c784;
 }
 
-/* Build Cards com Ícones */
 .build-header {
   display: flex;
   align-items: center;
@@ -1859,7 +1874,6 @@ body::before {
   word-wrap: break-word;
 }
 
-/* Level requirement badge */
 .level-requirement {
   background: linear-gradient(45deg, #0D0D0D, #1A1A1A);
   color: #FFD700;
@@ -1872,7 +1886,6 @@ body::before {
   white-space: nowrap;
 }
 
-/* Classes requirement badge */
 .class-requirement {
   background: var(--color-primary);
   color: white;
@@ -1884,7 +1897,6 @@ body::before {
   white-space: nowrap;
 }
 
-/* Responsividade aprimorada */
 @media (max-width: 1200px) {
   .equipment-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1969,7 +1981,6 @@ body::before {
   }
 }
 
-/* Estilos para equipamentos específicos */
 .equipment-card .item-icon {
   width: 40px;
   height: 40px;
@@ -1979,7 +1990,6 @@ body::before {
   justify-content: center !important;
 }
 
-/* Alinhamento global para todos os containers de ícones */
 .equipment-icon, .class-icon, .rarity-icon,
 .stat-icon, .skill-icon, .slot-icon {
   display: flex !important;
@@ -1988,7 +1998,6 @@ body::before {
   position: relative;
 }
 
-/* Garantir que imagens e emojis ocupem o espaço correto */
 .equipment-icon img, .class-icon img, .rarity-icon img,
 .item-icon img, .build-icon img {
   width: 100% !important;
@@ -2014,7 +2023,6 @@ body::before {
   width: 100%;
 }
 
-/* Lista de equipamentos */
 .equipment-list .item-card {
   cursor: pointer;
 }

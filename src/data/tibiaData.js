@@ -1,7 +1,5 @@
-// Tibia Data - Dados completos dos equipamentos e builds
 export const tibiaData = {
   equipment: [
-    // ===== ARMAS KNIGHT - SWORDS =====
     { 
       id: 1, 
       name: 'Soulcutter', 
@@ -20,7 +18,7 @@ export const tibiaData = {
       level: 150, 
       classes: ['Knight'],
       stats: { attack: 70, magic: 3 },
-      description: 'Espada mística com excelente combinação ataque/defesa' 
+      description: 'Espada mÃ­stica com excelente combinaÃ§Ã£o ataque/defesa' 
     },
     { 
       id: 3, 
@@ -40,7 +38,7 @@ export const tibiaData = {
       level: 270, 
       classes: ['Knight'],
       stats: { attack: 61, magic: 2 },
-      description: 'Espada dos Lion Knights, boa opção mid-level' 
+      description: 'Espada dos Lion Knights, boa opÃ§Ã£o mid-level' 
     },
     { 
       id: 5, 
@@ -50,7 +48,7 @@ export const tibiaData = {
       level: 30, 
       classes: ['Knight'],
       stats: { attack: 39, magic: 1 },
-      description: 'Espada brilhante com poder mágico' 
+      description: 'Espada brilhante com poder mÃ¡gico' 
     },
     { 
       id: 6, 
@@ -62,7 +60,6 @@ export const tibiaData = {
       stats: { attack: 42, magic: 2 },
       description: 'Espada flamejante com dano de fogo' 
     },
-    // ===== ARMAS KNIGHT - AXES =====
     { 
       id: 7, 
       name: 'Soulbiter', 
@@ -103,7 +100,6 @@ export const tibiaData = {
       stats: { attack: 45, magic: 2 },
       description: 'Machado flamejante poderoso' 
     },
-    // ===== ARMAS KNIGHT - CLUBS =====
     { 
       id: 11, 
       name: 'Soulmaimer', 
@@ -144,7 +140,6 @@ export const tibiaData = {
       stats: { attack: 40, magic: 1 },
       description: 'Cajado sinistro com caveira' 
     },
-    // ===== ARMAS PALADIN - DISTANCE =====
     { 
       id: 15, 
       name: 'Soulpiercer', 
@@ -173,7 +168,7 @@ export const tibiaData = {
       level: 270, 
       classes: ['Paladin'],
       stats: { attack: 49, accuracy: 2 },
-      description: 'Arco dos Lion Paladins, ótimo para hunts' 
+      description: 'Arco dos Lion Paladins, Ã³timo para hunts' 
     },
     { 
       id: 18, 
@@ -183,7 +178,7 @@ export const tibiaData = {
       level: 60, 
       classes: ['Paladin'],
       stats: { attack: 38, accuracy: 1 },
-      description: 'Arco élfico tradicional para paladins médios' 
+      description: 'Arco Ã©lfico tradicional para paladins mÃ©dios' 
     },
     { 
       id: 19, 
@@ -203,10 +198,9 @@ export const tibiaData = {
       level: 45, 
       classes: ['Paladin'],
       stats: { attack: 40, accuracy: 1 },
-      description: 'Besta modificada com precisão aprimorada' 
+      description: 'Besta modificada com precisÃ£o aprimorada' 
     },
     
-    // ===== ARMAS SORCERER - WANDS =====
     { 
       id: 21, 
       name: 'Soulhexer', 
@@ -215,7 +209,7 @@ export const tibiaData = {
       level: 400, 
       classes: ['Sorcerer'],
       stats: { magic: 8, mana: 100 },
-      description: 'Melhor wand para sorcerers de alto nível' 
+      description: 'Melhor wand para sorcerers de alto nÃ­vel' 
     },
     { 
       id: 16, 
@@ -245,10 +239,9 @@ export const tibiaData = {
       level: 22, 
       classes: ['Sorcerer'],
       stats: { magic: 2, mana: 25 },
-      description: 'Varinha básica para sorcerers iniciantes' 
+      description: 'Varinha bÃ¡sica para sorcerers iniciantes' 
     },
     
-    // ===== ARMAS DRUID - RODS =====
     { 
       id: 19, 
       name: 'Soulshredder', 
@@ -257,7 +250,7 @@ export const tibiaData = {
       level: 400, 
       classes: ['Druid'],
       stats: { magic: 8, mana: 100 },
-      description: 'Melhor rod para druids de alto nível' 
+      description: 'Melhor rod para druids de alto nÃ­vel' 
     },
     { 
       id: 20, 
@@ -287,10 +280,9 @@ export const tibiaData = {
       level: 80, 
       classes: ['Druid'],
       stats: { magic: 3, mana: 40 },
-      description: 'Cajado poderoso para druids avançados' 
+      description: 'Cajado poderoso para druids avanÃ§ados' 
     },
     
-    // ===== ARMADURAS =====
     { 
       id: 23, 
       name: 'Spiritthorn Armor', 
@@ -299,7 +291,7 @@ export const tibiaData = {
       level: 150, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 21, magic: 4, health: 200 },
-      description: 'Uma das melhores armaduras do Tibia, disponível para todas as vocações' 
+      description: 'Uma das melhores armaduras do Tibia, disponÃ­vel para todas as vocaÃ§Ãµes' 
     },
     { 
       id: 24, 
@@ -329,7 +321,7 @@ export const tibiaData = {
       level: 80, 
       classes: ['Knight'],
       stats: { defense: 17, magic: 3, health: 80 },
-      description: 'Armadura mágica clássica para knights médios' 
+      description: 'Armadura mÃ¡gica clÃ¡ssica para knights mÃ©dios' 
     },
     { 
       id: 27, 
@@ -339,10 +331,9 @@ export const tibiaData = {
       level: 70, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 15, health: 75 },
-      description: 'Armadura versátil feita com escamas de dragão' 
+      description: 'Armadura versÃ¡til feita com escamas de dragÃ£o' 
     },
     
-    // ===== CAPACETES =====
     { 
       id: 28, 
       name: 'Falcon Coif', 
@@ -351,7 +342,7 @@ export const tibiaData = {
       level: 300, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 12, magic: 3, mana: 50 },
-      description: 'Capacete das Falcon Items para todas as vocações' 
+      description: 'Capacete das Falcon Items para todas as vocaÃ§Ãµes' 
     },
     { 
       id: 29, 
@@ -371,7 +362,7 @@ export const tibiaData = {
       level: 100, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 11, mana: 60 },
-      description: 'Capacete real com excelente proteção' 
+      description: 'Capacete real com excelente proteÃ§Ã£o' 
     },
     { 
       id: 31, 
@@ -381,10 +372,9 @@ export const tibiaData = {
       level: 70, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 8, health: 30 },
-      description: 'Capacete de escamas de dragão' 
+      description: 'Capacete de escamas de dragÃ£o' 
     },
     
-    // ===== ESCUDOS =====
     { 
       id: 32, 
       name: 'Falcon Escutcheon', 
@@ -423,10 +413,9 @@ export const tibiaData = {
       level: 70, 
       classes: ['Knight', 'Paladin'],
       stats: { defense: 32, health: 50 },
-      description: 'Escudo de escamas de dragão' 
+      description: 'Escudo de escamas de dragÃ£o' 
     },
     
-    // ===== BOOTS =====
     { 
       id: 36, 
       name: 'Pair of Soulwalkers', 
@@ -435,7 +424,7 @@ export const tibiaData = {
       level: 250, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 4, magic: 2, mana: 40, health: 50 },
-      description: 'Botas lendárias que concedem velocidade excepcional' 
+      description: 'Botas lendÃ¡rias que concedem velocidade excepcional' 
     },
     { 
       id: 37, 
@@ -465,10 +454,9 @@ export const tibiaData = {
       level: 1, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 2, health: 20 },
-      description: 'Botas básicas que aumentam velocidade de movimento' 
+      description: 'Botas bÃ¡sicas que aumentam velocidade de movimento' 
     },
     
-    // ===== RINGS =====
     { 
       id: 40, 
       name: 'Might Ring', 
@@ -487,7 +475,7 @@ export const tibiaData = {
       level: 50, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { health: 50, mana: 25, magic: 1 },
-      description: 'Anel que acelera regeneração' 
+      description: 'Anel que acelera regeneraÃ§Ã£o' 
     },
     { 
       id: 42, 
@@ -497,7 +485,7 @@ export const tibiaData = {
       level: 100, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { health: 100, mana: 50, defense: 2 },
-      description: 'Anel que manipula o tempo para proteção extra' 
+      description: 'Anel que manipula o tempo para proteÃ§Ã£o extra' 
     },
     { 
       id: 43, 
@@ -527,10 +515,9 @@ export const tibiaData = {
       level: 120, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { magic: 3, mana: 80, health: 50 },
-      description: 'Anel celestial com poder mágico supremo' 
+      description: 'Anel celestial com poder mÃ¡gico supremo' 
     },
     
-    // ===== NECKLACES =====
     { 
       id: 46, 
       name: 'Amulet of Loss', 
@@ -559,7 +546,7 @@ export const tibiaData = {
       level: 80, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { magic: 4, mana: 60, health: 40 },
-      description: 'Talismã misterioso com poderes arcanos' 
+      description: 'TalismÃ£ misterioso com poderes arcanos' 
     },
     { 
       id: 49, 
@@ -569,7 +556,7 @@ export const tibiaData = {
       level: 40, 
       classes: ['Paladin', 'Sorcerer', 'Druid'],
       stats: { magic: 3, mana: 50, accuracy: 2 },
-      description: 'Amuleto élfico com bênção da natureza' 
+      description: 'Amuleto Ã©lfico com bÃªnÃ§Ã£o da natureza' 
     },
     { 
       id: 50, 
@@ -579,7 +566,7 @@ export const tibiaData = {
       level: 70, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 8, health: 80, magic: 2 },
-      description: 'Colar adornado com presas de dragão' 
+      description: 'Colar adornado com presas de dragÃ£o' 
     },
     { 
       id: 51, 
@@ -589,18 +576,17 @@ export const tibiaData = {
       level: 20, 
       classes: ['Knight', 'Paladin', 'Sorcerer', 'Druid'],
       stats: { defense: 5, health: 30 },
-      description: 'Amuleto protetor básico' 
+      description: 'Amuleto protetor bÃ¡sico' 
     }
   ],
   
-  // ===== BUILDS AUTÊNTICAS DO TIBIA =====
   builds: [
     {
       id: 1,
       name: 'Elite Knight Tank Master',
       class: 'Knight',
       level: 400,
-      description: 'Build de tanque supremo para knights de elite. Focada em sobrevivência máxima e controle de área em team hunts.',
+      description: 'Build de tanque supremo para knights de elite. Focada em sobrevivÃªncia mÃ¡xima e controle de Ã¡rea em team hunts.',
       equipment: {
         weapon: { id: 1, name: 'Soulcutter', type: 'sword', rarity: 'legendary', stats: { attack: 67, magic: 4, accuracy: 6 } },
         armor: { id: 23, name: 'Spiritthorn Armor', type: 'armor', rarity: 'legendary', stats: { defense: 21, magic: 4, health: 200 } },
@@ -616,7 +602,7 @@ export const tibiaData = {
       name: 'Royal Paladin Sniper Elite',
       class: 'Paladin',
       level: 350,
-      description: 'Build de dano à distância puro para paladinos de alto nível. Especializada em hunts solo eficientes e DPS em team hunts.',
+      description: 'Build de dano Ã  distÃ¢ncia puro para paladinos de alto nÃ­vel. Especializada em hunts solo eficientes e DPS em team hunts.',
       equipment: {
         weapon: { id: 15, name: 'Soulpiercer', type: 'bow', rarity: 'legendary', stats: { attack: 51, accuracy: 4, magic: 5 } },
         armor: { id: 23, name: 'Spiritthorn Armor', type: 'armor', rarity: 'legendary', stats: { defense: 21, magic: 4, health: 200 } },
@@ -632,7 +618,7 @@ export const tibiaData = {
       name: 'Master Sorcerer Devastator',
       class: 'Sorcerer',
       level: 320,
-      description: 'Build focada em magic level máximo para sorcerers de elite. Especializado em AoE damage devastador e single target supremo.',
+      description: 'Build focada em magic level mÃ¡ximo para sorcerers de elite. Especializado em AoE damage devastador e single target supremo.',
       equipment: {
         weapon: { id: 21, name: 'Soulhexer', type: 'wand', rarity: 'legendary', stats: { magic: 8, mana: 100 } },
         armor: { id: 23, name: 'Spiritthorn Armor', type: 'armor', rarity: 'legendary', stats: { defense: 21, magic: 4, health: 200 } },
@@ -640,21 +626,6 @@ export const tibiaData = {
         boots: { id: 36, name: 'Pair of Soulwalkers', type: 'boots', rarity: 'legendary', stats: { defense: 4, magic: 2, mana: 40, health: 50 } },
         ring: { id: 45, name: 'Ring of the Sky', type: 'ring', rarity: 'epic', stats: { magic: 3, mana: 80, health: 50 } },
         necklace: { id: 48, name: 'Strange Talisman', type: 'necklace', rarity: 'epic', stats: { magic: 4, mana: 60, health: 40 } }
-      }
-    },
-    {
-      id: 4,
-      name: 'Elder Druid Healing Master',
-      class: 'Druid',
-      level: 280,
-      description: 'Build completa de suporte para team hunts. Focada em cura eficiente, controle de área e sustentação da equipe.',
-      equipment: {
-        weapon: { id: 20, name: 'Falcon Rod', type: 'rod', rarity: 'epic', stats: { magic: 6, mana: 75 } },
-        armor: { id: 23, name: 'Spiritthorn Armor', type: 'armor', rarity: 'legendary', stats: { defense: 21, magic: 4, health: 200 } },
-        helmet: { id: 29, name: 'Lion Spangenhelm', type: 'helmet', rarity: 'rare', stats: { defense: 11, magic: 2, mana: 40 } },
-        boots: { id: 37, name: 'Falcon Boots', type: 'boots', rarity: 'epic', stats: { defense: 3, magic: 1, health: 30, mana: 20 } },
-        ring: { id: 41, name: 'Ring of Healing', type: 'ring', rarity: 'rare', stats: { health: 50, mana: 25, magic: 1 } },
-        necklace: { id: 47, name: 'Stone Skin Amulet', type: 'necklace', rarity: 'rare', stats: { defense: 15, health: 75 } }
       }
     }
   ]

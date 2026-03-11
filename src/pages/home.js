@@ -1,4 +1,3 @@
-// Home Page Renderer - Página inicial responsiva
 import { tibiaData } from '../data/tibiaData.js'
 import { getRarityIcon, getClassIcon } from '../tibiaImages.js'
 
@@ -10,7 +9,6 @@ export class HomeRenderer {
   render() {
     const homeContent = document.querySelector('#home-page .content')
     if (!homeContent) {
-      // Se não há .content div, renderizar direto na página
       const homePage = document.querySelector('#home-page')
       if (!homePage) return
       
@@ -38,22 +36,22 @@ export class HomeRenderer {
     return `
       <section class="hero-section">
         <div class="hero-content">
-          <h1 class="hero-title">⚔️ Tibia Build Forge</h1>
+          <h1 class="hero-title">âš”ï¸ Tibia Build Forge</h1>
           <p class="hero-description">
-            Crie e compartilhe builds épicas para o mundo de Tibia. 
-            Otimize seu personagem com as melhores combinações de equipamentos.
+            Crie e compartilhe builds Ã©picas para o mundo de Tibia. 
+            Otimize seu personagem com as melhores combinaÃ§Ãµes de equipamentos.
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary btn-large" data-action="create-new-build">
-              🔨 Criar Nova Build
+              ðŸ”¨ Criar Nova Build
             </button>
             <button class="btn btn-secondary btn-large" data-page="classes">
-              👥 Ver Classes
+              ðŸ‘¥ Ver Classes
             </button>
           </div>
         </div>
         <div class="hero-image">
-          <div class="tibia-logo">🏰</div>
+          <div class="tibia-logo">ðŸ°</div>
         </div>
       </section>
     `
@@ -66,24 +64,24 @@ export class HomeRenderer {
     
     return `
       <section class="stats-section">
-        <h2 class="stats-title">📊 Estatísticas da Forja</h2>
+        <h2 class="stats-title">ðŸ“Š EstatÃ­sticas da Forja</h2>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-icon">⚔️</div>
+            <div class="stat-icon">âš”ï¸</div>
             <div class="stat-info">
               <div class="stat-number">${totalBuilds}</div>
-              <div class="stat-label">Builds Disponíveis</div>
+              <div class="stat-label">Builds DisponÃ­veis</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">🛡️</div>
+            <div class="stat-icon">ðŸ›¡ï¸</div>
             <div class="stat-info">
               <div class="stat-number">${totalEquipments}</div>
               <div class="stat-label">Equipamentos</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">👥</div>
+            <div class="stat-icon">ðŸ‘¥</div>
             <div class="stat-info">
               <div class="stat-number">${totalClasses}</div>
               <div class="stat-label">Classes</div>
@@ -100,7 +98,7 @@ export class HomeRenderer {
     return `
       <section class="featured-section">
         <div class="section-header">
-          <h2 class="section-title">🌟 Builds em Destaque</h2>
+          <h2 class="section-title">ðŸŒŸ Builds em Destaque</h2>
           <p class="section-subtitle">Builds mais populares da comunidade</p>
         </div>
         <div class="builds-grid">
@@ -126,12 +124,17 @@ export class HomeRenderer {
         </div>
         <h3 class="build-name">${build.name}</h3>
         <p class="build-description">${build.description}</p>
+        
+        <div class="build-stats-preview">
+          ${this.renderBuildStatsPreview(build)}
+        </div>
+        
         <div class="build-equipment-preview">
           ${this.renderEquipmentPreview(build.equipment)}
         </div>
         <div class="build-actions">
           <button class="btn btn-primary btn-sm" data-action="view-build" data-build-id="${build.id}">
-            👁️ Ver Detalhes
+            ðŸ‘ï¸ Ver Detalhes
           </button>
         </div>
       </article>
@@ -159,16 +162,64 @@ export class HomeRenderer {
   
   getSlotIcon(slot) {
     const icons = {
-      weapon: '⚔️',
-      armor: '🛡️',
-      shield: '🛡️',
-      helmet: '⛑️'
+      weapon: 'âš”ï¸',
+      armor: 'ðŸ›¡ï¸',
+      shield: 'ðŸ›¡ï¸',
+      helmet: 'â›‘ï¸'
     }
-    return icons[slot] || '❓'
+    return icons[slot] || 'â“'
+  }
+  
+  renderBuildStatsPreview(build) {
+    const totalStats = this.calculateBuildStats(build)
+    
+    const statsToShow = [
+      { icon: 'âš”ï¸', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
+      { icon: 'ðŸ›¡ï¸', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
+      { icon: 'â¤ï¸', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
+      { icon: 'ðŸ’™', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
+      { icon: 'âœ¨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
+      { icon: 'ðŸŽ¯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
+    ].filter(stat => stat.show)
+    
+    return statsToShow.map(stat => `
+      <div class="stat-preview-item">
+        <span class="stat-icon">${stat.icon}</span>
+        <span class="stat-name">${stat.name}</span>
+        <span class="stat-value">${stat.value}</span>
+      </div>
+    `).join('')
+  }
+  
+  calculateBuildStats(build) {
+    const stats = { 
+      attack: 0, 
+      defense: 0, 
+      health: 0, 
+      mana: 0, 
+      magic: 0, 
+      accuracy: 0 
+    }
+    
+    console.log('[HOME] Calculating stats for build:', build.name)
+    console.log('[HOME] Equipment:', build.equipment)
+    
+    Object.values(build.equipment).forEach(item => {
+      if (item && item.stats) {
+        console.log(`[HOME] Item: ${item.name}, Stats:`, item.stats)
+        Object.entries(item.stats).forEach(([stat, value]) => {
+          if (stats.hasOwnProperty(stat)) {
+            stats[stat] += value
+          }
+        })
+      }
+    })
+    
+    console.log('[HOME] Final stats:', stats)
+    return stats
   }
   
   addHomeStyles() {
-    // Verificar se os estilos já foram adicionados
     if (document.querySelector('#home-responsive-styles')) return
     
     const styles = document.createElement('style')
@@ -375,6 +426,42 @@ export class HomeRenderer {
         color: var(--color-text-secondary);
         line-height: 1.5;
         margin-bottom: 20px;
+      }
+      
+      .build-stats-preview {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        border: 1px solid rgba(74, 124, 140, 0.3);
+        margin-bottom: 20px;
+      }
+      
+      .stat-preview-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.85rem;
+        border: 2px solid red !important;
+        padding: 4px;
+      }
+      
+      .stat-preview-item .stat-icon {
+        font-size: 1.1rem;
+      }
+      
+      .stat-preview-item .stat-name {
+        color: rgba(255, 237, 213, 0.7);
+      }
+      
+      .stat-preview-item .stat-value {
+        color: #000 !important;
+        font-weight: bold;
+        margin-left: auto;
+        padding: 2px 6px;
+        border-radius: 4px;
       }
       
       .equipment-preview {

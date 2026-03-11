@@ -1,30 +1,32 @@
-// Page Manager - Navegação entre páginas
 import { HomeRenderer } from './pages/home.js';
 import { CreateBuildRenderer } from './pages/createBuild.js';
 import { ClassesRenderer } from './pages/classes.js';
 import { EquipmentsRenderer } from './pages/equipments.js';
 import { BuildsRenderer } from './pages/builds.js';
+import { LoginRenderer } from './pages/login.js';
+import { ProfileRenderer } from './pages/profile.js';
 
 export class PageManager {
   constructor() {
-    this.currentPage = 'home'
+    const isLoggedIn = localStorage.getItem('tibia-user')
+    this.currentPage = isLoggedIn ? 'home' : 'login'
     this.pages = document.querySelectorAll('.page')
     this.navButtons = document.querySelectorAll('.nav-btn')
     this.initialized = false
     
-    // Instanciar renderizadores
     this.homeRenderer = new HomeRenderer()
     this.createBuildRenderer = new CreateBuildRenderer()
     this.classesRenderer = new ClassesRenderer()
     this.equipmentsRenderer = new EquipmentsRenderer()
     this.buildsRenderer = new BuildsRenderer()
+    this.loginRenderer = new LoginRenderer()
+    this.profileRenderer = new ProfileRenderer()
     
     console.log('PageManager constructor called')
     this.init()
   }
   
   init() {
-    // Event listeners para navegação
     this.navButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const page = btn.dataset.page
@@ -32,11 +34,9 @@ export class PageManager {
       })
     })
     
-    // Event listeners para eventos customizados de navegação
     document.addEventListener('navigate-to-page', (e) => {
       console.log('Navigate to:', e.detail.page, 'with params:', e.detail.preselect)
       
-      // Verificar se o PageManager está inicializado
       if (!this.initialized) {
         console.warn('PageManager not ready, retrying...')
         setTimeout(() => {
@@ -52,7 +52,6 @@ export class PageManager {
       this.navigateToPage(page, { preselect, filter })
     })
 
-    // Event listeners para ações gerais
     document.addEventListener('click', (e) => {
       const action = e.target.dataset.action
       const page = e.target.dataset.page
@@ -61,13 +60,13 @@ export class PageManager {
         this.handleAction(action, e.target)
       }
       
-      // Navegação por data-page (para botões fora da navbar)
       if (page && !e.target.classList.contains('nav-btn')) {
         this.navigateToPage(page)
       }
     })
     
-    // Renderizar página inicial
+    this.setupSearchFunctionality()
+    
     this.renderCurrentPage()
     
     this.initialized = true
@@ -77,13 +76,18 @@ export class PageManager {
   navigateToPage(pageId, params = null) {
     console.log('Navigating to:', pageId, 'params:', params)
     
-    // Ocultar todas as páginas
+    const protectedPages = ['create-build', 'profile']
+    const isLoggedIn = localStorage.getItem('tibia-user')
+    
+    if (protectedPages.includes(pageId) && !isLoggedIn) {
+      this.showNotification('ðŸ”’ VocÃª precisa estar logado para acessar esta pÃ¡gina!')
+      pageId = 'login'
+    }
+    
     this.pages.forEach(page => page.classList.remove('active'))
     
-    // Remover classe ativa de todos os botões
     this.navButtons.forEach(btn => btn.classList.remove('active'))
     
-    // Mostrar página selecionada - ajustar IDs do HTML
     const pageIdWithSuffix = pageId + '-page'
     const targetPage = document.getElementById(pageIdWithSuffix)
     if (targetPage) {
@@ -93,13 +97,11 @@ export class PageManager {
       console.error('Page not found:', pageIdWithSuffix)
     }
     
-    // Ativar botão correspondente
     const activeBtn = document.querySelector(`[data-page="${pageId}"]`)
     if (activeBtn) {
       activeBtn.classList.add('active')
     }
     
-    // Renderizar conteúdo da página com parâmetros
     this.renderCurrentPage(params)
   }
   
@@ -123,7 +125,75 @@ export class PageManager {
       case 'build-detail':
         this.buildsRenderer.renderBuildDetails()
         break
+      case 'login':
+        this.loginRenderer.render()
+        break
+      case 'profile':
+        this.profileRenderer.render()
+        break
     }
+  }
+  
+  setupSearchFunctionality() {
+    const searchInput = document.getElementById('search-input')
+    const searchBtn = document.getElementById('search-btn')
+    
+    if (!searchInput || !searchBtn) {
+      console.warn('Search elements not found')
+      return
+    }
+    
+    searchBtn.addEventListener('click', () => {
+      this.performSearch(searchInput.value)
+    })
+    
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this.performSearch(searchInput.value)
+      }
+    })
+  }
+  
+  performSearch(query) {
+    if (!query || query.trim() === '') {
+      this.showNotification('âš ï¸ Digite algo para buscar!')
+      return
+    }
+    
+    const searchTerm = query.toLowerCase().trim()
+    
+    import('./data/tibiaData.js').then(module => {
+      const { tibiaData } = module
+      
+      const buildResults = tibiaData.builds.filter(build => {
+        return build.name.toLowerCase().includes(searchTerm) ||
+               build.description.toLowerCase().includes(searchTerm) ||
+               build.class.toLowerCase().includes(searchTerm)
+      })
+      
+      const equipmentResults = tibiaData.equipment.filter(item => {
+        return item.name.toLowerCase().includes(searchTerm) ||
+               item.type.toLowerCase().includes(searchTerm) ||
+               item.rarity.toLowerCase().includes(searchTerm)
+      })
+      
+      if (buildResults.length === 0 && equipmentResults.length === 0) {
+        this.showNotification(`âŒ Nenhum resultado encontrado para "${query}"`)
+      } else {
+        this.showSearchResults(query, buildResults, equipmentResults)
+      }
+    })
+  }
+  
+  showSearchResults(query, builds, equipment) {
+    this.navigateToPage('builds')
+    
+    setTimeout(() => {
+      this.buildsRenderer.filterBySearch(query, builds)
+      
+      const totalResults = builds.length + equipment.length
+      this.showNotification(`ðŸ” ${totalResults} resultado(s) encontrado(s) para "${query}"`)
+    }, 100)
   }
   
   handleAction(action, element) {
@@ -144,12 +214,11 @@ export class PageManager {
         this.equipmentsRenderer.filterEquipment(element.dataset.filter)
         break
       default:
-        console.log('Ação não implementada:', action)
+        console.log('AÃ§Ã£o nÃ£o implementada:', action)
     }
   }
   
   showNotification(message) {
-    // Criar notificação responsiva
     const notification = document.createElement('div')
     notification.className = 'notification'
     notification.textContent = message
@@ -180,7 +249,6 @@ export class PageManager {
   }
   
   saveBuild() {
-    // Implementar salvamento de build
     this.showNotification('Build salva com sucesso!')
   }
   
@@ -193,7 +261,7 @@ export class PageManager {
   }
   
   copyBuild(buildId) {
-    this.showNotification('Build copiada para área de transferência!')
+    this.showNotification('Build copiada para Ã¡rea de transferÃªncia!')
   }
   
   viewBuildDetails(buildId) {

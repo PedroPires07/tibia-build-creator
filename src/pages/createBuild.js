@@ -1,4 +1,3 @@
-// Create Build Page Renderer - Página de criação de builds responsiva
 import { tibiaData } from '../data/tibiaData.js'
 import { getItemImage, getRarityIcon, getClassIcon, addTibiaImageStyles } from '../tibiaImages.js'
 
@@ -23,7 +22,6 @@ export class CreateBuildRenderer {
     if (params && params.preselect && params.preselect.class) {
       console.log('Preselecting class:', params.preselect.class)
       this.currentBuild.class = params.preselect.class
-      // Reset other properties when changing class
       this.currentBuild.equipment = {}
       this.currentBuild.stats = {
         attack: 0,
@@ -35,7 +33,7 @@ export class CreateBuildRenderer {
     
     const createBuildContent = document.querySelector('#create-build-page .content')
     if (!createBuildContent) {
-      // Se não há .content div, renderizar direto na página
+
       const createBuildPage = document.querySelector('#create-build-page')
       if (!createBuildPage) return
       
@@ -61,13 +59,10 @@ export class CreateBuildRenderer {
     this.addCreateBuildStyles()
     addTibiaImageStyles()
     this.addEventListeners()
-    
-    // Se classe foi pré-selecionada, mostrar notificação e atualizar filtros
+ 
     if (params && params.preselect && params.preselect.class) {
-      // Pequeno delay para garantir que a página foi renderizada
       setTimeout(() => {
         this.showClassPreselectedNotification(params.preselect.class)
-        // Filtrar equipamentos automaticamente pela classe pré-selecionada
         this.filterEquipment()
         this.updatePreview()
       }, 200)
@@ -78,14 +73,14 @@ export class CreateBuildRenderer {
     return `
       <header class="build-header">
         <div class="header-content">
-          <h1 class="page-title">🔨 Criar Nova Build</h1>
+          <h1 class="page-title">ðŸ”¨ Criar Nova Build</h1>
           <p class="page-subtitle">
-            Monte a build perfeita para seu personagem. Configure equipamentos e veja as estatísticas em tempo real.
+            Monte a build perfeita para seu personagem. Configure equipamentos e veja as estatÃ­sticas em tempo real.
           </p>
         </div>
         <div class="header-actions">
           <button class="btn btn-outline" id="reset-build">
-            🔄 Resetar Build
+            ðŸ”„ Resetar Build
           </button>
         </div>
       </header>
@@ -97,7 +92,7 @@ export class CreateBuildRenderer {
       <section class="build-form-section">
         <div class="form-grid">
           <div class="form-group">
-            <label for="build-name" class="form-label">📝 Nome da Build</label>
+            <label for="build-name" class="form-label">ðŸ“ Nome da Build</label>
             <input 
               type="text" 
               id="build-name" 
@@ -108,26 +103,26 @@ export class CreateBuildRenderer {
           </div>
           
           <div class="form-group">
-            <label for="build-class" class="form-label">👥 Classe</label>
+            <label for="build-class" class="form-label">ðŸ‘¥ Classe</label>
             <select id="build-class" class="form-select">
               <option value="">Selecione uma classe</option>
               <option value="Knight" ${this.currentBuild.class === 'Knight' ? 'selected' : ''}>
-                🛡️ Knight
+                ðŸ›¡ï¸ Knight
               </option>
               <option value="Paladin" ${this.currentBuild.class === 'Paladin' ? 'selected' : ''}>
-                🏹 Paladin
+                ðŸ¹ Paladin
               </option>
               <option value="Druid" ${this.currentBuild.class === 'Druid' ? 'selected' : ''}>
-                🌿 Druid
+                ðŸŒ¿ Druid
               </option>
               <option value="Sorcerer" ${this.currentBuild.class === 'Sorcerer' ? 'selected' : ''}>
-                🔮 Sorcerer
+                ðŸ”® Sorcerer
               </option>
             </select>
           </div>
           
           <div class="form-group">
-            <label for="build-level" class="form-label">⏫ Level</label>
+            <label for="build-level" class="form-label">â« Level</label>
             <input 
               type="number" 
               id="build-level" 
@@ -144,25 +139,25 @@ export class CreateBuildRenderer {
   
   renderEquipmentSelector() {
     const equipmentSlots = [
-      { id: 'helmet', name: 'Capacete', icon: '⛑️' },
-      { id: 'armor', name: 'Armadura', icon: '🛡️' },
-      { id: 'weapon', name: 'Arma', icon: '⚔️' },
-      { id: 'shield', name: 'Escudo', icon: '🛡️' },
-      { id: 'boots', name: 'Botas', icon: '👢' },
-      { id: 'ring', name: 'Anel', icon: '💍' },
-      { id: 'necklace', name: 'Colar', icon: '📿' }
+      { id: 'helmet', name: 'Capacete', icon: 'â›‘ï¸' },
+      { id: 'armor', name: 'Armadura', icon: 'ðŸ›¡ï¸' },
+      { id: 'weapon', name: 'Arma', icon: 'âš”ï¸' },
+      { id: 'shield', name: 'Escudo', icon: 'ðŸ›¡ï¸' },
+      { id: 'boots', name: 'Botas', icon: 'ðŸ‘¢' },
+      { id: 'ring', name: 'Anel', icon: 'ðŸ’' },
+      { id: 'necklace', name: 'Colar', icon: 'ðŸ“¿' }
     ]
     
     return `
       <section class="equipment-section">
-        <h2 class="section-title">⚔️ Equipamentos</h2>
+        <h2 class="section-title">âš”ï¸ Equipamentos</h2>
         <div class="equipment-slots-grid">
           ${equipmentSlots.map(slot => this.renderEquipmentSlot(slot)).join('')}
         </div>
         
         <div class="equipment-browser">
           <div class="browser-header">
-            <h3 class="browser-title">🎒 Navegador de Equipamentos</h3>
+            <h3 class="browser-title">ðŸŽ’ Navegador de Equipamentos</h3>
             <div class="browser-filters">
               <select id="equipment-type-filter" class="filter-select">
                 <option value="">Todos os tipos</option>
@@ -171,7 +166,7 @@ export class CreateBuildRenderer {
                 <option value="shield">Escudos</option>
                 <option value="helmet">Capacetes</option>
                 <option value="boots">Botas</option>
-                <option value="ring">Anéis</option>
+                <option value="ring">AnÃ©is</option>
                 <option value="necklace">Colares</option>
               </select>
               
@@ -179,8 +174,8 @@ export class CreateBuildRenderer {
                 <option value="">Todas as raridades</option>
                 <option value="common">Comum</option>
                 <option value="rare">Raro</option>
-                <option value="epic">Épico</option>
-                <option value="legendary">Lendário</option>
+                <option value="epic">Ã‰pico</option>
+                <option value="legendary">LendÃ¡rio</option>
               </select>
             </div>
           </div>
@@ -213,8 +208,9 @@ export class CreateBuildRenderer {
     return `
       <div class="equipped-item" data-item-id="${item.id}">
         <div class="item-icon-container">
-          ${getItemImage(item.name, item.type)}
-          ${getRarityIcon(item.rarity)}
+          <div class="item-icon-wrapper">
+            ${getItemImage(item.name, item.type)}
+          </div>
         </div>
         <div class="item-info">
           <div class="item-name">${item.name}</div>
@@ -222,7 +218,7 @@ export class CreateBuildRenderer {
             ${item.stats ? this.renderItemStats(item.stats) : ''}
           </div>
         </div>
-        <button class="remove-item-btn" title="Remover item">❌</button>
+        <button class="remove-item-btn" title="Remover item">âŒ</button>
       </div>
     `
   }
@@ -230,7 +226,7 @@ export class CreateBuildRenderer {
   renderEmptySlot() {
     return `
       <div class="empty-slot">
-        <div class="empty-slot-icon">➕</div>
+        <div class="empty-slot-icon">âž•</div>
         <div class="empty-slot-text">Clique para equipar</div>
       </div>
     `
@@ -247,14 +243,14 @@ export class CreateBuildRenderer {
   
   getStatIcon(stat) {
     const icons = {
-      attack: '⚔️',
-      defense: '🛡️',
-      health: '❤️',
-      mana: '💙',
-      accuracy: '🎯',
-      magic: '✨'
+      attack: 'âš”ï¸',
+      defense: 'ðŸ›¡ï¸',
+      health: 'â¤ï¸',
+      mana: 'ðŸ’™',
+      accuracy: 'ðŸŽ¯',
+      magic: 'âœ¨'
     }
-    return icons[stat] || '📊'
+    return icons[stat] || 'ðŸ“Š'
   }
   
   renderEquipmentList() {
@@ -271,9 +267,8 @@ export class CreateBuildRenderer {
     return `
       <article class="equipment-card ${isEquipped ? 'equipped' : ''}" data-item-id="${item.id}">
         <div class="card-header">
-          <div class="item-icon">
+          <div class="item-icon-wrapper">
             ${getItemImage(item.name, item.type)}
-            ${getRarityIcon(item.rarity)}
           </div>
           <div class="item-rarity rarity-${item.rarity}">
             ${item.rarity}
@@ -293,7 +288,7 @@ export class CreateBuildRenderer {
         <div class="card-actions">
           <button class="btn btn-primary btn-sm equip-item-btn" 
                   ${isEquipped ? 'disabled' : ''}>
-            ${isEquipped ? '✅ Equipado' : '⚡ Equipar'}
+            ${isEquipped ? 'âœ… Equipado' : 'âš¡ Equipar'}
           </button>
         </div>
       </article>
@@ -304,10 +299,10 @@ export class CreateBuildRenderer {
     return `
       <section class="build-preview-section">
         <div class="preview-header">
-          <h2 class="section-title">👁️ Preview da Build</h2>
+          <h2 class="section-title">ðŸ‘ï¸ Preview da Build</h2>
           <div class="preview-actions">
             <button class="btn btn-success" id="save-build">
-              💾 Salvar Build
+              ðŸ’¾ Salvar Build
             </button>
           </div>
         </div>
@@ -328,7 +323,7 @@ export class CreateBuildRenderer {
           </div>
           
           <div class="stats-preview">
-            <h4 class="stats-title">📊 Estatísticas Totais</h4>
+            <h4 class="stats-title">ðŸ“Š EstatÃ­sticas Totais</h4>
             <div class="stats-grid">
               ${this.renderStatsPreview()}
             </div>
@@ -342,10 +337,10 @@ export class CreateBuildRenderer {
     const totalStats = this.calculateTotalStats()
     
     return [
-      { name: 'Ataque', value: totalStats.attack, icon: '⚔️' },
-      { name: 'Defesa', value: totalStats.defense, icon: '🛡️' },
-      { name: 'Vida', value: totalStats.health, icon: '❤️' },
-      { name: 'Mana', value: totalStats.mana, icon: '💙' }
+      { name: 'Ataque', value: totalStats.attack, icon: 'âš”ï¸' },
+      { name: 'Defesa', value: totalStats.defense, icon: 'ðŸ›¡ï¸' },
+      { name: 'Vida', value: totalStats.health, icon: 'â¤ï¸' },
+      { name: 'Mana', value: totalStats.mana, icon: 'ðŸ’™' }
     ].map(stat => `
       <div class="stat-preview">
         <div class="stat-icon">${stat.icon}</div>
@@ -374,7 +369,6 @@ export class CreateBuildRenderer {
   }
   
   addEventListeners() {
-    // Form inputs
     document.getElementById('build-name')?.addEventListener('input', (e) => {
       this.currentBuild.name = e.target.value
       this.updatePreview()
@@ -382,6 +376,7 @@ export class CreateBuildRenderer {
     
     document.getElementById('build-class')?.addEventListener('change', (e) => {
       this.currentBuild.class = e.target.value
+      this.filterEquipment()
       this.updatePreview()
     })
     
@@ -390,7 +385,6 @@ export class CreateBuildRenderer {
       this.updatePreview()
     })
     
-    // Equipment filters
     document.getElementById('equipment-type-filter')?.addEventListener('change', () => {
       this.filterEquipment()
     })
@@ -399,24 +393,42 @@ export class CreateBuildRenderer {
       this.filterEquipment()
     })
     
-    // Equipment cards
     document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('equip-item-btn')) {
+      if (e.target.classList.contains('equip-item-btn') || e.target.closest('.equip-item-btn')) {
+        const btn = e.target.classList.contains('equip-item-btn') ? e.target : e.target.closest('.equip-item-btn')
+        const card = btn.closest('.equipment-card')
+        const itemId = parseInt(card.dataset.itemId)
+        this.equipItem(itemId)
+        return
+      }
+      
+      if (e.target.classList.contains('remove-item-btn') || e.target.closest('.remove-item-btn')) {
+        const btn = e.target.classList.contains('remove-item-btn') ? e.target : e.target.closest('.remove-item-btn')
+        const equippedItem = btn.closest('.equipped-item')
+        const itemId = parseInt(equippedItem.dataset.itemId)
+        this.unequipItem(itemId)
+        return
+      }
+      
+      if (e.target.closest('.empty-slot')) {
+        const slot = e.target.closest('.equipment-slot')
+        const slotId = slot.dataset.slot
+        this.scrollToEquipmentType(slotId)
+        return
+      }
+      
+      if (e.target.closest('.equipment-card')) {
         const card = e.target.closest('.equipment-card')
         const itemId = parseInt(card.dataset.itemId)
         this.equipItem(itemId)
-      }
-      
-      if (e.target.classList.contains('remove-item-btn')) {
-        const equippedItem = e.target.closest('.equipped-item')
-        const itemId = parseInt(equippedItem.dataset.itemId)
-        this.unequipItem(itemId)
+        return
       }
     })
-    
-    // Reset and save
+
     document.getElementById('reset-build')?.addEventListener('click', () => {
-      this.resetBuild()
+      if (confirm('Tem certeza que deseja resetar toda a build? Esta aÃ§Ã£o nÃ£o pode ser desfeita.')) {
+        this.resetBuild()
+      }
     })
     
     document.getElementById('save-build')?.addEventListener('click', () => {
@@ -424,25 +436,105 @@ export class CreateBuildRenderer {
     })
   }
   
+  scrollToEquipmentType(slotId) {
+    const typeFilter = document.getElementById('equipment-type-filter')
+    if (typeFilter) {
+      typeFilter.value = slotId
+      this.filterEquipment()
+      
+      const equipmentBrowser = document.querySelector('.equipment-browser')
+      if (equipmentBrowser) {
+        equipmentBrowser.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }
+  
   equipItem(itemId) {
     const item = this.data.equipment.find(eq => eq.id === itemId)
     if (!item) return
     
-    // Determinar slot do item
     const slot = this.getItemSlot(item.type)
     if (slot) {
       this.currentBuild.equipment[slot] = item
-      this.render() // Re-render para atualizar UI
+      
+      this.showNotification(`${item.name} equipado!`, 'success')
+      
+      this.render()
     }
   }
   
   unequipItem(itemId) {
+    let removedItemName = ''
     Object.keys(this.currentBuild.equipment).forEach(slot => {
       if (this.currentBuild.equipment[slot]?.id === itemId) {
+        removedItemName = this.currentBuild.equipment[slot].name
         delete this.currentBuild.equipment[slot]
       }
     })
+    
+    if (removedItemName) {
+      this.showNotification(`${removedItemName} removido!`, 'info')
+    }
+    
     this.render()
+  }
+  
+  showNotification(message, type = 'info') {
+    const notification = document.createElement('div')
+    notification.className = `build-notification ${type}`
+    notification.textContent = message
+    
+    const style = document.createElement('style')
+    style.textContent = `
+      .build-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-weight: bold;
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      }
+      
+      .build-notification.success {
+        background: #10b981;
+        color: white;
+      }
+      
+      .build-notification.info {
+        background: #3b82f6;
+        color: white;
+      }
+      
+      .build-notification.error {
+        background: #ef4444;
+        color: white;
+      }
+      
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    `
+    
+    document.head.appendChild(style)
+    document.body.appendChild(notification)
+    
+    setTimeout(() => {
+      notification.style.animation = 'slideIn 0.3s ease reverse'
+      setTimeout(() => {
+        notification.remove()
+        style.remove()
+      }, 300)
+    }, 2000)
   }
   
   getItemSlot(itemType) {
@@ -466,6 +558,7 @@ export class CreateBuildRenderer {
   filterEquipment() {
     const typeFilter = document.getElementById('equipment-type-filter')?.value
     const rarityFilter = document.getElementById('equipment-rarity-filter')?.value
+    const selectedClass = this.currentBuild.class
     
     let filteredEquipment = this.data.equipment
     
@@ -481,11 +574,28 @@ export class CreateBuildRenderer {
       )
     }
     
+    if (selectedClass) {
+      filteredEquipment = filteredEquipment.filter(item => {
+        if (!item.classes || item.classes.length === 0) {
+          return true
+        }
+        return item.classes.includes(selectedClass)
+      })
+    }
+    
     const equipmentGrid = document.querySelector('.equipment-grid')
     if (equipmentGrid) {
-      equipmentGrid.innerHTML = filteredEquipment
-        .map(item => this.renderEquipmentCard(item))
-        .join('')
+      if (filteredEquipment.length === 0) {
+        equipmentGrid.innerHTML = `
+          <div class="no-equipment-message">
+            <p>ðŸ˜• Nenhum equipamento encontrado com os filtros aplicados.</p>
+          </div>
+        `
+      } else {
+        equipmentGrid.innerHTML = filteredEquipment
+          .map(item => this.renderEquipmentCard(item))
+          .join('')
+      }
     }
   }
   
@@ -526,14 +636,53 @@ export class CreateBuildRenderer {
   }
   
   saveBuild() {
-    if (!this.currentBuild.name || !this.currentBuild.class) {
-      alert('Por favor, preencha o nome e a classe da build.')
+    if (!this.currentBuild.name || this.currentBuild.name.trim() === '') {
+      this.showNotification('Por favor, preencha o nome da build.', 'error')
+      document.getElementById('build-name')?.focus()
       return
     }
     
-    // Aqui você implementaria o salvamento
-    console.log('Salvando build:', this.currentBuild)
-    alert('Build salva com sucesso!')
+    if (!this.currentBuild.class) {
+      this.showNotification('Por favor, selecione uma classe.', 'error')
+      document.getElementById('build-class')?.focus()
+      return
+    }
+    
+    const equipmentCount = Object.keys(this.currentBuild.equipment).length
+    if (equipmentCount === 0) {
+      if (!confirm('Esta build nÃ£o tem nenhum equipamento. Deseja salvar mesmo assim?')) {
+        return
+      }
+    }
+    
+    try {
+      const existingBuilds = JSON.parse(localStorage.getItem('userBuilds') || '[]')
+      
+      const newBuild = {
+        id: Date.now(), // ID baseado em timestamp
+        ...this.currentBuild,
+        createdAt: new Date().toISOString(),
+        description: `Build criada pelo usuÃ¡rio`
+      }
+      
+      existingBuilds.push(newBuild)
+      
+      localStorage.setItem('userBuilds', JSON.stringify(existingBuilds))
+      
+      this.showNotification('âœ… Build salva com sucesso!', 'success')
+      
+      setTimeout(() => {
+        if (confirm('Build salva! Deseja criar outra build?')) {
+          this.resetBuild()
+        } else {
+          window.location.hash = '#/builds'
+        }
+      }, 1500)
+      
+    } catch (error) {
+      console.error('Erro ao salvar build:', error)
+      this.showNotification('âŒ Erro ao salvar build. Tente novamente.', 'error')
+    }
   }
   
   addCreateBuildStyles() {
@@ -680,16 +829,43 @@ export class CreateBuildRenderer {
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-size: 1.5rem;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
       }
+      
+      .item-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      
+      .item-icon-wrapper img,
+      .item-icon-wrapper .tibia-item-img {
+        max-width: 48px !important;
+        max-height: 48px !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important
       
       .item-info {
         flex: 1;
+        min-width: 0;
+        overflow: hidden;
       }
       
       .item-name {
         font-weight: bold;
         margin-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.9rem;
       }
       
       .item-stats {
@@ -801,23 +977,17 @@ export class CreateBuildRenderer {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       }
+      rarity {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: upper
       
-      .equipment-card.equipped {
-        border-color: var(--color-success);
-        background: rgba(var(--color-success-rgb), 0.05);
-      }
-      
-      .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-      
-      .item-icon {
-        font-size: 1.5rem;
-        display: flex;
-        gap: 5px;
+      .item-icon img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
       }
       
       .item-rarity {
@@ -1011,20 +1181,79 @@ export class CreateBuildRenderer {
     `
     
     document.head.appendChild(styles)
+    
+    const extraStyles = document.createElement('style')
+    extraStyles.id = 'create-build-extra-styles'
+    extraStyles.textContent = `
+      /* Mensagem de nenhum equipamento */
+      .no-equipment-message {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--color-text-secondary);
+        font-size: 1.1rem;
+      }
+      
+      /* Melhorar aparÃªncia do botÃ£o Equipar */
+      .equip-item-btn {
+        width: 100%;
+        padding: 10px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      
+      .equip-item-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #10b981 !important;
+      }
+      
+      .equip-item-btn:not(:disabled):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(186, 85, 211, 0.4);
+      }
+      
+      /* Item jÃ¡ equipado */
+      .equipment-card.equipped {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.05);
+      }
+      
+      .equipment-card.equipped .item-name {
+        color: #10b981;
+      }
+      
+      /* Melhorar aparÃªncia dos slots vazios */
+      .equipment-slot .empty-slot {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .equipment-slot:hover .empty-slot {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+      
+      .equipment-slot:hover .empty-slot-icon {
+        transform: scale(1.15);
+      }
+    `
+    
+    if (!document.getElementById('create-build-extra-styles')) {
+      document.head.appendChild(extraStyles)
+    }
   }
   
   showClassPreselectedNotification(className) {
-    // Criar notificação temporária
     const notification = document.createElement('div')
     notification.className = 'class-preselected-notification'
     notification.innerHTML = `
       <div class="notification-content">
-        <span class="notification-icon">✅</span>
-        <span class="notification-text">Classe <strong>${className}</strong> pré-selecionada!</span>
+        <span class="notification-icon">âœ…</span>
+        <span class="notification-text">Classe <strong>${className}</strong> prÃ©-selecionada!</span>
       </div>
     `
     
-    // Adicionar estilos da notificação
     const notificationStyles = document.createElement('style')
     notificationStyles.textContent = `
       .class-preselected-notification {
@@ -1064,12 +1293,10 @@ export class CreateBuildRenderer {
     document.head.appendChild(notificationStyles)
     document.body.appendChild(notification)
     
-    // Mostrar notificação com animação
     setTimeout(() => {
       notification.classList.add('show')
     }, 100)
     
-    // Remover notificação após 3 segundos
     setTimeout(() => {
       notification.style.transform = 'translateX(300px)'
       setTimeout(() => {

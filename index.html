@@ -19,23 +19,34 @@
           <span class="subtitle">Forja de Personagens</span>
         </div>
         <nav class="main-nav">
-          <button class="nav-btn active" data-page="home">Início</button>
+          <button class="nav-btn" data-page="home">Início</button>
           <button class="nav-btn" data-page="create-build">Criar Build</button>
           <button class="nav-btn" data-page="builds">Builds</button>
           <button class="nav-btn" data-page="classes">Classes</button>
           <button class="nav-btn" data-page="equipment">Equipamentos</button>
+          <button class="nav-btn" data-page="profile">Perfil</button>
         </nav>
         <div class="search-container">
-          <input type="text" class="search-input" placeholder="Buscar builds...">
-          <button class="search-btn">🔍</button>
+          <input type="text" id="search-input" class="search-input" placeholder="Buscar builds...">
+          <button class="search-btn" id="search-btn">🔍</button>
         </div>
       </div>
     </header>
 
     <!-- Main Content Area -->
     <main class="main-content">
+      <!-- Login Page -->
+      <section id="login-page" class="page active">
+        <div class="content"></div>
+      </section>
+
+      <!-- Profile Page -->
+      <section id="profile-page" class="page">
+        <div class="content"></div>
+      </section>
+
       <!-- Tela 1: Home -->
-      <section id="home-page" class="page active">
+      <section id="home-page" class="page">
         <div class="container">
           <div class="hero-section">
             <div class="hero-content">
