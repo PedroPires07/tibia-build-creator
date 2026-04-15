@@ -1,5 +1,6 @@
 import { tibiaData } from '../data/tibiaData.js'
 import { getItemImage, getRarityIcon, getClassIcon, addTibiaImageStyles } from '../tibiaImages.js'
+import ApiService from '../services/apiService.js'
 
 export class BuildsRenderer {
   constructor() {
@@ -1123,7 +1124,7 @@ export class BuildsRenderer {
       .stats-card .stat-value {
         font-size: 1.8rem;
         font-weight: bold;
-        color: var(--color-secondary);
+        color: white;
         line-height: 1;
         margin-bottom: 4px;
       }

@@ -1,5 +1,6 @@
 import { tibiaData } from '../data/tibiaData.js'
 import { getItemImage, getRarityIcon, getClassIcon, addTibiaImageStyles } from '../tibiaImages.js'
+import ApiService from '../services/apiService.js'
 
 export class CreateBuildRenderer {
   constructor() {
@@ -654,35 +655,36 @@ export class CreateBuildRenderer {
         return
       }
     }
-    
-    try {
-      const existingBuilds = JSON.parse(localStorage.getItem('userBuilds') || '[]')
-      
-      const newBuild = {
-        id: Date.now(), // ID baseado em timestamp
-        ...this.currentBuild,
-        createdAt: new Date().toISOString(),
-        description: `Build criada pelo usuário`
-      }
-      
-      existingBuilds.push(newBuild)
-      
-      localStorage.setItem('userBuilds', JSON.stringify(existingBuilds))
-      
-      this.showNotification('✅ Build salva com sucesso!', 'success')
-      
-      setTimeout(() => {
-        if (confirm('Build salva! Deseja criar outra build?')) {
-          this.resetBuild()
-        } else {
-          window.location.hash = '#/builds'
-        }
-      }, 1500)
-      
-    } catch (error) {
-      console.error('Erro ao salvar build:', error)
-      this.showNotification('❌ Erro ao salvar build. Tente novamente.', 'error')
+
+    this.showNotification('⏳ Salvando build...', 'info')
+
+    const buildData = {
+      name: this.currentBuild.name,
+      class: this.currentBuild.class,
+      level: this.currentBuild.level,
+      description: `Build criada pelo usuário`,
+      equipment: this.currentBuild.equipment,
+      stats: this.currentBuild.stats
     }
+
+    ApiService.createBuild(buildData)
+      .then(response => {
+        this.showNotification('✅ Build salva com sucesso!', 'success')
+        
+        setTimeout(() => {
+          if (confirm('Build salva! Deseja criar outra build?')) {
+            this.resetBuild()
+          } else {
+            document.dispatchEvent(new CustomEvent('navigate-to-page', {
+              detail: { page: 'profile' }
+            }))
+          }
+        }, 1500)
+      })
+      .catch(error => {
+        console.error('Erro ao salvar build:', error)
+        this.showNotification('❌ Erro ao salvar build. Tente novamente.', 'error')
+      })
   }
   
   addCreateBuildStyles() {

@@ -223,32 +223,45 @@ export class LoginRenderer {
   }
   
   handleLogin() {
-    const email = document.getElementById('login-email').value
+    const emailOrUsername = document.getElementById('login-email').value
     const password = document.getElementById('login-password').value
-    const remember = document.getElementById('remember-me').checked
     
-    this.showNotification('🔑 Login realizado com sucesso!', 'success')
-    
-    const existingUser = (() => {
-      try { return JSON.parse(localStorage.getItem('tibia-user')) } catch { return null }
-    })()
-
-    const mockUser = {
-      username: existingUser?.username || email.split('@')[0] || email,
-      email: email,
-      level: existingUser?.level ?? 1,
-      mainClass: existingUser?.mainClass || '',
-      buildsCount: existingUser?.buildsCount ?? 0,
-      joinDate: existingUser?.joinDate || ''
+    if (!emailOrUsername || !password) {
+      this.showNotification('❌ Preencha email/username e senha!', 'error')
+      return
     }
-    
-    localStorage.setItem('tibia-user', JSON.stringify(mockUser))
-    
-    setTimeout(() => {
-      document.dispatchEvent(new CustomEvent('navigate-to-page', {
-        detail: { page: 'profile' }
-      }))
-    }, 1000)
+
+    this.showNotification('⏳ Entrando...', 'info')
+
+    import('../services/apiService.js').then(module => {
+      const ApiService = module.default
+      ApiService.login(emailOrUsername, password)
+        .then(response => {
+          ApiService.setToken(response.token)
+          this.showNotification('✅ Login realizado com sucesso!', 'success')
+          setTimeout(() => {
+            document.dispatchEvent(new CustomEvent('navigate-to-page', {
+              detail: { page: 'profile' }
+            }))
+            window.location.reload()
+          }, 1000)
+        })
+        .catch(error => {
+          console.error('Erro ao fazer login:', error)
+          let errorMsg = 'Erro ao fazer login. Verifique suas credenciais.'
+          try {
+            const errorData = JSON.parse(error.message)
+            if (errorData.error) {
+              errorMsg = '❌ ' + errorData.error
+            }
+          } catch (e) {
+            if (error.message) {
+              errorMsg = '❌ ' + error.message
+            }
+          }
+          this.showNotification(errorMsg, 'error')
+        })
+    })
   }
   
   handleRegister() {
@@ -274,23 +287,37 @@ export class LoginRenderer {
       return
     }
 
-    this.showNotification('⚔️ Conta criada com sucesso! Bem-vindo!', 'success')
-   
-    const mockUser = {
-      username: username,
-      email: email,
-      level: 8,
-      mainClass: mainClass,
-      buildsCount: 0
-    }
-    
-    localStorage.setItem('tibia-user', JSON.stringify(mockUser))
+    this.showNotification('⏳ Criando conta...', 'info')
 
-    setTimeout(() => {
-      document.dispatchEvent(new CustomEvent('navigate-to-page', {
-        detail: { page: 'profile' }
-      }))
-    }, 1000)
+    import('../services/apiService.js').then(module => {
+      const ApiService = module.default
+      ApiService.register(username, email, password, mainClass)
+        .then(response => {
+          ApiService.setToken(response.token)
+          this.showNotification('✅ Conta criada com sucesso!', 'success')
+          setTimeout(() => {
+            document.dispatchEvent(new CustomEvent('navigate-to-page', {
+              detail: { page: 'profile' }
+            }))
+            window.location.reload()
+          }, 1000)
+        })
+        .catch(error => {
+          console.error('Erro ao registrar:', error)
+          let errorMsg = 'Erro ao criar conta. Verifique os dados.'
+          try {
+            const errorData = JSON.parse(error.message)
+            if (errorData.error) {
+              errorMsg = '❌ ' + errorData.error
+            }
+          } catch (e) {
+            if (error.message) {
+              errorMsg = '❌ ' + error.message
+            }
+          }
+          this.showNotification(errorMsg, 'error')
+        })
+    })
   }
   
   showNotification(message, type = 'info') {

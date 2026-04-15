@@ -5,10 +5,11 @@ import { EquipmentsRenderer } from './pages/equipments.js';
 import { BuildsRenderer } from './pages/builds.js';
 import { LoginRenderer } from './pages/login.js';
 import { ProfileRenderer } from './pages/profile.js';
+import ApiService from './services/apiService.js';
 
 export class PageManager {
   constructor() {
-    const isLoggedIn = localStorage.getItem('tibia-user')
+    const isLoggedIn = ApiService.getToken()
     this.currentPage = isLoggedIn ? 'home' : 'login'
     this.pages = document.querySelectorAll('.page')
     this.navButtons = document.querySelectorAll('.nav-btn')
@@ -77,7 +78,7 @@ export class PageManager {
     console.log('Navigating to:', pageId, 'params:', params)
     
     const protectedPages = ['create-build', 'profile']
-    const isLoggedIn = localStorage.getItem('tibia-user')
+    const isLoggedIn = ApiService.getToken()
     
     if (protectedPages.includes(pageId) && !isLoggedIn) {
       this.showNotification('🔒 Você precisa estar logado para acessar esta página!')

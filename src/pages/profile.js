@@ -1,40 +1,48 @@
 import { tibiaData } from '../data/tibiaData.js'
 import { getClassIcon, getRarityIcon } from '../tibiaImages.js'
+import ApiService from '../services/apiService.js'
 
 export class ProfileRenderer {
   constructor() {
     this.data = tibiaData
     this.user = null
+    this.builds = []
   }
   
   render() {
-    const userData = localStorage.getItem('tibia-user')
-    
-    if (!userData) {
-      this.renderNotLoggedIn()
-      return
-    }
-    
-    this.user = JSON.parse(userData)
-    
-    const profileContent = document.querySelector('#profile-page .content')
-    const container = profileContent || document.querySelector('#profile-page')
-    
-    if (!container) return
-    
-    container.innerHTML = `
-      <div class="profile-container">
-        ${this.renderProfileHeader()}
-        ${this.renderProfileStats()}
-        ${this.renderUserBuilds()}
-      </div>
-    `
-    
-    this.addProfileStyles()
-    this.addEventListeners()
+    this.showNotification('⏳ Carregando perfil...', 'info')
+
+    ApiService.getProfile()
+      .then(response => {
+        this.user = response.user
+        return ApiService.getUserBuilds()
+      })
+      .then(response => {
+        this.builds = response.builds || []
+        const profileContent = document.querySelector('#profile-page .content')
+        const container = profileContent || document.querySelector('#profile-page')
+        
+        if (!container) return
+        
+        container.innerHTML = `
+          <div class="profile-container">
+            ${this.renderProfileHeader()}
+            ${this.renderProfileStats()}
+            ${this.renderUserBuilds()}
+          </div>
+        `
+        
+        this.addProfileStyles()
+        this.addEventListeners()
+      })
+      .catch(error => {
+        console.error('Erro ao carregar perfil:', error)
+        this.renderNotLoggedIn()
+      })
   }
   
   renderNotLoggedIn() {
+    ApiService.removeToken()
     const profileContent = document.querySelector('#profile-page .content')
     const container = profileContent || document.querySelector('#profile-page')
     
@@ -65,7 +73,7 @@ export class ProfileRenderer {
         
         <div class="profile-main">
           <div class="profile-avatar">
-            <div class="avatar-icon">${getClassIcon(this.user.mainClass)}</div>
+            <div class="avatar-icon">${getClassIcon(this.user.main_class)}</div>
             <div class="avatar-level">Lv. ${this.user.level}</div>
           </div>
           
@@ -73,7 +81,7 @@ export class ProfileRenderer {
             <h1 class="profile-username">${this.user.username}</h1>
             <div class="profile-meta">
               <span class="meta-item">
-                ${getClassIcon(this.user.mainClass)} ${this.user.mainClass}
+                ${getClassIcon(this.user.main_class)} ${this.user.main_class}
               </span>
             </div>
             <div class="profile-email">
@@ -95,8 +103,7 @@ export class ProfileRenderer {
   }
   
   renderProfileStats() {
-    const userBuilds = this.getUserBuilds()
-    const favoriteBuild = userBuilds[0] || null
+    const favoriteBuild = this.builds[0] || null
     
     return `
       <section class="profile-stats">
@@ -106,7 +113,7 @@ export class ProfileRenderer {
           <div class="stat-box">
             <div class="stat-icon">⚔️</div>
             <div class="stat-details">
-              <div class="stat-value">${userBuilds.length}</div>
+              <div class="stat-value">${this.builds.length}</div>
               <div class="stat-label">Builds Criadas</div>
             </div>
           </div>
@@ -132,8 +139,6 @@ export class ProfileRenderer {
   }
   
   renderUserBuilds() {
-    const userBuilds = this.getUserBuilds()
-    
     return `
       <section class="profile-builds">
         <div class="section-header">
@@ -144,8 +149,8 @@ export class ProfileRenderer {
         </div>
         
         <div class="builds-grid">
-          ${userBuilds.length > 0 
-            ? userBuilds.map(build => this.renderBuildCard(build)).join('')
+          ${this.builds.length > 0 
+            ? this.builds.map(build => this.renderBuildCard(build)).join('')
             : this.renderEmptyBuilds()
           }
         </div>
@@ -430,39 +435,64 @@ export class ProfileRenderer {
       this.showNotification('❌ Nível inválido! (1-9999)', 'error')
       return
     }
-    
-    this.user.username = username
-    this.user.email = email
-    this.user.level = level
-    this.user.mainClass = mainClass
-    
-    localStorage.setItem('tibia-user', JSON.stringify(this.user))
-    
-    this.closeEditProfileModal()
-    this.showNotification('✅ Perfil atualizado com sucesso!', 'success')
-    
-    setTimeout(() => {
-      this.render()
-    }, 500)
+
+    this.showNotification('⏳ Atualizando perfil...', 'info')
+
+    import('../services/apiService.js').then(module => {
+      const ApiService = module.default
+      ApiService.updateProfile({
+        username,
+        email,
+        mainClass,
+        level
+      })
+        .then(() => {
+          this.closeEditProfileModal()
+          this.showNotification('✅ Perfil atualizado com sucesso!', 'success')
+          setTimeout(() => {
+            this.render()
+          }, 500)
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar perfil:', error)
+          this.showNotification('❌ Erro ao atualizar perfil.', 'error')
+        })
+    })
   }
   
   handleLogout() {
     if (confirm('Tem certeza que deseja sair?')) {
-      localStorage.removeItem('tibia-user')
-      this.showNotification('👋 Até logo!', 'success')
-      
-      setTimeout(() => {
-        document.dispatchEvent(new CustomEvent('navigate-to-page', {
-          detail: { page: 'login' }
-        }))
-      }, 1000)
+      import('../services/apiService.js').then(module => {
+        const ApiService = module.default
+        ApiService.removeToken()
+        this.showNotification('👋 Até logo!', 'success')
+        
+        setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('navigate-to-page', {
+            detail: { page: 'login' }
+          }))
+          window.location.reload()
+        }, 1000)
+      })
     }
   }
   
   handleDeleteBuild(buildId) {
     if (confirm('Tem certeza que deseja excluir esta build?')) {
-      this.showNotification('🗑️ Build excluída com sucesso!', 'success')
-      setTimeout(() => this.render(), 500)
+      this.showNotification('⏳ Excluindo build...', 'info')
+
+      import('../services/apiService.js').then(module => {
+        const ApiService = module.default
+        ApiService.deleteBuild(buildId)
+          .then(() => {
+            this.showNotification('✅ Build excluída com sucesso!', 'success')
+            setTimeout(() => this.render(), 500)
+          })
+          .catch(error => {
+            console.error('Erro ao excluir build:', error)
+            this.showNotification('❌ Erro ao excluir build.', 'error')
+          })
+      })
     }
   }
   

@@ -1,0 +1,217 @@
+Projeto: tibia-build-creator
+Arquivo de requisitos: database-integration.txt
+
+Resumo do estado atual do projeto:
+- Frontend estático em Vite com HTML/CSS/JS.
+- Não existe backend atual.
+- Dados são armazenados localmente no browser via localStorage.
+- Autenticação é mock: login/register apenas criam um objeto no localStorage.
+- Builds do usuário e perfil são exibidos a partir de dados locais e de dados estáticos (src/data/tibiaData.js).
+- Não há suporte real para upload de imagens pelo usuário.
+- Imagens de itens são carregadas a partir de URLs remotas definidas em src/tibiaImages.js.
+
+Arquivos principais analisados:
+- package.json
+- src/main.js
+- src/pageManager.js
+- src/pages/login.js
+- src/pages/profile.js
+- src/pages/createBuild.js
+- src/pages/builds.js
+- src/data/tibiaData.js
+- src/tibiaImages.js
+- index.html
+
+Dados atuais salvos no browser:
+- localStorage key: "tibia-user"
+  - Campos usados atualmente:
+    - username
+    - email
+    - level
+    - mainClass
+    - buildsCount
+    - joinDate (apenas em login mock)
+- localStorage key: "userBuilds"
+  - Objetos de builds são salvos aqui no CreateBuildRenderer.saveBuild().
+  - Cada build salva:
+    - id
+    - name
+    - class
+    - level
+    - equipment
+    - stats
+    - createdAt
+    - description
+
+Observações importantes:
+- O perfil do usuário exibe builds usando a contagem buildsCount e os builds estáticos de tibiaData.builds, não o localStorage.userBuilds.
+- O login e registro não salvam senha segura nem fazem validação de servidor.
+- Não há nenhum endpoint de rede no frontend atual.
+
+O que precisa ser feito para criar e conectar um banco de dados:
+
+1) Escolher o backend e o banco de dados
+- Recomendações:
+  - Backend Node.js + Express (mais simples para projetar com Vite frontend)
+  - Database relacional: PostgreSQL ou MySQL
+  - Alternativa NoSQL: MongoDB, se preferir documentos flexíveis
+  - Armazenamento de arquivos/imagens: filesystem local ou cloud (AWS S3, DigitalOcean Spaces, etc.)
+
+2) Definir o esquema de dados
+- Tabela/coleção users:
+  - id (PK)
+  - username (único)
+  - email (único)
+  - password_hash
+  - main_class
+  - level
+  - avatar_url (opcional)
+  - join_date
+  - created_at
+  - updated_at
+- Tabela/coleção profiles (pode ser parte de users):
+  - user_id (FK)
+  - display_name
+  - bio
+  - profile_image_url
+  - social_links
+  - settings
+- Tabela/coleção builds:
+  - id (PK)
+  - user_id (FK)
+  - name
+  - class
+  - level
+  - description
+  - stats_attack
+  - stats_defense
+  - stats_health
+  - stats_mana
+  - stats_magic
+  - stats_accuracy
+  - created_at
+  - updated_at
+  - is_public (boolean)
+- Tabela/coleção build_equipment ou equipment_entries:
+  - id (PK)
+  - build_id (FK)
+  - slot (weapon, armor, helmet, shield, boots, ring, necklace)
+  - item_id (opcional, referência ao item básico)
+  - item_name
+  - item_type
+  - item_rarity
+  - item_level
+  - item_stats (JSON se NoSQL ou campo JSON no SQL)
+  - custom_image_url (opcional)
+- Tabela/coleção uploads (se permitir imagens customizadas):
+  - id
+  - user_id
+  - build_id (opcional)
+  - file_name
+  - file_url
+  - mime_type
+  - size_bytes
+  - description
+  - created_at
+
+3) Definir os endpoints HTTP para backend
+- POST /api/auth/register
+  - body: { username, email, password, mainClass }
+  - retorna: { token, user }
+- POST /api/auth/login
+  - body: { emailOrUsername, password }
+  - retorna: { token, user }
+- POST /api/auth/logout
+  - invalidar token/cookie
+- GET /api/user/profile
+  - header Authorization: Bearer TOKEN
+  - retorna perfil do usuário
+- PUT /api/user/profile
+  - body: { username, email, mainClass, level, avatar_url, bio }
+- GET /api/user/builds
+  - retorna builds do usuário
+- POST /api/user/builds
+  - body: { name, class, level, description, equipment, stats, is_public }
+- PUT /api/user/builds/:id
+  - atualizar build
+- DELETE /api/user/builds/:id
+  - apagar build
+- POST /api/uploads
+  - body: multipart/form-data com arquivo de imagem e metadados
+- GET /api/builds
+  - retorna builds públicas / comunidade
+- GET /api/builds/:id
+  - retorna detalhes de uma build específica
+
+4) Ajustar o frontend para usar API em vez de localStorage
+- Substituir o armazenamento local de `tibia-user` por tokens ou sessão de backend.
+- Substituir o armazenamento `userBuilds` por chamadas a `/api/user/builds`.
+- Alterar a renderização do perfil para exibir builds reais do backend.
+- Atualizar o login/register para enviar requests ao backend com fetch.
+- Usar `import.meta.env.VITE_API_URL` para definir a URL do backend.
+- Exemplo de fluxo:
+  - login.js: fetch POST /api/auth/login
+  - profile.js: fetch GET /api/user/profile
+  - createBuild.js: fetch POST /api/user/builds
+  - builds.js: fetch GET /api/builds ou /api/user/builds
+
+5) Conectar imagens / uploads de usuário
+- Se quiser salvar imagens customizadas do usuário, implemente upload no backend:
+  - aceitar multipart/form-data
+  - salvar no disco ou cloud storage
+  - armazenar a URL no banco
+- Caso não queira arquivos, armazene apenas as URLs de imagens usadas.
+- O frontend atual não mostra formulário de upload, então será necessário criar uma interface de upload de imagem.
+
+6) Middleware e segurança
+- Use bcrypt para hashing de senhas.
+- Use JWT ou sessões seguras com cookies HTTP-only.
+- Valide entradas no backend.
+- Use CORS configurado para o domínio do frontend.
+- Proteja rotas que exigem login.
+
+7) Estrutura sugerida do projeto backend
+- backend/
+  - package.json
+  - server.js ou app.js
+  - routes/auth.js
+  - routes/user.js
+  - routes/builds.js
+  - routes/uploads.js
+  - controllers/authController.js
+  - controllers/userController.js
+  - controllers/buildController.js
+  - models/userModel.js
+  - models/buildModel.js
+  - db/connection.js
+  - middleware/authMiddleware.js
+  - utils/storage.js
+
+8) Dependências sugeridas (Node.js)
+- express
+- cors
+- dotenv
+- bcrypt
+- jsonwebtoken
+- multer
+- pg ou mysql2 ou mongoose
+- knex ou sequelize (opcional)
+- joi ou yup para validação (opcional)
+
+9) Conectar ao frontend Vite
+- executar backend em porta separada (ex: 4000)
+- no frontend, criar `vite.config.js` se necessário e usar variáveis de ambiente para `VITE_API_URL`.
+- Exemplo: `const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'`
+- Usar `fetch(API_URL + '/api/auth/login', {...})`.
+
+10) Passos mínimos para implementação
+- Criar backend com autenticação e CRUD de builds.
+- Criar esquema de banco de dados e tabelas/coleções.
+- Ajustar frontend para enviar/receber dados via API.
+- Remover o uso de localStorage para dados persistentes de usuário/builds.
+- Implementar proteção de rotas no frontend e backend.
+
+Observação final:
+- Atualmente não existe um banco de dados interno ou servidor no projeto.
+- Todo o estado persistente do usuário é mock e local.
+- Para que o app salve login, perfil, builds e uploads, é preciso adicionar todo o backend descrito acima e migrar a lógica do frontend para chamadas de API.
