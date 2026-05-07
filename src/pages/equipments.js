@@ -45,7 +45,7 @@ export class EquipmentsRenderer {
     return `
       <header class="equipment-header">
         <div class="header-content">
-          <h1 class="page-title">⚔️ Equipamentos do Tibia</h1>
+          <h1 class="page-title">Equipamentos do Tibia</h1>
           <p class="page-subtitle">
             Explore todos os equipamentos disponíveis e descubra os melhores itens para seu personagem.
           </p>
@@ -71,7 +71,7 @@ export class EquipmentsRenderer {
           <div class="search-box">
             <input type="text" 
                    id="search-input" 
-                   placeholder="🔍 Buscar equipamento por nome..."
+                   placeholder="Buscar equipamento por nome..."
                    value="${this.currentFilter.search}">
           </div>
           
@@ -85,13 +85,13 @@ export class EquipmentsRenderer {
     return `
       <select id="type-filter" class="filter-select">
         <option value="">Todos os tipos</option>
-        <option value="weapon" ${this.currentFilter.type === 'weapon' ? 'selected' : ''}>⚔️ Armas</option>
-        <option value="armor" ${this.currentFilter.type === 'armor' ? 'selected' : ''}>🛡️ Armaduras</option>
-        <option value="shield" ${this.currentFilter.type === 'shield' ? 'selected' : ''}>🛡️ Escudos</option>
-        <option value="helmet" ${this.currentFilter.type === 'helmet' ? 'selected' : ''}>⛑️ Capacetes</option>
-        <option value="boots" ${this.currentFilter.type === 'boots' ? 'selected' : ''}>👢 Botas</option>
-        <option value="ring" ${this.currentFilter.type === 'ring' ? 'selected' : ''}>💍 Anéis</option>
-        <option value="necklace" ${this.currentFilter.type === 'necklace' ? 'selected' : ''}>📿 Colares</option>
+        <option value="weapon" ${this.currentFilter.type === 'weapon' ? 'selected' : ''}>Armas</option>
+        <option value="armor" ${this.currentFilter.type === 'armor' ? 'selected' : ''}>Armaduras</option>
+        <option value="shield" ${this.currentFilter.type === 'shield' ? 'selected' : ''}>Escudos</option>
+        <option value="helmet" ${this.currentFilter.type === 'helmet' ? 'selected' : ''}>Capacetes</option>
+        <option value="boots" ${this.currentFilter.type === 'boots' ? 'selected' : ''}>Botas</option>
+        <option value="ring" ${this.currentFilter.type === 'ring' ? 'selected' : ''}>Anéis</option>
+        <option value="necklace" ${this.currentFilter.type === 'necklace' ? 'selected' : ''}>Colares</option>
       </select>
       
       <select id="rarity-filter" class="filter-select">
@@ -118,7 +118,7 @@ export class EquipmentsRenderer {
     return `
       <section class="equipment-section">
         <div class="section-header">
-          <h2 class="section-title">⚔️ Equipamentos Disponíveis</h2>
+          <h2 class="section-title">Equipamentos Disponíveis</h2>
           <div class="results-count">${filteredEquipment.length} itens encontrados</div>
         </div>
         
@@ -128,7 +128,7 @@ export class EquipmentsRenderer {
         
         ${filteredEquipment.length === 0 ? `
           <div class="no-results">
-            <div class="no-results-icon">⚔️</div>
+            <div class="no-results-icon"></div>
             <h3>Nenhum equipamento encontrado</h3>
             <p>Tente ajustar os filtros de busca.</p>
           </div>
@@ -138,50 +138,27 @@ export class EquipmentsRenderer {
   }
   
   renderEquipmentCard(item) {
+    const topStats = item.stats
+      ? Object.entries(item.stats).slice(0, 2).map(([s, v]) => `+${v} ${this.getStatName(s)}`).join(' · ')
+      : ''
+
     return `
-      <article class="equipment-card rarity-${item.rarity}" data-item-id="${item.id}">
-        <div class="card-header">
-          <div class="item-icon">
-            ${getItemImage(item.name, item.type)}
-          </div>
-          <div class="item-rarity">${getRarityIcon(item.rarity)}</div>
+      <article class="equipment-card rarity-${item.rarity}" data-item-id="${item.id}" title="${item.name}">
+        <div class="card-img-box">
+          ${getItemImage(item.name, item.type)}
         </div>
-        
-        <h3 class="item-name">${item.name}</h3>
-        <div class="item-type">${this.getTypeName(item.type)}</div>
-        
-        ${item.level ? `
-          <div class="item-level">
-            <span class="level-label">Lv. Mín:</span>
-            <span class="level-value">${item.level}</span>
+        <div class="card-body">
+          <span class="rarity-label rarity-${item.rarity}">${item.rarity.toUpperCase()}</span>
+          <h3 class="item-name">${item.name}</h3>
+          <div class="item-meta">
+            <span class="item-type-tag">${this.getTypeName(item.type)}</span>
+            ${item.level ? `<span class="item-level-tag">Lv.${item.level}</span>` : ''}
           </div>
-        ` : ''}
-        
-        ${item.stats ? `
-          <div class="item-stats">
-            ${Object.entries(item.stats).map(([stat, value]) => `
-              <div class="stat-row">
-                <span class="stat-name">${this.getStatName(stat)}</span>
-                <span class="stat-value">+${value}</span>
-              </div>
-            `).join('')}
-          </div>
-        ` : ''}
-        
-        ${item.compatibleClasses && item.compatibleClasses.length > 0 ? `
-          <div class="item-classes">
-            <span class="classes-label">Classes:</span>
-            ${item.compatibleClasses.map(cls => `<span class="class-badge">${cls}</span>`).join('')}
-          </div>
-        ` : ''}
-        
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm" data-action="view-item-details" data-item-id="${item.id}">
-            👁️ Detalhes
-          </button>
-          <button class="btn btn-secondary btn-sm" data-page="create-build" data-item-id="${item.id}">
-            ➕ Usar na Build
-          </button>
+          ${topStats ? `<div class="item-stats-mini">${topStats}</div>` : ''}
+        </div>
+        <div class="card-footer">
+          <button class="btn-card" data-action="view-item-details" data-item-id="${item.id}">Detalhes</button>
+          <button class="btn-card btn-card-sec" data-page="create-build" data-item-id="${item.id}">Usar</button>
         </div>
       </article>
     `
@@ -441,161 +418,152 @@ export class EquipmentsRenderer {
         font-size: 0.9rem;
       }
       
-      /* Equipment Grid */
+      /* Equipment Grid — compact */
       .equipment-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-        gap: 25px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
         margin-bottom: 40px;
       }
-      
-      @media (max-width: 600px) {
-        .equipment-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      
+
       .equipment-card {
         background: var(--color-surface);
         border: 2px solid var(--color-border);
-        border-radius: 12px;
-        padding: 20px;
-        transition: all 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
       }
-      
+
       .equipment-card:hover {
         border-color: var(--color-primary);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
       }
-      
-      .equipment-card.rarity-comum { border-left: 4px solid #9ca3af; }
-      .equipment-card.rarity-raro { border-left: 4px solid #3b82f6; }
-      .equipment-card.rarity-epico { border-left: 4px solid #a855f7; }
-      .equipment-card.rarity-lendario { border-left: 4px solid #f59e0b; }
-      
-      .card-header {
+
+      .equipment-card.rarity-comum  { border-top: 3px solid #9ca3af; }
+      .equipment-card.rarity-raro   { border-top: 3px solid #3b82f6; }
+      .equipment-card.rarity-epico  { border-top: 3px solid #a855f7; }
+      .equipment-card.rarity-lendario { border-top: 3px solid #f59e0b; }
+
+      /* Image box: square, centred */
+      .card-img-box {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: 110px;
+        background: rgba(0,0,0,0.35);
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
+        justify-content: center;
+        padding: 8px;
+        overflow: hidden;
       }
-      
-      .item-icon {
-        width: 48px !important;
-        height: 48px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 2rem;
+
+      .card-img-box img {
+        max-width: 80px;
+        max-height: 80px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
       }
-      
-      .item-rarity {
-        font-size: 1.5rem;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-      }
-      
-      .item-name {
-        font-size: 1.3rem;
-        margin-bottom: 8px;
-        color: var(--color-text);
-        font-weight: 600;
-      }
-      
-      .item-type {
-        color: var(--color-text-secondary);
-        font-size: 0.95rem;
-        text-transform: capitalize;
-        margin-bottom: 12px;
-        font-weight: 500;
-      }
-      
-      .item-level {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        margin-bottom: 12px;
-        padding: 6px 10px;
-        background: rgba(255, 215, 0, 0.1);
-        border-radius: 6px;
-        border-left: 3px solid var(--color-secondary);
-      }
-      
-      .level-label {
-        color: var(--color-secondary);
-        font-weight: 600;
-        font-size: 0.85rem;
-      }
-      
-      .level-value {
-        color: var(--color-text);
-        font-weight: 700;
-      }
-      
-      .item-stats {
-        margin-bottom: 15px;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-      }
-      
-      .stat-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 0;
-        border-bottom: 1px solid var(--color-border);
-      }
-      
-      .stat-row:last-child {
-        border-bottom: none;
-      }
-      
-      .stat-name {
-        color: var(--color-text-secondary);
-        font-size: 0.9rem;
-      }
-      
-      .stat-value {
-        font-weight: bold;
-        color: var(--color-success);
-        font-size: 0.95rem;
-      }
-      
-      .item-classes {
-        display: flex;
-        gap: 6px;
-        align-items: center;
-        margin-bottom: 15px;
-        flex-wrap: wrap;
-      }
-      
-      .classes-label {
-        font-size: 0.85rem;
-        color: var(--color-text-secondary);
-        font-weight: 600;
-      }
-      
-      .class-badge {
-        background: var(--color-primary);
-        color: white;
-        padding: 3px 8px;
-        border-radius: 12px;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-      
-      .card-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 15px;
-      }
-      
-      .btn-sm {
+
+      /* Info area */
+      .card-body {
+        padding: 8px 10px 6px;
         flex: 1;
-        padding: 10px 12px;
-        font-size: 0.9rem;
+      }
+
+      .rarity-label {
+        display: inline-block;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+      }
+      .rarity-label.rarity-comum    { color: #9ca3af; }
+      .rarity-label.rarity-raro     { color: #60a5fa; }
+      .rarity-label.rarity-epico    { color: #c084fc; }
+      .rarity-label.rarity-lendario { color: #fbbf24; }
+
+      .item-name {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--color-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0 0 4px;
+        line-height: 1.2;
+      }
+
+      .item-meta {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 4px;
+      }
+
+      .item-type-tag {
+        font-size: 0.7rem;
+        color: var(--color-text-secondary);
+        text-transform: capitalize;
+      }
+
+      .item-level-tag {
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: var(--color-secondary);
+        background: rgba(255,215,0,0.1);
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+
+      .item-stats-mini {
+        font-size: 0.68rem;
+        color: #4ade80;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Footer buttons */
+      .card-footer {
+        display: flex;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .btn-card {
+        flex: 1;
+        padding: 6px 4px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        background: transparent;
+        border: none;
+        color: var(--color-primary);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .btn-card:hover {
+        background: rgba(var(--color-primary-rgb), 0.12);
+      }
+
+      .btn-card + .btn-card {
+        border-left: 1px solid var(--color-border);
+      }
+
+      .btn-card-sec {
+        color: var(--color-accent);
+      }
+
+      .btn-card-sec:hover {
+        background: rgba(var(--color-accent-rgb), 0.12);
       }
       
       /* No Results */
@@ -622,136 +590,38 @@ export class EquipmentsRenderer {
         font-size: 1.1rem;
       }
       
-      /* Responsive Design */
+      /* Responsive */
       @media (max-width: 1024px) {
-        .equipment-container {
-          padding: 0 20px;
-        }
-        
-        .equipment-grid {
-          grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-        }
+        .equipment-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
       }
-      
+
       @media (max-width: 768px) {
-        .equipment-container {
-          padding: 0 15px;
-        }
-        
-        .equipment-header {
-          flex-direction: column;
-          text-align: center;
-          gap: 25px;
-          padding-bottom: 20px;
-        }
-        
-        .header-stats {
-          gap: 20px;
-          justify-content: center;
-        }
-        
-        .filters-container {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 12px;
-        }
-        
-        .search-box {
-          min-width: auto;
-          order: -1;
-        }
-        
-        .filter-select {
-          min-width: auto;
-        }
-        
-        .section-header {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 15px;
-        }
-        
-        .equipment-grid {
-          grid-template-columns: 1fr;
-        }
+        .equipment-container { padding: 0 12px; }
+        .equipment-header { flex-direction: column; text-align: center; gap: 20px; }
+        .header-stats { justify-content: center; gap: 20px; }
+        .filters-container { flex-direction: column; align-items: stretch; gap: 10px; }
+        .search-box { min-width: auto; }
+        .filter-select { min-width: auto; }
+        .section-header { flex-direction: column; align-items: flex-start; }
+        .equipment-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+        .card-img-box { max-height: 90px; }
+        .card-img-box img { max-width: 64px; max-height: 64px; }
       }
-      
-      @media (max-width: 600px) {
-        .equipment-container {
-          padding: 0 12px;
-        }
-        
-        .equipment-header {
-          padding: 20px 15px;
-        }
-        
-        .page-title {
-          font-size: clamp(1.5rem, 5vw, 2rem);
-        }
-        
-        .stat-value {
-          font-size: 2rem;
-        }
-        
-        .equipment-card {
-          padding: 18px 15px;
-        }
-        
-        .item-name {
-          font-size: 1.2rem;
-        }
+
+      @media (max-width: 480px) {
+        .equipment-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+        .card-img-box { max-height: 80px; padding: 6px; }
+        .card-img-box img { max-width: 56px; max-height: 56px; }
+        .card-body { padding: 6px 8px 4px; }
       }
-      
+
       @media (max-width: 360px) {
-        .equipment-container {
-          padding: 0 8px;
-        }
-        
-        .equipment-header {
-          padding: 15px 10px;
-        }
-        
-        .page-title {
-          font-size: 1.4rem;
-        }
-        
-        .equipment-card {
-          padding: 12px 8px;
-        }
-        
-        .item-icon {
-          width: 36px !important;
-          height: 36px !important;
-        }
-        
-        .item-name {
-          font-size: 1rem;
-        }
-        
-        .btn-sm {
-          padding: 8px 10px;
-          font-size: 0.85rem;
-        }
+        .equipment-grid { grid-template-columns: repeat(2, 1fr); }
       }
-      
-      /* Touch improvements */
+
       @media (hover: none) and (pointer: coarse) {
-        .btn, .filter-select, .search-box {
-          min-height: 48px;
-          touch-action: manipulation;
-        }
-        
-        .equipment-card {
-          transition: transform 0.2s ease;
-        }
-        
-        .equipment-card:active {
-          transform: scale(0.98);
-        }
-        
-        .btn:active {
-          transform: scale(0.95);
-        }
+        .equipment-card:active { transform: scale(0.97); }
+        .btn-card { min-height: 36px; }
       }
     `
     

@@ -9,8 +9,7 @@ import ApiService from './services/apiService.js';
 
 export class PageManager {
   constructor() {
-    const isLoggedIn = ApiService.getToken()
-    this.currentPage = isLoggedIn ? 'home' : 'login'
+    this.currentPage = 'profile'
     this.pages = document.querySelectorAll('.page')
     this.navButtons = document.querySelectorAll('.nav-btn')
     this.initialized = false
@@ -77,12 +76,12 @@ export class PageManager {
   navigateToPage(pageId, params = null) {
     console.log('Navigating to:', pageId, 'params:', params)
     
-    const protectedPages = ['create-build', 'profile']
+    const protectedPages = ['create-build']
     const isLoggedIn = ApiService.getToken()
-    
+
     if (protectedPages.includes(pageId) && !isLoggedIn) {
-      this.showNotification('🔒 Você precisa estar logado para acessar esta página!')
-      pageId = 'login'
+      this.showNotification('Você precisa estar logado para acessar esta página!')
+      pageId = 'profile'
     }
     
     this.pages.forEach(page => page.classList.remove('active'))
@@ -157,7 +156,7 @@ export class PageManager {
   
   performSearch(query) {
     if (!query || query.trim() === '') {
-      this.showNotification('⚠️ Digite algo para buscar!')
+      this.showNotification('Digite algo para buscar!')
       return
     }
     
@@ -179,7 +178,7 @@ export class PageManager {
       })
       
       if (buildResults.length === 0 && equipmentResults.length === 0) {
-        this.showNotification(`❌ Nenhum resultado encontrado para "${query}"`)
+        this.showNotification(`Nenhum resultado encontrado para "${query}"`)
       } else {
         this.showSearchResults(query, buildResults, equipmentResults)
       }
@@ -193,7 +192,7 @@ export class PageManager {
       this.buildsRenderer.filterBySearch(query, builds)
       
       const totalResults = builds.length + equipment.length
-      this.showNotification(`🔍 ${totalResults} resultado(s) encontrado(s) para "${query}"`)
+      this.showNotification(`${totalResults} resultado(s) encontrado(s) para "${query}"`)
     }, 100)
   }
   

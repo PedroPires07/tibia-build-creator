@@ -1,5 +1,5 @@
 import { tibiaData } from '../data/tibiaData.js'
-import { getItemImage, getRarityIcon, getClassIcon, addTibiaImageStyles } from '../tibiaImages.js'
+import { getItemImage, getRarityIcon, getClassIcon, getSlotIconHtml, getStatIconHtml, addTibiaImageStyles } from '../tibiaImages.js'
 import ApiService from '../services/apiService.js'
 
 export class BuildsRenderer {
@@ -82,7 +82,7 @@ export class BuildsRenderer {
     return `
       <header class="builds-header">
         <div class="header-content">
-          <h1 class="page-title">🔨 Builds da Comunidade</h1>
+          <h1 class="page-title">Builds da Comunidade</h1>
           <p class="page-subtitle">
             Explore e copie as melhores builds criadas pela comunidade. Encontre estratégias vencedoras para seu estilo de jogo!
           </p>
@@ -108,16 +108,16 @@ export class BuildsRenderer {
           <div class="search-box">
             <input type="text" 
                    id="search-input" 
-                   placeholder="🔍 Buscar builds por nome..."
+                   placeholder="Buscar builds por nome..."
                    value="${this.currentFilter.search}">
           </div>
           
           <select id="class-filter" class="filter-select">
             <option value="">Todas as classes</option>
-            <option value="Knight" ${this.currentFilter.class === 'Knight' ? 'selected' : ''}>🛡️ Knight</option>
-            <option value="Paladin" ${this.currentFilter.class === 'Paladin' ? 'selected' : ''}>🏹 Paladin</option>
-            <option value="Druid" ${this.currentFilter.class === 'Druid' ? 'selected' : ''}>🌿 Druid</option>
-            <option value="Sorcerer" ${this.currentFilter.class === 'Sorcerer' ? 'selected' : ''}>🔮 Sorcerer</option>
+            <option value="Knight" ${this.currentFilter.class === 'Knight' ? 'selected' : ''}>Knight</option>
+            <option value="Paladin" ${this.currentFilter.class === 'Paladin' ? 'selected' : ''}>Paladin</option>
+            <option value="Druid" ${this.currentFilter.class === 'Druid' ? 'selected' : ''}>Druid</option>
+            <option value="Sorcerer" ${this.currentFilter.class === 'Sorcerer' ? 'selected' : ''}>Sorcerer</option>
           </select>
           
           <select id="level-filter" class="filter-select">
@@ -138,7 +138,7 @@ export class BuildsRenderer {
     return `
       <section class="builds-section">
         <div class="section-header">
-          <h2 class="section-title">⚔️ Builds Populares</h2>
+          <h2 class="section-title">Builds Populares</h2>
           <div class="results-count">${filteredBuilds.length} builds encontradas</div>
         </div>
         
@@ -148,11 +148,11 @@ export class BuildsRenderer {
         
         ${filteredBuilds.length === 0 ? `
           <div class="no-results">
-            <div class="no-results-icon">🔍</div>
+            <div class="no-results-icon"></div>
             <h3>Nenhuma build encontrada</h3>
             <p>Tente ajustar os filtros ou criar uma nova build.</p>
             <button class="btn btn-primary" data-page="create-build">
-              🔧 Criar Nova Build
+              Criar Nova Build
             </button>
           </div>
         ` : ''}
@@ -174,7 +174,7 @@ export class BuildsRenderer {
         <p class="build-description">${build.description}</p>
         
         <div class="build-equipment-summary">
-          <h4 class="summary-title">🎒 Equipamentos Principais:</h4>
+          <h4 class="summary-title">Equipamentos Principais:</h4>
           <div class="equipment-icons">
             ${this.renderBuildEquipmentIcons(build.equipment)}
           </div>
@@ -186,10 +186,10 @@ export class BuildsRenderer {
         
         <div class="build-actions">
           <button class="btn btn-primary" data-action="view-build-details" data-build-id="${build.id}">
-            👁️ Ver Detalhes
+            Ver Detalhes
           </button>
           <button class="btn btn-outline" data-action="edit-build" data-build-id="${build.id}">
-            ✏️ Editar
+            Editar
           </button>
         </div>
       </article>
@@ -211,14 +211,7 @@ export class BuildsRenderer {
   }
   
   getSlotIcon(slot) {
-    const icons = {
-      weapon: '⚔️',
-      armor: '🛡️', 
-      helmet: '⛑️',
-      shield: '🛡️',
-      boots: '👢'
-    }
-    return icons[slot] || '❓'
+    return getSlotIconHtml(slot)
   }
   
   renderBuildStatsPreview(build) {
@@ -234,19 +227,19 @@ export class BuildsRenderer {
     })
     
     const statsToShow = [
-      { icon: '⚔️', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
-      { icon: '🛡️', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
-      { icon: '❤️', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
-      { icon: '💙', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
-      { icon: '✨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
-      { icon: '🎯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
+      { key: 'attack',   name: 'ATK', value: totalStats.attack,   show: totalStats.attack   > 0 },
+      { key: 'defense',  name: 'DEF', value: totalStats.defense,  show: totalStats.defense  > 0 },
+      { key: 'health',   name: 'HP',  value: totalStats.health,   show: totalStats.health   > 0 },
+      { key: 'mana',     name: 'MP',  value: totalStats.mana,     show: totalStats.mana     > 0 },
+      { key: 'magic',    name: 'MAG', value: totalStats.magic,    show: totalStats.magic    > 0 },
+      { key: 'accuracy', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
     ].filter(stat => stat.show)
     
     console.log('Stats filtrados para mostrar:', statsToShow.map(s => `${s.name}: ${s.value}`).join(', '))
     
     const html = statsToShow.map(stat => `
       <div class="stat-preview-item">
-        <span class="stat-icon">${stat.icon}</span>
+        <span class="stat-icon">${getStatIconHtml(stat.key)}</span>
         <span class="stat-name">${stat.name}</span>
         <span class="stat-value">${stat.value}</span>
       </div>
@@ -293,7 +286,7 @@ export class BuildsRenderer {
             ← Voltar para Builds
           </button>
           <button class="btn btn-primary" data-action="edit-build" data-build-id="${build.id}">
-            ✏️ Editar
+            Editar
           </button>
         </div>
         
@@ -317,23 +310,23 @@ export class BuildsRenderer {
     const totalStats = this.calculateBuildStats(build)
     
     const allStats = [
-      { icon: '⚔️', name: 'Ataque', value: totalStats.attack, key: 'attack' },
-      { icon: '🛡️', name: 'Defesa', value: totalStats.defense, key: 'defense' },
-      { icon: '❤️', name: 'Vida', value: totalStats.health, key: 'health' },
-      { icon: '💙', name: 'Mana', value: totalStats.mana, key: 'mana' },
-      { icon: '✨', name: 'Magia', value: totalStats.magic, key: 'magic' },
-      { icon: '🎯', name: 'Precisão', value: totalStats.accuracy, key: 'accuracy' }
+      { key: 'attack',   name: 'Ataque',  value: totalStats.attack   },
+      { key: 'defense',  name: 'Defesa',  value: totalStats.defense  },
+      { key: 'health',   name: 'Vida',    value: totalStats.health   },
+      { key: 'mana',     name: 'Mana',    value: totalStats.mana     },
+      { key: 'magic',    name: 'Magia',   value: totalStats.magic    },
+      { key: 'accuracy', name: 'Precisão',value: totalStats.accuracy }
     ].filter(stat => stat.value > 0)
     
     return `
       <section class="build-overview">
         <div class="overview-grid">
           <div class="stats-card">
-            <h3 class="card-title">📊 Estatísticas Totais</h3>
+            <h3 class="card-title">Estatísticas Totais</h3>
             <div class="stats-grid">
               ${allStats.map(stat => `
                 <div class="stat-item">
-                  <div class="stat-icon">${stat.icon}</div>
+                  <div class="stat-icon">${getStatIconHtml(stat.key)}</div>
                   <div class="stat-info">
                     <div class="stat-value">${stat.value}</div>
                     <div class="stat-name">${stat.name}</div>
@@ -344,18 +337,18 @@ export class BuildsRenderer {
           </div>
           
           <div class="build-info-card">
-            <h3 class="card-title">ℹ️ Informações da Build</h3>
+            <h3 class="card-title">Informações da Build</h3>
             <div class="info-list">
               <div class="info-item">
-                <span class="info-label">👥 Classe:</span>
+                <span class="info-label">Classe:</span>
                 <span class="info-value">${getClassIcon(build.class)} ${build.class}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">⏫ Level:</span>
+                <span class="info-label">Level:</span>
                 <span class="info-value">${build.level}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">⚔️ Itens Equipados:</span>
+                <span class="info-label">Itens Equipados:</span>
                 <span class="info-value">${Object.keys(build.equipment).length}</span>
               </div>
             </div>
@@ -367,18 +360,18 @@ export class BuildsRenderer {
   
   renderBuildEquipment(build) {
     const equipmentSlots = [
-      { id: 'helmet', name: 'Capacete', icon: '⛑️' },
-      { id: 'armor', name: 'Armadura', icon: '🛡️' },
-      { id: 'weapon', name: 'Arma Principal', icon: '⚔️' },
-      { id: 'shield', name: 'Escudo', icon: '🛡️' },
-      { id: 'boots', name: 'Botas', icon: '👢' },
-      { id: 'ring', name: 'Anel', icon: '💍' },
-      { id: 'necklace', name: 'Colar', icon: '📿' }
+      { id: 'helmet',   name: 'Capacete'      },
+      { id: 'armor',    name: 'Armadura'      },
+      { id: 'weapon',   name: 'Arma Principal'},
+      { id: 'shield',   name: 'Escudo'        },
+      { id: 'boots',    name: 'Botas'         },
+      { id: 'ring',     name: 'Anel'          },
+      { id: 'necklace', name: 'Colar'         }
     ]
     
     return `
       <section class="build-equipment-section">
-        <h2 class="section-title">⚔️ Equipamentos da Build</h2>
+        <h2 class="section-title">Equipamentos da Build</h2>
         <div class="equipment-slots">
           ${equipmentSlots.map(slot => this.renderEquipmentSlotDetail(slot, build.equipment[slot.id])).join('')}
         </div>
@@ -390,7 +383,7 @@ export class BuildsRenderer {
     return `
       <div class="equipment-slot-detail ${item ? 'equipped' : 'empty'}">
         <div class="slot-header">
-          <div class="slot-icon">${slot.icon}</div>
+          <div class="slot-icon">${getSlotIconHtml(slot.id)}</div>
           <div class="slot-name">${slot.name}</div>
         </div>
         
@@ -425,7 +418,7 @@ export class BuildsRenderer {
             </div>
           ` : `
             <div class="empty-slot-detail">
-              <div class="empty-icon">❌</div>
+              <div class="empty-icon">—</div>
               <div class="empty-text">Slot vazio</div>
             </div>
           `}
@@ -449,17 +442,17 @@ export class BuildsRenderer {
   renderBuildStats(build) {
     return `
       <section class="build-stats-section">
-        <h2 class="section-title">📈 Análise Detalhada</h2>
+        <h2 class="section-title">Análise Detalhada</h2>
         <div class="analysis-grid">
           <div class="power-rating">
-            <h3 class="analysis-title">🔥 Classificação de Poder</h3>
+            <h3 class="analysis-title">Classificação de Poder</h3>
             <div class="power-bars">
               ${this.renderPowerBars(build)}
             </div>
           </div>
           
           <div class="build-recommendations">
-            <h3 class="analysis-title">💡 Recomendações</h3>
+            <h3 class="analysis-title">Recomendações</h3>
             <div class="recommendations-list">
               ${this.generateRecommendations(build).map(rec => `
                 <div class="recommendation-item">
@@ -479,16 +472,16 @@ export class BuildsRenderer {
     const maxStatValue = Math.max(stats.attack, stats.defense, stats.health, stats.mana, 100)
     
     return [
-      { name: 'Ataque', value: stats.attack, icon: '⚔️', color: '#ef4444' },
-      { name: 'Defesa', value: stats.defense, icon: '🛡️', color: '#3b82f6' },
-      { name: 'Vida', value: stats.health, icon: '❤️', color: '#10b981' },
-      { name: 'Mana', value: stats.mana, icon: '💙', color: '#8b5cf6' }
+      { name: 'Ataque', value: stats.attack,  key: 'attack',  color: '#ef4444' },
+      { name: 'Defesa', value: stats.defense, key: 'defense', color: '#3b82f6' },
+      { name: 'Vida',   value: stats.health,  key: 'health',  color: '#10b981' },
+      { name: 'Mana',   value: stats.mana,    key: 'mana',    color: '#8b5cf6' }
     ].map(stat => {
       const percentage = (stat.value / maxStatValue) * 100
       return `
         <div class="power-bar">
           <div class="power-bar-header">
-            <span class="power-stat-icon">${stat.icon}</span>
+            <span class="power-stat-icon">${getStatIconHtml(stat.key)}</span>
             <span class="power-stat-name">${stat.name}</span>
             <span class="power-stat-value">${stat.value}</span>
           </div>
@@ -508,28 +501,25 @@ export class BuildsRenderer {
     
     if (stats.attack > stats.defense) {
       recommendations.push({
-        icon: '⚔️',
+        icon: getStatIconHtml('attack'),
         text: 'Build focada em dano - ideal para hunt rápida'
       })
     }
-    
     if (stats.defense > stats.attack) {
       recommendations.push({
-        icon: '🛡️', 
+        icon: getStatIconHtml('defense'),
         text: 'Build defensiva - excelente para PvP e tanking'
       })
     }
-    
     if (build.class === 'Knight') {
       recommendations.push({
-        icon: '🏰',
+        icon: getStatIconHtml('health'),
         text: 'Considere aumentar life leech para sustain'
       })
     }
-    
     if (Object.keys(build.equipment).length < 5) {
       recommendations.push({
-        icon: '⚠️',
+        icon: getSlotIconHtml('armor'),
         text: 'Build incompleta - adicione mais equipamentos'
       })
     }
@@ -577,7 +567,7 @@ export class BuildsRenderer {
       }
       const sectionTitle = document.querySelector('.builds-section-title')
       if (sectionTitle) {
-        sectionTitle.textContent = `🔍 Resultados da busca: "${query}" (${searchResults.length})`
+        sectionTitle.textContent = `Resultados da busca: "${query}" (${searchResults.length})`
       }
     }
   }

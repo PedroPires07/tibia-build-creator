@@ -23,17 +23,22 @@ export class LoginRenderer {
     return `
       <div class="login-card">
         <div class="login-header">
-          <div class="login-icon">🏰</div>
+          <div class="login-icon">
+            <img src="https://static.wikia.nocookie.net/tibia/images/e/e4/Outfit_Citizen_Male.gif/revision/latest?cb=20060828193959&path-prefix=en"
+                 alt="Tibia character"
+                 class="login-header-img"
+                 onerror="this.onerror=null;this.src='https://static.wikia.nocookie.net/tibia/images/d/d6/Outfit_Knight_Male.gif/revision/latest?cb=20170925202328&path-prefix=en'" />
+          </div>
           <h1 class="login-title">Tibia Build Forge</h1>
           <p class="login-subtitle">Entre para gerenciar suas builds</p>
         </div>
-        
+
         <div class="login-tabs">
           <button class="tab-btn active" data-mode="login">
-            🔑 Entrar
+            Entrar
           </button>
           <button class="tab-btn" data-mode="register">
-            ⚔️ Registrar
+            Registrar
           </button>
         </div>
         
@@ -53,31 +58,27 @@ export class LoginRenderer {
     return `
       <form class="auth-form login-form active" id="login-form">
         <div class="form-group">
-          <label for="login-email" class="form-label">
-            📧 Email ou Username
-          </label>
-          <input 
-            type="text" 
-            id="login-email" 
+          <label for="login-email" class="form-label">Email ou Username</label>
+          <input
+            type="text"
+            id="login-email"
             class="form-input"
             placeholder="Digite seu email ou username"
             required
           />
         </div>
-        
+
         <div class="form-group">
-          <label for="login-password" class="form-label">
-            🔐 Senha
-          </label>
-          <input 
-            type="password" 
-            id="login-password" 
+          <label for="login-password" class="form-label">Senha</label>
+          <input
+            type="password"
+            id="login-password"
             class="form-input"
             placeholder="Digite sua senha"
             required
           />
         </div>
-        
+
         <div class="form-options">
           <label class="checkbox-label">
             <input type="checkbox" id="remember-me" />
@@ -85,9 +86,9 @@ export class LoginRenderer {
           </label>
           <a href="#" class="forgot-password">Esqueceu a senha?</a>
         </div>
-        
+
         <button type="submit" class="btn btn-primary btn-large btn-full">
-          🔑 Entrar
+          Entrar
         </button>
       </form>
     `
@@ -97,68 +98,58 @@ export class LoginRenderer {
     return `
       <form class="auth-form register-form" id="register-form">
         <div class="form-group">
-          <label for="register-username" class="form-label">
-            👤 Username
-          </label>
-          <input 
-            type="text" 
-            id="register-username" 
+          <label for="register-username" class="form-label">Username</label>
+          <input
+            type="text"
+            id="register-username"
             class="form-input"
             placeholder="Escolha um username único"
             required
           />
         </div>
-        
+
         <div class="form-group">
-          <label for="register-email" class="form-label">
-            📧 Email
-          </label>
-          <input 
-            type="email" 
-            id="register-email" 
+          <label for="register-email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="register-email"
             class="form-input"
             placeholder="seu@email.com"
             required
           />
         </div>
-        
+
         <div class="form-group">
-          <label for="register-password" class="form-label">
-            🔐 Senha
-          </label>
-          <input 
-            type="password" 
-            id="register-password" 
+          <label for="register-password" class="form-label">Senha</label>
+          <input
+            type="password"
+            id="register-password"
             class="form-input"
             placeholder="Mínimo 6 caracteres"
             required
             minlength="6"
           />
         </div>
-        
+
         <div class="form-group">
-          <label for="register-confirm" class="form-label">
-            ✅ Confirmar Senha
-          </label>
-          <input 
-            type="password" 
-            id="register-confirm" 
+          <label for="register-confirm" class="form-label">Confirmar Senha</label>
+          <input
+            type="password"
+            id="register-confirm"
             class="form-input"
             placeholder="Digite a senha novamente"
             required
           />
         </div>
-        
+
         <div class="form-group">
-          <label for="register-class" class="form-label">
-            🛡️ Classe Principal
-          </label>
+          <label for="register-class" class="form-label">Classe Principal</label>
           <select id="register-class" class="form-input" required>
             <option value="" disabled selected>Selecione sua classe</option>
-            <option value="Knight">⚔️ Knight</option>
-            <option value="Paladin">🏹 Paladin</option>
-            <option value="Sorcerer">🔮 Sorcerer</option>
-            <option value="Druid">🌿 Druid</option>
+            <option value="Knight">Knight</option>
+            <option value="Paladin">Paladin</option>
+            <option value="Sorcerer">Sorcerer</option>
+            <option value="Druid">Druid</option>
           </select>
         </div>
 
@@ -168,9 +159,9 @@ export class LoginRenderer {
             <span>Aceito os <a href="#">termos de serviço</a></span>
           </label>
         </div>
-        
+
         <button type="submit" class="btn btn-primary btn-large btn-full">
-          ⚔️ Criar Conta
+          Criar Conta
         </button>
       </form>
     `
@@ -227,18 +218,18 @@ export class LoginRenderer {
     const password = document.getElementById('login-password').value
     
     if (!emailOrUsername || !password) {
-      this.showNotification('❌ Preencha email/username e senha!', 'error')
+      this.showNotification('Preencha email/username e senha!', 'error')
       return
     }
 
-    this.showNotification('⏳ Entrando...', 'info')
+    this.showNotification('Entrando...', 'info')
 
     import('../services/apiService.js').then(module => {
       const ApiService = module.default
       ApiService.login(emailOrUsername, password)
         .then(response => {
           ApiService.setToken(response.token)
-          this.showNotification('✅ Login realizado com sucesso!', 'success')
+          this.showNotification('Login realizado com sucesso!', 'success')
           setTimeout(() => {
             document.dispatchEvent(new CustomEvent('navigate-to-page', {
               detail: { page: 'profile' }
@@ -252,11 +243,11 @@ export class LoginRenderer {
           try {
             const errorData = JSON.parse(error.message)
             if (errorData.error) {
-              errorMsg = '❌ ' + errorData.error
+              errorMsg = errorData.error
             }
           } catch (e) {
             if (error.message) {
-              errorMsg = '❌ ' + error.message
+              errorMsg = error.message
             }
           }
           this.showNotification(errorMsg, 'error')
@@ -273,28 +264,28 @@ export class LoginRenderer {
     const mainClass = document.getElementById('register-class').value
 
     if (password !== confirm) {
-      this.showNotification('❌ As senhas não coincidem!', 'error')
+      this.showNotification('As senhas não coincidem!', 'error')
       return
     }
     
     if (!acceptTerms) {
-      this.showNotification('❌ Você deve aceitar os termos de serviço!', 'error')
+      this.showNotification('Você deve aceitar os termos de serviço!', 'error')
       return
     }
 
     if (!mainClass) {
-      this.showNotification('❌ Selecione sua classe principal!', 'error')
+      this.showNotification('Selecione sua classe principal!', 'error')
       return
     }
 
-    this.showNotification('⏳ Criando conta...', 'info')
+    this.showNotification('Criando conta...', 'info')
 
     import('../services/apiService.js').then(module => {
       const ApiService = module.default
       ApiService.register(username, email, password, mainClass)
         .then(response => {
           ApiService.setToken(response.token)
-          this.showNotification('✅ Conta criada com sucesso!', 'success')
+          this.showNotification('Conta criada com sucesso!', 'success')
           setTimeout(() => {
             document.dispatchEvent(new CustomEvent('navigate-to-page', {
               detail: { page: 'profile' }
@@ -308,11 +299,11 @@ export class LoginRenderer {
           try {
             const errorData = JSON.parse(error.message)
             if (errorData.error) {
-              errorMsg = '❌ ' + errorData.error
+              errorMsg = errorData.error
             }
           } catch (e) {
             if (error.message) {
-              errorMsg = '❌ ' + error.message
+              errorMsg = error.message
             }
           }
           this.showNotification(errorMsg, 'error')
@@ -395,9 +386,18 @@ export class LoginRenderer {
       }
       
       .login-icon {
-        font-size: 4rem;
         margin-bottom: 16px;
         animation: float 3s ease-in-out infinite;
+        display: flex;
+        justify-content: center;
+      }
+      .login-header-img {
+        width: auto;
+        height: 72px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.45));
       }
       
       .login-title {

@@ -1,5 +1,15 @@
 import { tibiaData } from '../data/tibiaData.js'
-import { getClassIcon, getRarityIcon } from '../tibiaImages.js'
+
+const CDN = 'https://static.wikia.nocookie.net/tibia/images'
+
+const CLASS_OUTFITS = {
+  Knight:   `${CDN}/d/d6/Outfit_Knight_Male.gif/revision/latest?cb=20170925202328&path-prefix=en`,
+  Paladin:  `${CDN}/5/5c/Outfit_Hunter_Male.gif/revision/latest?cb=20060828194217&path-prefix=en`,
+  Druid:    `${CDN}/c/c9/Outfit_Druid_Male.gif/revision/latest?cb=20060829001543&path-prefix=en`,
+  Sorcerer: `${CDN}/5/5e/Outfit_Summoner_Male.gif/revision/latest?cb=20061009164755&path-prefix=en`
+}
+
+const ITEM = name => `https://tibia.fandom.com/wiki/Special:Redirect/file/${name}`
 
 export class ClassesRenderer {
   constructor() {
@@ -7,7 +17,7 @@ export class ClassesRenderer {
     this.classes = [
       {
         name: 'Knight',
-        icon: '🛡️',
+        icon: CLASS_OUTFITS.Knight,
         description: 'Tanque robusto com alta defesa e vida. Especializado em combate corpo a corpo.',
         primaryStats: ['defense', 'health'],
         weapons: ['sword', 'axe', 'club'],
@@ -30,7 +40,7 @@ export class ClassesRenderer {
       },
       {
         name: 'Paladin',
-        icon: '🏹',
+        icon: CLASS_OUTFITS.Paladin,
         description: 'Versátil combatente à distância com boa mobilidade e utilidade.',
         primaryStats: ['accuracy', 'health'],
         weapons: ['bow', 'crossbow'],
@@ -53,7 +63,7 @@ export class ClassesRenderer {
       },
       {
         name: 'Druid',
-        icon: '🌿',
+        icon: CLASS_OUTFITS.Druid,
         description: 'Mago da natureza com foco em cura e magias de área.',
         primaryStats: ['magic', 'mana'],
         weapons: ['rod'],
@@ -76,7 +86,7 @@ export class ClassesRenderer {
       },
       {
         name: 'Sorcerer',
-        icon: '🔮',
+        icon: CLASS_OUTFITS.Sorcerer,
         description: 'Mago destruidor com o maior dano mágico do jogo.',
         primaryStats: ['magic', 'mana'],
         weapons: ['wand'],
@@ -131,7 +141,7 @@ export class ClassesRenderer {
     return `
       <header class="classes-header">
         <div class="header-content">
-          <h1 class="page-title">👥 Classes de Tibia</h1>
+          <h1 class="page-title">Classes de Tibia</h1>
           <p class="page-subtitle">
             Descubra as quatro vocações únicas de Tibia. Cada classe oferece um estilo de jogo distinto 
             com habilidades, equipamentos e estratégias específicas.
@@ -165,7 +175,10 @@ export class ClassesRenderer {
     return `
       <article class="class-card" data-class="${classInfo.name.toLowerCase()}">
         <div class="class-card-header">
-          <div class="class-icon">${classInfo.icon}</div>
+          <div class="class-icon">
+            <img src="${classInfo.icon}" alt="${classInfo.name}" class="class-outfit-img"
+                 onerror="this.onerror=null;this.src='${ITEM('Crown_Shield.gif')}'" />
+          </div>
           <div class="class-title">
             <h2 class="class-name">${classInfo.name}</h2>
             <div class="class-difficulty difficulty-${classInfo.difficulty.toLowerCase()}">${classInfo.difficulty}</div>
@@ -176,28 +189,34 @@ export class ClassesRenderer {
         
         <div class="class-details">
           <div class="detail-row">
-            <span class="detail-label">🎯 Estilo:</span>
+            <span class="detail-label">
+              <img src="${ITEM('Composite_Hornbow.gif')}" class="detail-icon" alt="estilo" /> Estilo:
+            </span>
             <span class="detail-value">${classInfo.playstyle}</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">⚔️ Armas:</span>
+            <span class="detail-label">
+              <img src="${ITEM('Magic_Sword.gif')}" class="detail-icon" alt="armas" /> Armas:
+            </span>
             <span class="detail-value">${classInfo.weapons.join(', ')}</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">🛡️ Armadura:</span>
+            <span class="detail-label">
+              <img src="${ITEM('Crown_Shield.gif')}" class="detail-icon" alt="armadura" /> Armadura:
+            </span>
             <span class="detail-value">${classInfo.armor}</span>
           </div>
         </div>
         
         <div class="class-pros-cons">
           <div class="pros-section">
-            <h4 class="pros-title">✅ Vantagens</h4>
+            <h4 class="pros-title">Vantagens</h4>
             <ul class="pros-list">
               ${classInfo.pros.map(pro => `<li>${pro}</li>`).join('')}
             </ul>
           </div>
           <div class="cons-section">
-            <h4 class="cons-title">❌ Desvantagens</h4>
+            <h4 class="cons-title">Desvantagens</h4>
             <ul class="cons-list">
               ${classInfo.cons.map(con => `<li>${con}</li>`).join('')}
             </ul>
@@ -205,7 +224,7 @@ export class ClassesRenderer {
         </div>
         
         <div class="class-builds">
-          <h4 class="builds-title">🔨 Builds Disponíveis (${classInfo.builds.length})</h4>
+          <h4 class="builds-title">Builds Disponíveis (${classInfo.builds.length})</h4>
           ${classInfo.builds.length > 0 ? `
             <div class="builds-preview">
               ${classInfo.builds.slice(0, 2).map(build => this.renderBuildPreview(build)).join('')}
@@ -222,10 +241,10 @@ export class ClassesRenderer {
         
         <div class="class-actions">
           <button class="btn btn-primary" data-action="view-class-builds" data-class="${classInfo.name}">
-            👁️ Ver Builds
+            Ver Builds
           </button>
           <button class="btn btn-secondary" data-action="create-class-build" data-class="${classInfo.name}">
-            🔧 Criar Build
+            Criar Build
           </button>
         </div>
       </article>
@@ -247,12 +266,18 @@ export class ClassesRenderer {
   renderComparisonTable() {
     return `
       <section class="comparison-section">
-        <h2 class="section-title">📊 Comparação de Classes</h2>
+        <h2 class="section-title">Comparação de Classes</h2>
         <div class="comparison-container">
           <div class="comparison-table">
             <div class="table-header">
               <div class="header-cell">Característica</div>
-              ${this.classes.map(c => `<div class="header-cell class-header">${c.icon} ${c.name}</div>`).join('')}
+              ${this.classes.map(c => `
+                <div class="header-cell class-header">
+                  <img src="${c.icon}" alt="${c.name}" class="table-class-icon"
+                       onerror="this.style.display='none'" />
+                  ${c.name}
+                </div>
+              `).join('')}
             </div>
             
             ${this.renderComparisonRow('Dificuldade', this.classes.map(c => c.difficulty))}
@@ -440,8 +465,39 @@ export class ClassesRenderer {
       }
       
       .class-icon {
-        font-size: 3.5rem;
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        flex-shrink: 0;
+      }
+
+      .class-outfit-img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      .detail-icon {
+        width: 16px;
+        height: 16px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        vertical-align: middle;
+        margin-right: 2px;
+      }
+
+      .table-class-icon {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        display: block;
+        margin: 0 auto 4px;
       }
       
       .class-title {
@@ -734,8 +790,9 @@ export class ClassesRenderer {
           gap: 15px;
         }
         
-        .class-icon {
-          font-size: 3rem;
+        .class-outfit-img {
+          width: 52px;
+          height: 52px;
         }
         
         .class-pros-cons {

@@ -1,5 +1,5 @@
 import { tibiaData } from '../data/tibiaData.js'
-import { getItemImage, getRarityIcon, getClassIcon, addTibiaImageStyles } from '../tibiaImages.js'
+import { getItemImage, getClassIcon, getSlotIconHtml, getStatIconHtml, addTibiaImageStyles } from '../tibiaImages.js'
 import ApiService from '../services/apiService.js'
 
 export class CreateBuildRenderer {
@@ -74,14 +74,14 @@ export class CreateBuildRenderer {
     return `
       <header class="build-header">
         <div class="header-content">
-          <h1 class="page-title">🔨 Criar Nova Build</h1>
+          <h1 class="page-title">Criar Nova Build</h1>
           <p class="page-subtitle">
             Monte a build perfeita para seu personagem. Configure equipamentos e veja as estatísticas em tempo real.
           </p>
         </div>
         <div class="header-actions">
           <button class="btn btn-outline" id="reset-build">
-            🔄 Resetar Build
+            Resetar Build
           </button>
         </div>
       </header>
@@ -93,7 +93,7 @@ export class CreateBuildRenderer {
       <section class="build-form-section">
         <div class="form-grid">
           <div class="form-group">
-            <label for="build-name" class="form-label">📝 Nome da Build</label>
+            <label for="build-name" class="form-label">Nome da Build</label>
             <input 
               type="text" 
               id="build-name" 
@@ -104,26 +104,18 @@ export class CreateBuildRenderer {
           </div>
           
           <div class="form-group">
-            <label for="build-class" class="form-label">👥 Classe</label>
+            <label for="build-class" class="form-label">Classe</label>
             <select id="build-class" class="form-select">
               <option value="">Selecione uma classe</option>
-              <option value="Knight" ${this.currentBuild.class === 'Knight' ? 'selected' : ''}>
-                🛡️ Knight
-              </option>
-              <option value="Paladin" ${this.currentBuild.class === 'Paladin' ? 'selected' : ''}>
-                🏹 Paladin
-              </option>
-              <option value="Druid" ${this.currentBuild.class === 'Druid' ? 'selected' : ''}>
-                🌿 Druid
-              </option>
-              <option value="Sorcerer" ${this.currentBuild.class === 'Sorcerer' ? 'selected' : ''}>
-                🔮 Sorcerer
-              </option>
+              <option value="Knight" ${this.currentBuild.class === 'Knight' ? 'selected' : ''}>Knight</option>
+              <option value="Paladin" ${this.currentBuild.class === 'Paladin' ? 'selected' : ''}>Paladin</option>
+              <option value="Druid" ${this.currentBuild.class === 'Druid' ? 'selected' : ''}>Druid</option>
+              <option value="Sorcerer" ${this.currentBuild.class === 'Sorcerer' ? 'selected' : ''}>Sorcerer</option>
             </select>
           </div>
-          
+
           <div class="form-group">
-            <label for="build-level" class="form-label">⏫ Level</label>
+            <label for="build-level" class="form-label">Level</label>
             <input 
               type="number" 
               id="build-level" 
@@ -140,25 +132,25 @@ export class CreateBuildRenderer {
   
   renderEquipmentSelector() {
     const equipmentSlots = [
-      { id: 'helmet', name: 'Capacete', icon: '⛑️' },
-      { id: 'armor', name: 'Armadura', icon: '🛡️' },
-      { id: 'weapon', name: 'Arma', icon: '⚔️' },
-      { id: 'shield', name: 'Escudo', icon: '🛡️' },
-      { id: 'boots', name: 'Botas', icon: '👢' },
-      { id: 'ring', name: 'Anel', icon: '💍' },
-      { id: 'necklace', name: 'Colar', icon: '📿' }
+      { id: 'helmet',   name: 'Capacete' },
+      { id: 'armor',    name: 'Armadura' },
+      { id: 'weapon',   name: 'Arma'     },
+      { id: 'shield',   name: 'Escudo'   },
+      { id: 'boots',    name: 'Botas'    },
+      { id: 'ring',     name: 'Anel'     },
+      { id: 'necklace', name: 'Colar'    }
     ]
-    
+
     return `
       <section class="equipment-section">
-        <h2 class="section-title">⚔️ Equipamentos</h2>
+        <h2 class="section-title">Equipamentos</h2>
         <div class="equipment-slots-grid">
           ${equipmentSlots.map(slot => this.renderEquipmentSlot(slot)).join('')}
         </div>
         
         <div class="equipment-browser">
           <div class="browser-header">
-            <h3 class="browser-title">🎒 Navegador de Equipamentos</h3>
+            <h3 class="browser-title">Navegador de Equipamentos</h3>
             <div class="browser-filters">
               <select id="equipment-type-filter" class="filter-select">
                 <option value="">Todos os tipos</option>
@@ -191,11 +183,11 @@ export class CreateBuildRenderer {
   
   renderEquipmentSlot(slot) {
     const currentItem = this.currentBuild.equipment[slot.id]
-    
+
     return `
       <div class="equipment-slot" data-slot="${slot.id}">
         <div class="slot-header">
-          <span class="slot-icon">${slot.icon}</span>
+          <span class="slot-icon">${getSlotIconHtml(slot.id)}</span>
           <span class="slot-name">${slot.name}</span>
         </div>
         <div class="slot-content ${currentItem ? 'equipped' : 'empty'}">
@@ -208,18 +200,18 @@ export class CreateBuildRenderer {
   renderEquippedItem(item) {
     return `
       <div class="equipped-item" data-item-id="${item.id}">
-        <div class="item-icon-container">
-          <div class="item-icon-wrapper">
+        <div class="equipped-item-top">
+          <div class="item-thumb">
             ${getItemImage(item.name, item.type)}
           </div>
-        </div>
-        <div class="item-info">
           <div class="item-name">${item.name}</div>
-          <div class="item-stats">
-            ${item.stats ? this.renderItemStats(item.stats) : ''}
-          </div>
+          <button class="remove-item-btn" title="Remover item">&times;</button>
         </div>
-        <button class="remove-item-btn" title="Remover item">❌</button>
+        ${item.stats ? `
+          <div class="item-stats">
+            ${this.renderItemStats(item.stats)}
+          </div>
+        ` : ''}
       </div>
     `
   }
@@ -227,7 +219,7 @@ export class CreateBuildRenderer {
   renderEmptySlot() {
     return `
       <div class="empty-slot">
-        <div class="empty-slot-icon">➕</div>
+        <div class="empty-slot-icon">+</div>
         <div class="empty-slot-text">Clique para equipar</div>
       </div>
     `
@@ -235,23 +227,12 @@ export class CreateBuildRenderer {
   
   renderItemStats(stats) {
     return Object.entries(stats)
-      .map(([stat, value]) => `
-        <span class="stat-item">
-          ${this.getStatIcon(stat)} +${value}
-        </span>
-      `).join(' ')
+      .map(([stat, value]) => `<span class="stat-item">${this.getStatIcon(stat)} +${value}</span>`)
+      .join('')
   }
   
   getStatIcon(stat) {
-    const icons = {
-      attack: '⚔️',
-      defense: '🛡️',
-      health: '❤️',
-      mana: '💙',
-      accuracy: '🎯',
-      magic: '✨'
-    }
-    return icons[stat] || '📊'
+    return getStatIconHtml(stat)
   }
   
   renderEquipmentList() {
@@ -266,30 +247,20 @@ export class CreateBuildRenderer {
     const isEquipped = Object.values(this.currentBuild.equipment).some(equipped => equipped?.id === item.id)
     
     return `
-      <article class="equipment-card ${isEquipped ? 'equipped' : ''}" data-item-id="${item.id}">
-        <div class="card-header">
-          <div class="item-icon-wrapper">
-            ${getItemImage(item.name, item.type)}
-          </div>
-          <div class="item-rarity rarity-${item.rarity}">
-            ${item.rarity}
-          </div>
+      <article class="equipment-card ${isEquipped ? 'equipped' : ''}" data-item-id="${item.id}" title="${item.name}">
+        <div class="card-img-box">
+          ${getItemImage(item.name, item.type)}
         </div>
-        
-        <h4 class="item-name">${item.name}</h4>
-        
-        <div class="item-type">${item.type}</div>
-        
-        ${item.stats ? `
-          <div class="item-stats">
-            ${this.renderItemStats(item.stats)}
-          </div>
-        ` : ''}
-        
-        <div class="card-actions">
-          <button class="btn btn-primary btn-sm equip-item-btn" 
+        <div class="card-body">
+          <span class="rarity-label rarity-${item.rarity}">${item.rarity.toUpperCase()}</span>
+          <h4 class="item-name">${item.name}</h4>
+          <div class="item-type">${item.type}</div>
+          ${item.stats ? `<div class="item-stats">${this.renderItemStats(item.stats)}</div>` : ''}
+        </div>
+        <div class="card-footer-btn">
+          <button class="equip-item-btn ${isEquipped ? 'equip-btn-done' : 'equip-btn-act'}"
                   ${isEquipped ? 'disabled' : ''}>
-            ${isEquipped ? '✅ Equipado' : '⚡ Equipar'}
+            ${isEquipped ? 'Equipado' : 'Equipar'}
           </button>
         </div>
       </article>
@@ -300,10 +271,10 @@ export class CreateBuildRenderer {
     return `
       <section class="build-preview-section">
         <div class="preview-header">
-          <h2 class="section-title">👁️ Preview da Build</h2>
+          <h2 class="section-title">Preview da Build</h2>
           <div class="preview-actions">
             <button class="btn btn-success" id="save-build">
-              💾 Salvar Build
+              Salvar Build
             </button>
           </div>
         </div>
@@ -324,7 +295,7 @@ export class CreateBuildRenderer {
           </div>
           
           <div class="stats-preview">
-            <h4 class="stats-title">📊 Estatísticas Totais</h4>
+            <h4 class="stats-title">Estatísticas Totais</h4>
             <div class="stats-grid">
               ${this.renderStatsPreview()}
             </div>
@@ -336,15 +307,15 @@ export class CreateBuildRenderer {
   
   renderStatsPreview() {
     const totalStats = this.calculateTotalStats()
-    
+
     return [
-      { name: 'Ataque', value: totalStats.attack, icon: '⚔️' },
-      { name: 'Defesa', value: totalStats.defense, icon: '🛡️' },
-      { name: 'Vida', value: totalStats.health, icon: '❤️' },
-      { name: 'Mana', value: totalStats.mana, icon: '💙' }
+      { name: 'Ataque', value: totalStats.attack,  key: 'attack'  },
+      { name: 'Defesa', value: totalStats.defense, key: 'defense' },
+      { name: 'Vida',   value: totalStats.health,  key: 'health'  },
+      { name: 'Mana',   value: totalStats.mana,    key: 'mana'    }
     ].map(stat => `
       <div class="stat-preview">
-        <div class="stat-icon">${stat.icon}</div>
+        <div class="stat-icon">${getStatIconHtml(stat.key)}</div>
         <div class="stat-info">
           <div class="stat-value">${stat.value}</div>
           <div class="stat-name">${stat.name}</div>
@@ -589,7 +560,7 @@ export class CreateBuildRenderer {
       if (filteredEquipment.length === 0) {
         equipmentGrid.innerHTML = `
           <div class="no-equipment-message">
-            <p>😕 Nenhum equipamento encontrado com os filtros aplicados.</p>
+            <p>Nenhum equipamento encontrado com os filtros aplicados.</p>
           </div>
         `
       } else {
@@ -656,7 +627,7 @@ export class CreateBuildRenderer {
       }
     }
 
-    this.showNotification('⏳ Salvando build...', 'info')
+    this.showNotification('Salvando build...', 'info')
 
     const buildData = {
       name: this.currentBuild.name,
@@ -669,7 +640,7 @@ export class CreateBuildRenderer {
 
     ApiService.createBuild(buildData)
       .then(response => {
-        this.showNotification('✅ Build salva com sucesso!', 'success')
+        this.showNotification('Build salva com sucesso!', 'success')
         
         setTimeout(() => {
           if (confirm('Build salva! Deseja criar outra build?')) {
@@ -683,7 +654,7 @@ export class CreateBuildRenderer {
       })
       .catch(error => {
         console.error('Erro ao salvar build:', error)
-        this.showNotification('❌ Erro ao salvar build. Tente novamente.', 'error')
+        this.showNotification('Erro ao salvar build. Tente novamente.', 'error')
       })
   }
   
@@ -800,126 +771,148 @@ export class CreateBuildRenderer {
       .slot-header {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 15px;
+        gap: 8px;
+        padding: 8px 12px;
         background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
         color: white;
         font-weight: bold;
+        font-size: 0.85rem;
       }
-      
+
       .slot-icon {
-        font-size: 1.2rem;
-      }
-      
-      .slot-content {
-        padding: 15px;
-        min-height: 100px;
         display: flex;
         align-items: center;
-        justify-content: center;
-      }
-      
-      .equipped-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-        position: relative;
-      }
-      
-      .item-icon-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 48px;
-        height: 48px;
         flex-shrink: 0;
       }
-      
-      .item-icon-wrapper {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        flex-shrink: 0;
+
+      .slot-icon .tibia-slot-icon {
+        width: 22px;
+        height: 22px;
       }
-      
-      .item-icon-wrapper img,
-      .item-icon-wrapper .tibia-item-img {
-        max-width: 48px !important;
-        max-height: 48px !important;
-        width: auto !important;
-        height: auto !important;
-        object-fit: contain !important;
-      }
-      
-      .item-info {
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-      }
-      
-      .item-name {
-        font-weight: bold;
-        margin-bottom: 5px;
+
+      .slot-name {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: 0.9rem;
       }
-      
+
+      .slot-content {
+        padding: 10px 12px;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .equipped-item {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+      }
+
+      .equipped-item-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .item-thumb {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.25);
+        border-radius: 6px;
+        border: 1px solid rgba(160,82,45,0.3);
+        overflow: hidden;
+      }
+
+      .item-thumb .tibia-item-img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+      }
+
+      .item-name {
+        flex: 1;
+        font-weight: bold;
+        font-size: 0.82rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--color-text);
+      }
+
       .item-stats {
         display: flex;
-        gap: 8px;
+        gap: 5px;
         flex-wrap: wrap;
+        padding-left: 2px;
       }
-      
+
       .stat-item {
-        background: rgba(var(--color-primary-rgb), 0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        background: rgba(var(--color-primary-rgb), 0.12);
         color: var(--color-primary);
-        padding: 2px 8px;
-        border-radius: 12px;
-        font-size: 0.8rem;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-size: 0.75rem;
         font-weight: bold;
+        line-height: 1;
       }
-      
+
+      .stat-item .tibia-stat-icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+      }
+
       .remove-item-btn {
-        background: none;
-        border: none;
-        font-size: 1rem;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 4px;
+        color: rgba(255,255,255,0.6);
+        font-size: 0.9rem;
+        line-height: 1;
         cursor: pointer;
-        padding: 5px;
-        opacity: 0.7;
-        transition: opacity 0.3s;
+        padding: 2px 5px;
+        flex-shrink: 0;
+        transition: all 0.2s;
       }
-      
+
       .remove-item-btn:hover {
-        opacity: 1;
+        background: rgba(239,68,68,0.3);
+        border-color: rgba(239,68,68,0.5);
+        color: #ef4444;
       }
-      
+
       .empty-slot {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
-        opacity: 0.6;
+        gap: 8px;
+        opacity: 0.5;
         cursor: pointer;
-        transition: opacity 0.3s;
+        transition: opacity 0.2s;
       }
-      
+
       .empty-slot:hover {
-        opacity: 1;
+        opacity: 0.9;
       }
-      
+
       .empty-slot-icon {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        color: var(--color-text-secondary);
       }
-      
+
       .empty-slot-text {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: var(--color-text-secondary);
       }
       
@@ -962,59 +955,118 @@ export class CreateBuildRenderer {
       
       .equipment-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
       }
-      
+
       .equipment-card {
         background: var(--color-background);
         border: 2px solid var(--color-border);
-        border-radius: 12px;
-        padding: 20px;
-        transition: all 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
         cursor: pointer;
+        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
       }
-      
+
       .equipment-card:hover {
         border-color: var(--color-primary);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
       }
-      rarity {
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        text-transform: upper
-      
-      .item-icon img {
-        max-width: 100%;
-        max-height: 100%;
+
+      .equipment-card .card-img-box {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: 100px;
+        background: rgba(0,0,0,0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        overflow: hidden;
+      }
+
+      .equipment-card .card-img-box img {
+        max-width: 72px;
+        max-height: 72px;
+        width: auto;
+        height: auto;
         object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
       }
-      
-      .item-rarity {
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        text-transform: uppsecase;
+
+      .equipment-card .card-body {
+        padding: 7px 9px 5px;
+        flex: 1;
       }
-      
-      .rarity-common { background: #9ca3af; color: white; }
-      .rarity-rare { background: #3b82f6; color: white; }
-      .rarity-epic { background: #a855f7; color: white; }
-      .rarity-legendary { background: #f59e0b; color: white; }
-      
-      .item-type {
+
+      .equipment-card .rarity-label {
+        display: inline-block;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+      .rarity-label.rarity-common    { color: #9ca3af; }
+      .rarity-label.rarity-uncommon  { color: #10b981; }
+      .rarity-label.rarity-rare      { color: #60a5fa; }
+      .rarity-label.rarity-epic      { color: #c084fc; }
+      .rarity-label.rarity-legendary { color: #fbbf24; }
+
+      .equipment-card .item-name {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--color-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0 0 3px;
+        line-height: 1.2;
+      }
+
+      .equipment-card .item-type {
         color: var(--color-text-secondary);
-        font-size: 0.9rem;
-        margin-bottom: 10px;
+        font-size: 0.68rem;
         text-transform: capitalize;
+        margin-bottom: 4px;
       }
-      
-      .card-actions {
-        margin-top: 15px;
+
+      .equipment-card .item-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+      }
+
+      .equipment-card .card-footer-btn {
+        border-top: 1px solid var(--color-border);
+      }
+
+      .equip-item-btn {
+        width: 100%;
+        padding: 6px 4px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .equip-btn-act {
+        background: rgba(var(--color-primary-rgb), 0.15);
+        color: var(--color-primary);
+      }
+      .equip-btn-act:hover {
+        background: rgba(var(--color-primary-rgb), 0.3);
+      }
+
+      .equip-btn-done {
+        background: rgba(16,185,129,0.15);
+        color: #10b981;
+        cursor: not-allowed;
       }
       
       /* Build Preview */
@@ -1142,7 +1194,8 @@ export class CreateBuildRenderer {
         }
         
         .equipment-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 7px;
         }
         
         .preview-header {
@@ -1252,7 +1305,6 @@ export class CreateBuildRenderer {
     notification.className = 'class-preselected-notification'
     notification.innerHTML = `
       <div class="notification-content">
-        <span class="notification-icon">✅</span>
         <span class="notification-text">Classe <strong>${className}</strong> pré-selecionada!</span>
       </div>
     `

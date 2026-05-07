@@ -1,5 +1,5 @@
 import { tibiaData } from '../data/tibiaData.js'
-import { getRarityIcon, getClassIcon } from '../tibiaImages.js'
+import { getRarityIcon, getClassIcon, getSlotIconHtml, getStatIconHtml } from '../tibiaImages.js'
 
 export class HomeRenderer {
   constructor() {
@@ -36,22 +36,27 @@ export class HomeRenderer {
     return `
       <section class="hero-section">
         <div class="hero-content">
-          <h1 class="hero-title">⚔️ Tibia Build Forge</h1>
+          <h1 class="hero-title">Tibia Build Forge</h1>
           <p class="hero-description">
-            Crie e compartilhe builds épicas para o mundo de Tibia. 
+            Crie e compartilhe builds épicas para o mundo de Tibia.
             Otimize seu personagem com as melhores combinações de equipamentos.
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary btn-large" data-action="create-new-build">
-              🔨 Criar Nova Build
+              Criar Nova Build
             </button>
             <button class="btn btn-secondary btn-large" data-page="classes">
-              👥 Ver Classes
+              Ver Classes
             </button>
           </div>
         </div>
         <div class="hero-image">
-          <div class="tibia-logo">🏰</div>
+          <div class="tibia-logo">
+            <img src="https://tibia.fandom.com/wiki/Special:Redirect/file/Tibia_Coin.gif"
+                 alt="Tibia"
+                 class="tibia-hero-img"
+                 onerror="this.src='https://tibia.fandom.com/wiki/Special:Redirect/file/Crown_Shield.gif'" />
+          </div>
         </div>
       </section>
     `
@@ -64,24 +69,24 @@ export class HomeRenderer {
     
     return `
       <section class="stats-section">
-        <h2 class="stats-title">📊 Estatísticas da Forja</h2>
+        <h2 class="stats-title">Estatísticas da Forja</h2>
         <div class="stats-grid">
           <div class="stat-card">
-            <div class="stat-icon">⚔️</div>
+            <div class="stat-icon">${getStatIconHtml('attack')}</div>
             <div class="stat-info">
               <div class="stat-number">${totalBuilds}</div>
               <div class="stat-label">Builds Disponíveis</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">🛡️</div>
+            <div class="stat-icon">${getStatIconHtml('defense')}</div>
             <div class="stat-info">
               <div class="stat-number">${totalEquipments}</div>
               <div class="stat-label">Equipamentos</div>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">👥</div>
+            <div class="stat-icon">${getSlotIconHtml('shield')}</div>
             <div class="stat-info">
               <div class="stat-number">${totalClasses}</div>
               <div class="stat-label">Classes</div>
@@ -98,7 +103,7 @@ export class HomeRenderer {
     return `
       <section class="featured-section">
         <div class="section-header">
-          <h2 class="section-title">🌟 Builds em Destaque</h2>
+          <h2 class="section-title">Builds em Destaque</h2>
           <p class="section-subtitle">Builds mais populares da comunidade</p>
         </div>
         <div class="builds-grid">
@@ -134,7 +139,7 @@ export class HomeRenderer {
         </div>
         <div class="build-actions">
           <button class="btn btn-primary btn-sm" data-action="view-build" data-build-id="${build.id}">
-            👁️ Ver Detalhes
+            Ver Detalhes
           </button>
         </div>
       </article>
@@ -161,30 +166,24 @@ export class HomeRenderer {
   }
   
   getSlotIcon(slot) {
-    const icons = {
-      weapon: '⚔️',
-      armor: '🛡️',
-      shield: '🛡️',
-      helmet: '⛑️'
-    }
-    return icons[slot] || '❓'
+    return getSlotIconHtml(slot)
   }
   
   renderBuildStatsPreview(build) {
     const totalStats = this.calculateBuildStats(build)
     
     const statsToShow = [
-      { icon: '⚔️', name: 'ATK', value: totalStats.attack, show: totalStats.attack > 0 },
-      { icon: '🛡️', name: 'DEF', value: totalStats.defense, show: totalStats.defense > 0 },
-      { icon: '❤️', name: 'HP', value: totalStats.health, show: totalStats.health > 0 },
-      { icon: '💙', name: 'MP', value: totalStats.mana, show: totalStats.mana > 0 },
-      { icon: '✨', name: 'MAG', value: totalStats.magic, show: totalStats.magic > 0 },
-      { icon: '🎯', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
+      { key: 'attack',   name: 'ATK', value: totalStats.attack,   show: totalStats.attack   > 0 },
+      { key: 'defense',  name: 'DEF', value: totalStats.defense,  show: totalStats.defense  > 0 },
+      { key: 'health',   name: 'HP',  value: totalStats.health,   show: totalStats.health   > 0 },
+      { key: 'mana',     name: 'MP',  value: totalStats.mana,     show: totalStats.mana     > 0 },
+      { key: 'magic',    name: 'MAG', value: totalStats.magic,    show: totalStats.magic    > 0 },
+      { key: 'accuracy', name: 'ACC', value: totalStats.accuracy, show: totalStats.accuracy > 0 }
     ].filter(stat => stat.show)
-    
+
     return statsToShow.map(stat => `
       <div class="stat-preview-item">
-        <span class="stat-icon">${stat.icon}</span>
+        <span class="stat-icon">${getStatIconHtml(stat.key)}</span>
         <span class="stat-name">${stat.name}</span>
         <span class="stat-value">${stat.value}</span>
       </div>
@@ -239,7 +238,25 @@ export class HomeRenderer {
         justify-content: space-between;
         gap: 40px;
         margin: 40px 0 80px 0;
-        min-height: 400px;
+        min-height: 420px;
+        background:
+          linear-gradient(135deg, rgba(13, 8, 2, 0.82) 0%, rgba(26, 12, 4, 0.70) 50%, rgba(10, 10, 10, 0.85) 100%),
+          url('https://www.tibiafanart.com/wp-content/uploads/photo-gallery/Client_Background_Winter_Update_2021.jpg') center center / cover no-repeat;
+        border: 2px solid rgba(255, 215, 0, 0.35);
+        border-radius: 16px;
+        padding: 48px 40px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7), inset 0 0 80px rgba(0,0,0,0.3);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-section::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+        background: linear-gradient(to right, rgba(13, 8, 2, 0.5) 0%, transparent 60%);
+        pointer-events: none;
       }
       
       .hero-content {
@@ -278,9 +295,18 @@ export class HomeRenderer {
       }
       
       .tibia-logo {
-        font-size: 200px;
         filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
         animation: float 6s ease-in-out infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tibia-hero-img {
+        width: 160px;
+        height: 160px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
       }
       
       @keyframes float {
@@ -324,8 +350,18 @@ export class HomeRenderer {
       }
       
       .stat-icon {
-        font-size: 3rem;
         margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 48px;
+      }
+      .stat-icon img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
       }
       
       .stat-number {
@@ -444,20 +480,20 @@ export class HomeRenderer {
         align-items: center;
         gap: 6px;
         font-size: 0.85rem;
-        border: 2px solid red !important;
         padding: 4px;
       }
-      
+
       .stat-preview-item .stat-icon {
         font-size: 1.1rem;
       }
-      
+
       .stat-preview-item .stat-name {
         color: rgba(255, 237, 213, 0.7);
       }
-      
+
       .stat-preview-item .stat-value {
-        color: #000 !important;
+        background: var(--color-secondary);
+        color: var(--color-text-dark) !important;
         font-weight: bold;
         margin-left: auto;
         padding: 2px 6px;
@@ -532,8 +568,9 @@ export class HomeRenderer {
           order: -1;
         }
         
-        .tibia-logo {
-          font-size: 120px;
+        .tibia-hero-img {
+          width: 100px;
+          height: 100px;
         }
         
         .hero-actions {

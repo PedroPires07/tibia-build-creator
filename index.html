@@ -1,721 +1,733 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tibia Build Forge - Expert Build Calculator</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+ <meta charset="UTF-8" />
+ <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Tibia Build Forge - Expert Build Calculator</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="app">
-   
-    <header class="main-header">
-      <div class="container">
-        <div class="logo">
-          <h1>⚔️ Tibia Build Forge</h1>
-          <span class="subtitle">Forja de Personagens</span>
-        </div>
-        <nav class="main-nav">
-          <button class="nav-btn" data-page="home">Início</button>
-          <button class="nav-btn" data-page="create-build">Criar Build</button>
-          <button class="nav-btn" data-page="builds">Builds</button>
-          <button class="nav-btn" data-page="classes">Classes</button>
-          <button class="nav-btn" data-page="equipment">Equipamentos</button>
-          <button class="nav-btn" data-page="profile">Perfil</button>
-        </nav>
-        <div class="search-container">
-          <input type="text" id="search-input" class="search-input" placeholder="Buscar builds...">
-          <button class="search-btn" id="search-btn">🔍</button>
-        </div>
-      </div>
-    </header>
+ <div id="app">
+ 
+ <header class="main-header">
+ <div class="container">
+ <div class="logo">
+ <h1>
+ <img
+ src="https://static.wikia.nocookie.net/tibia/images/e/e4/Outfit_Citizen_Male.gif/revision/latest?cb=20060828193959&path-prefix=en"
+ alt="Tibia character"
+ class="logo-char-icon"
+ onerror="this.onerror=null;this.src='https://static.wikia.nocookie.net/tibia/images/d/d6/Outfit_Knight_Male.gif/revision/latest?cb=20170925202328&path-prefix=en'"
+ />
+ Tibia Build Forge
+ </h1>
+ <span class="subtitle">Forja de Personagens</span>
+ </div>
+ <nav class="main-nav">
+ <button class="nav-btn" data-page="home">Início</button>
+ <button class="nav-btn" data-page="create-build">Criar Build</button>
+ <button class="nav-btn" data-page="builds">Builds</button>
+ <button class="nav-btn" data-page="classes">Classes</button>
+ <button class="nav-btn" data-page="equipment">Equipamentos</button>
+ <button class="nav-btn" data-page="profile">Perfil</button>
+ </nav>
+ <div class="search-container">
+ <input type="text" id="search-input" class="search-input" placeholder="Buscar builds...">
+ <button class="search-btn" id="search-btn">
+ <img src="https://tibia.fandom.com/wiki/Special:Redirect/file/Magnifying_Glass.gif"
+ alt="Buscar" style="width:18px;height:18px;object-fit:contain;image-rendering:pixelated;"
+ onerror="this.outerHTML='&#128269;'" />
+ </button>
+ </div>
+ </div>
+ </header>
 
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <!-- Login Page -->
-      <section id="login-page" class="page active">
-        <div class="content"></div>
-      </section>
+ <!-- Main Content Area -->
+ <main class="main-content">
+ <!-- Login Page -->
+ <section id="login-page" class="page">
+ <div class="content"></div>
+ </section>
 
-      <!-- Profile Page -->
-      <section id="profile-page" class="page">
-        <div class="content"></div>
-      </section>
+ <!-- Profile Page -->
+ <section id="profile-page" class="page active">
+ <div class="content"></div>
+ </section>
 
-      <!-- Tela 1: Home -->
-      <section id="home-page" class="page">
-        <div class="container">
-          <div class="hero-section">
-            <div class="hero-content">
-              <h2>Bem-vindo à Forja do Tibia</h2>
-              <p>Crie, gerencie e compartilhe suas builds de personagens. Monte estratégias épicas e domine o mundo de Tibia!</p>
-              <button class="btn btn-primary" data-action="create-new-build">⚡ Criar Nova Build</button>
-            </div>
-            <div class="hero-stats">
-              <div class="stat-card">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Vocações Tibia</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Vocações Disponíveis</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-number">400+</span>
-                <span class="stat-label">Equipamentos Únicos</span>
-              </div>
-            </div>
-          </div>
+ <!-- Tela 1: Home -->
+ <section id="home-page" class="page">
+ <div class="container">
+ <div class="hero-section">
+ <div class="hero-content">
+ <h2>Bem-vindo à Forja do Tibia</h2>
+ <p>Crie, gerencie e compartilhe suas builds de personagens. Monte estratégias épicas e domine o mundo de Tibia!</p>
+ <button class="btn btn-primary" data-action="create-new-build">Criar Nova Build</button>
+ </div>
+ <div class="hero-stats">
+ <div class="stat-card">
+ <span class="stat-number">4</span>
+ <span class="stat-label">Vocações Tibia</span>
+ </div>
+ <div class="stat-card">
+ <span class="stat-number">4</span>
+ <span class="stat-label">Vocações Disponíveis</span>
+ </div>
+ <div class="stat-card">
+ <span class="stat-number">400+</span>
+ <span class="stat-label">Equipamentos Únicos</span>
+ </div>
+ </div>
+ </div>
 
-          <div class="content-grid">
-            <section class="featured-builds">
-              <h3>🏆 Builds em Destaque</h3>
-              <div class="builds-grid">
-                <div class="build-card featured">
-                  <div class="build-header">
-                    <h4>Full Blocker Knight</h4>
-                    <span class="class-tag knight">Elite Knight</span>
-                  </div>
-                  <div class="build-stats">
-                    <div class="stat"><span>Sword:</span> 110</div>
-                    <div class="stat"><span>Shielding:</span> 105</div>
-                    <div class="stat"><span>ML:</span> 4</div>
-                  </div>
-                  <p class="build-description">Build focada em tankar damage e blocar para o time. Ideal para hunts em team e war.</p>
-                  <div class="build-actions">
-                    <button class="btn btn-small" data-action="view-build">Ver Detalhes</button>
-                    <button class="btn btn-small btn-outline" data-action="copy-build">Copiar Build</button>
-                  </div>
-                </div>
+ <div class="content-grid">
+ <section class="featured-builds">
+ <h3>Builds em Destaque</h3>
+ <div class="builds-grid">
+ <div class="build-card featured">
+ <div class="build-header">
+ <h4>Full Blocker Knight</h4>
+ <span class="class-tag knight">Elite Knight</span>
+ </div>
+ <div class="build-stats">
+ <div class="stat"><span>Sword:</span> 110</div>
+ <div class="stat"><span>Shielding:</span> 105</div>
+ <div class="stat"><span>ML:</span> 4</div>
+ </div>
+ <p class="build-description">Build focada em tankar damage e blocar para o time. Ideal para hunts em team e war.</p>
+ <div class="build-actions">
+ <button class="btn btn-small" data-action="view-build">Ver Detalhes</button>
+ <button class="btn btn-small btn-outline" data-action="copy-build">Copiar Build</button>
+ </div>
+ </div>
 
-                <div class="build-card">
-                  <div class="build-header">
-                    <h4>Full Support Druid</h4>
-                    <span class="class-tag druid">Elder Druid</span>
-                  </div>
-                  <div class="build-stats">
-                    <div class="stat"><span>ML:</span> 95</div>
-                    <div class="stat"><span>Shielding:</span> 30</div>
-                    <div class="stat"><span>Level:</span> 250</div>
-                  </div>
-                  <p class="build-description">Especialista em suporte da equipe com heals e runes. Ideal para team hunts.</p>
-                  <div class="build-actions">
-                    <button class="btn btn-small" data-action="view-build">Ver Detalhes</button>
-                    <button class="btn btn-small btn-outline" data-action="copy-build">Copiar Build</button>
-                  </div>
-                </div>
+ <div class="build-card">
+ <div class="build-header">
+ <h4>Full Support Druid</h4>
+ <span class="class-tag druid">Elder Druid</span>
+ </div>
+ <div class="build-stats">
+ <div class="stat"><span>ML:</span> 95</div>
+ <div class="stat"><span>Shielding:</span> 30</div>
+ <div class="stat"><span>Level:</span> 250</div>
+ </div>
+ <p class="build-description">Especialista em suporte da equipe com heals e runes. Ideal para team hunts.</p>
+ <div class="build-actions">
+ <button class="btn btn-small" data-action="view-build">Ver Detalhes</button>
+ <button class="btn btn-small btn-outline" data-action="copy-build">Copiar Build</button>
+ </div>
+ </div>
 
-                <div class="build-card">
-                  <div class="build-header">
-                    <h4>High Level Sorcerer</h4>
-                    <span class="class-tag sorcerer">Master Sorcerer</span>
-                  </div>
-                  <div class="build-stats">
-                    <div class="stat"><span>ML:</span> 98</div>
-                    <div class="stat"><span>Level:</span> 400</div>
-                    <div class="stat"><span>Shielding:</span> 25</div>
-                  </div>
-                  <p class="build-description">Mago devastador com alto magic level. Perfeito para hunts solo e war.</p>
-                  <div class="build-actions">
-                    <button class="btn btn-small" data-action="view-build">Ver Detalhes</button>
-                    <button class="btn btn-small btn-outline" data-action="copy-build">Copiar Build</button>
-                  </div>
-                </div>
-              </div>
-            </section>
+ <div class="build-card">
+ <div class="build-header">
+ <h4>High Level Sorcerer</h4>
+ <span class="class-tag sorcerer">Master Sorcerer</span>
+ </div>
+ <div class="build-stats">
+ <div class="stat"><span>ML:</span> 98</div>
+ <div class="stat"><span>Level:</span> 400</div>
+ <div class="stat"><span>Shielding:</span> 25</div>
+ </div>
+ <p class="build-description">Mago devastador com alto magic level. Perfeito para hunts solo e war.</p>
+ <div class="build-actions">
+ <button class="btn btn-small" data-action="view-build">Ver Detalhes</button>
+ <button class="btn btn-small btn-outline" data-action="copy-build">Copiar Build</button>
+ </div>
+ </div>
+ </div>
+ </section>
 
-            <section class="popular-classes">
-              <h3>⚔️ Classes Populares</h3>
-              <div class="classes-grid">
-                <div class="class-card warrior">
-                  <div class="class-icon">🛡️</div>
-                  <h4>Guerreiro</h4>
-                  <p>Tanque resistente</p>
-                  <span class="popularity">76% das builds</span>
-                </div>
-                <div class="class-card mage">
-                  <div class="class-icon">🔮</div>
-                  <h4>Mago Elemental</h4>
-                  <p>Dano mágico alto</p>
-                  <span class="popularity">68% das builds</span>
-                </div>
-                <div class="class-card archer">
-                  <div class="class-icon">🏹</div>
-                  <h4>Arqueiro</h4>
-                  <p>Ataques à distância</p>
-                  <span class="popularity">61% das builds</span>
-                </div>
-              </div>
-            </section>
+ <section class="popular-classes">
+ <h3>Classes Populares</h3>
+ <div class="classes-grid">
+ <div class="class-card warrior">
+ <div class="class-icon"><img src="https://static.wikia.nocookie.net/tibia/images/d/d6/Outfit_Knight_Male.gif/revision/latest?cb=20170925202328&path-prefix=en" style="height:40px;image-rendering:pixelated" alt="Knight" /></div>
+ <h4>Guerreiro</h4>
+ <p>Tanque resistente</p>
+ <span class="popularity">76% das builds</span>
+ </div>
+ <div class="class-card mage">
+ <div class="class-icon"><img src="https://static.wikia.nocookie.net/tibia/images/5/5e/Outfit_Summoner_Male.gif/revision/latest?cb=20061009164755&path-prefix=en" style="height:40px;image-rendering:pixelated" alt="Sorcerer" /></div>
+ <h4>Mago Elemental</h4>
+ <p>Dano mágico alto</p>
+ <span class="popularity">68% das builds</span>
+ </div>
+ <div class="class-card archer">
+ <div class="class-icon"><img src="https://static.wikia.nocookie.net/tibia/images/5/5c/Outfit_Hunter_Male.gif/revision/latest?cb=20060828194217&path-prefix=en" style="height:40px;image-rendering:pixelated" alt="Paladin" /></div>
+ <h4>Arqueiro</h4>
+ <p>Ataques à distância</p>
+ <span class="popularity">61% das builds</span>
+ </div>
+ </div>
+ </section>
 
-            <section class="recent-builds">
-              <h3>🆕 Últimas Builds Adicionadas</h3>
-              <div class="recent-list">
-                <div class="recent-item">
-                  <div class="recent-info">
-                    <h5>Cavaleiro da Aurora</h5>
-                    <span class="class-tag cavaleiro">Cavaleiro Imperial</span>
-                  </div>
-                  <span class="recent-time">2h atrás</span>
-                </div>
-                <div class="recent-item">
-                  <div class="recent-info">
-                    <h5>Invocador das Tempestades</h5>
-                    <span class="class-tag invocador">Invocador Arcano</span>
-                  </div>
-                  <span class="recent-time">4h atrás</span>
-                </div>
-                <div class="recent-item">
-                  <div class="recent-info">
-                    <h5>Caçador Solitário</h5>
-                    <span class="class-tag arqueiro">Arqueiro da Floresta</span>
-                  </div>
-                  <span class="recent-time">6h atrás</span>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </section>
+ <section class="recent-builds">
+ <h3>Últimas Builds Adicionadas</h3>
+ <div class="recent-list">
+ <div class="recent-item">
+ <div class="recent-info">
+ <h5>Cavaleiro da Aurora</h5>
+ <span class="class-tag cavaleiro">Cavaleiro Imperial</span>
+ </div>
+ <span class="recent-time">2h atrás</span>
+ </div>
+ <div class="recent-item">
+ <div class="recent-info">
+ <h5>Invocador das Tempestades</h5>
+ <span class="class-tag invocador">Invocador Arcano</span>
+ </div>
+ <span class="recent-time">4h atrás</span>
+ </div>
+ <div class="recent-item">
+ <div class="recent-info">
+ <h5>Caçador Solitário</h5>
+ <span class="class-tag arqueiro">Arqueiro da Floresta</span>
+ </div>
+ <span class="recent-time">6h atrás</span>
+ </div>
+ </div>
+ </section>
+ </div>
+ </div>
+ </section>
 
-      <!-- Tela 2: Cadastro de Build -->
-      <section id="create-build-page" class="page">
-        <div class="container">
-          <div class="page-header">
-            <h2>⚡ Criar Nova Build</h2>
-            <p>Monte sua build personalizada e configure cada detalhe do seu aventureiro</p>
-          </div>
-          
-          <form class="build-form">
-            <div class="form-grid">
-              <div class="form-section">
-                <h3>📋 Informações Básicas</h3>
-                <div class="form-group">
-                  <label for="build-name">Nome da Build</label>
-                  <input type="text" id="build-name" name="build-name" placeholder="Ex: Guardião das Sombras" required>
-                </div>
-                
-                <div class="form-group">
-                  <label for="build-class">Classe</label>
-                  <select id="build-class" name="build-class" required>
-                    <option value="">Selecione uma classe</option>
-                    <option value="guerreiro">🛡️ Guerreiro</option>
-                    <option value="mago">🔮 Mago Elemental</option>
-                    <option value="arqueiro">🏹 Arqueiro da Floresta</option>
-                    <option value="clerigo">✨ Clérigo Sagrado</option>
-                    <option value="cavaleiro">⚔️ Cavaleiro Imperial</option>
-                    <option value="assassino">🗡️ Assassino Sombrio</option>
-                    <option value="invocador">👻 Invocador Arcano</option>
-                  </select>
-                </div>
-                
-                <div class="form-group">
-                  <label for="build-style">Estilo de Jogo</label>
-                  <select id="build-style" name="build-style" required>
-                    <option value="">Selecione o estilo</option>
-                    <option value="tanque">🛡️ Tanque Defensivo</option>
-                    <option value="dps-fisico">⚔️ DPS Físico</option>
-                    <option value="dps-magico">🔮 DPS Mágico</option>
-                    <option value="suporte">✨ Suporte/Healer</option>
-                    <option value="hibrido">⚖️ Híbrido Versátil</option>
-                    <option value="assassino">🗡️ Assassino/Burst</option>
-                  </select>
-                </div>
-                
-                <div class="form-group">
-                  <label for="build-description">Descrição da Build</label>
-                  <textarea id="build-description" name="build-description" rows="4" placeholder="Descreva a estratégia e filosofia da sua build..."></textarea>
-                </div>
-              </div>
-              
-              <div class="form-section">
-                <h3>📊 Distribuição de Atributos</h3>
-                <div class="attributes-container">
-                  <div class="attribute-slider">
-                    <label for="strength">Força</label>
-                    <input type="range" id="strength" name="strength" min="1" max="100" value="50">
-                    <span class="attribute-value">50</span>
-                  </div>
-                  
-                  <div class="attribute-slider">
-                    <label for="intelligence">Inteligência</label>
-                    <input type="range" id="intelligence" name="intelligence" min="1" max="100" value="50">
-                    <span class="attribute-value">50</span>
-                  </div>
-                  
-                  <div class="attribute-slider">
-                    <label for="agility">Agilidade</label>
-                    <input type="range" id="agility" name="agility" min="1" max="100" value="50">
-                    <span class="attribute-value">50</span>
-                  </div>
-                  
-                  <div class="attribute-slider">
-                    <label for="wisdom">Sabedoria</label>
-                    <input type="range" id="wisdom" name="wisdom" min="1" max="100" value="50">
-                    <span class="attribute-value">50</span>
-                  </div>
-                  
-                  <div class="attribute-slider">
-                    <label for="constitution">Constituição</label>
-                    <input type="range" id="constitution" name="constitution" min="1" max="100" value="50">
-                    <span class="attribute-value">50</span>
-                  </div>
-                  
-                  <div class="attribute-slider">
-                    <label for="charisma">Carisma</label>
-                    <input type="range" id="charisma" name="charisma" min="1" max="100" value="50">
-                    <span class="attribute-value">50</span>
-                  </div>
-                </div>
-                
-                <div class="points-summary">
-                  <span>Pontos Distribuídos: <strong id="total-points">300</strong> / 300</span>
-                </div>
-              </div>
-              
-              <div class="form-section full-width">
-                <h3>🎯 Seleção de Habilidades</h3>
-                <div class="skills-selection">
-                  <div class="skill-category">
-                    <h4>Habilidades Principais</h4>
-                    <div class="skills-grid">
-                      <label class="skill-checkbox">
-                        <input type="checkbox" name="skills" value="habilidade1">
-                        <span class="skill-name">⚔️ Golpe Devastador</span>
-                        <span class="skill-desc">Ataque poderoso que ignora parte da armadura</span>
-                      </label>
-                      
-                      <label class="skill-checkbox">
-                        <input type="checkbox" name="skills" value="habilidade2">
-                        <span class="skill-name">🛡️ Escudo Protetor</span>
-                        <span class="skill-desc">Aumenta defesa e reflete dano</span>
-                      </label>
-                      
-                      <label class="skill-checkbox">
-                        <input type="checkbox" name="skills" value="habilidade3">
-                        <span class="skill-name">⚡ Investida Rápida</span>
-                        <span class="skill-desc">Movimento rápido com dano aumentado</span>
-                      </label>
-                      
-                      <label class="skill-checkbox">
-                        <input type="checkbox" name="skills" value="habilidade4">
-                        <span class="skill-name">🔥 Aura de Batalha</span>
-                        <span class="skill-desc">Buff de grupo que aumenta dano</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="form-section full-width">
-                <h3>⚔️ Equipamentos Principais</h3>
-                <div class="equipment-slots">
-                  <div class="equipment-slot">
-                    <label>Arma Principal</label>
-                    <select name="weapon-main">
-                      <option value="">Selecionar arma...</option>
-                      <option value="espada-crepusculo">⚔️ Espada do Crepúsculo</option>
-                      <option value="machado-titas">🪓 Machado dos Titãs</option>
-                    </select>
-                  </div>
-                  
-                  <div class="equipment-slot">
-                    <label>Armadura</label>
-                    <select name="armor">
-                      <option value="">Selecionar armadura...</option>
-                      <option value="armadura-guardiao">🛡️ Armadura do Guardião</option>
-                      <option value="manto-sabio">👘 Manto do Sábio</option>
-                    </select>
-                  </div>
-                  
-                  <div class="equipment-slot">
-                    <label>Acessório 1</label>
-                    <select name="accessory1">
-                      <option value="">Selecionar acessório...</option>
-                      <option value="anel-fortuna">💍 Anel da Fortuna</option>
-                      <option value="amuleto-sombrio">🔮 Amuleto Sombrio</option>
-                    </select>
-                  </div>
-                  
-                  <div class="equipment-slot">
-                    <label>Acessório 2</label>
-                    <select name="accessory2">
-                      <option value="">Selecionar acessório...</option>
-                      <option value="orbe-conhecimento">✨ Orbe do Conhecimento</option>
-                      <option value="escudo-sagrado">🛡️ Escudo Sagrado</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="form-section full-width">
-                <h3>📝 Estratégia e Observações</h3>
-                <div class="form-group">
-                  <label for="build-strategy">Estratégia de Combate</label>
-                  <textarea id="build-strategy" name="build-strategy" rows="4" placeholder="Descreva como usar esta build em combate, rotação de habilidades, timing, etc..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                  <label for="build-notes">Observações Adicionais</label>
-                  <textarea id="build-notes" name="build-notes" rows="3" placeholder="Dicas, truques, situações ideais, contra-indicações..."></textarea>
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-actions">
-              <button type="button" class="btn btn-outline" data-action="cancel">Cancelar</button>
-              <button type="button" class="btn btn-secondary" data-action="save-draft">Salvar Rascunho</button>
-              <button type="submit" class="btn btn-primary" data-action="save-build">⚡ Criar Build</button>
-            </div>
-          </form>
-        </div>
-      </section>
+ <!-- Tela 2: Cadastro de Build -->
+ <section id="create-build-page" class="page">
+ <div class="container">
+ <div class="page-header">
+ <h2> Criar Nova Build</h2>
+ <p>Monte sua build personalizada e configure cada detalhe do seu aventureiro</p>
+ </div>
+ 
+ <form class="build-form">
+ <div class="form-grid">
+ <div class="form-section">
+ <h3> Informações Básicas</h3>
+ <div class="form-group">
+ <label for="build-name">Nome da Build</label>
+ <input type="text" id="build-name" name="build-name" placeholder="Ex: Guardião das Sombras" required>
+ </div>
+ 
+ <div class="form-group">
+ <label for="build-class">Classe</label>
+ <select id="build-class" name="build-class" required>
+ <option value="">Selecione uma classe</option>
+ <option value="guerreiro">️ Guerreiro</option>
+ <option value="mago"> Mago Elemental</option>
+ <option value="arqueiro"> Arqueiro da Floresta</option>
+ <option value="clerigo"> Clérigo Sagrado</option>
+ <option value="cavaleiro">️ Cavaleiro Imperial</option>
+ <option value="assassino">️ Assassino Sombrio</option>
+ <option value="invocador"> Invocador Arcano</option>
+ </select>
+ </div>
+ 
+ <div class="form-group">
+ <label for="build-style">Estilo de Jogo</label>
+ <select id="build-style" name="build-style" required>
+ <option value="">Selecione o estilo</option>
+ <option value="tanque">️ Tanque Defensivo</option>
+ <option value="dps-fisico">️ DPS Físico</option>
+ <option value="dps-magico"> DPS Mágico</option>
+ <option value="suporte"> Suporte/Healer</option>
+ <option value="hibrido">️ Híbrido Versátil</option>
+ <option value="assassino">️ Assassino/Burst</option>
+ </select>
+ </div>
+ 
+ <div class="form-group">
+ <label for="build-description">Descrição da Build</label>
+ <textarea id="build-description" name="build-description" rows="4" placeholder="Descreva a estratégia e filosofia da sua build..."></textarea>
+ </div>
+ </div>
+ 
+ <div class="form-section">
+ <h3> Distribuição de Atributos</h3>
+ <div class="attributes-container">
+ <div class="attribute-slider">
+ <label for="strength">Força</label>
+ <input type="range" id="strength" name="strength" min="1" max="100" value="50">
+ <span class="attribute-value">50</span>
+ </div>
+ 
+ <div class="attribute-slider">
+ <label for="intelligence">Inteligência</label>
+ <input type="range" id="intelligence" name="intelligence" min="1" max="100" value="50">
+ <span class="attribute-value">50</span>
+ </div>
+ 
+ <div class="attribute-slider">
+ <label for="agility">Agilidade</label>
+ <input type="range" id="agility" name="agility" min="1" max="100" value="50">
+ <span class="attribute-value">50</span>
+ </div>
+ 
+ <div class="attribute-slider">
+ <label for="wisdom">Sabedoria</label>
+ <input type="range" id="wisdom" name="wisdom" min="1" max="100" value="50">
+ <span class="attribute-value">50</span>
+ </div>
+ 
+ <div class="attribute-slider">
+ <label for="constitution">Constituição</label>
+ <input type="range" id="constitution" name="constitution" min="1" max="100" value="50">
+ <span class="attribute-value">50</span>
+ </div>
+ 
+ <div class="attribute-slider">
+ <label for="charisma">Carisma</label>
+ <input type="range" id="charisma" name="charisma" min="1" max="100" value="50">
+ <span class="attribute-value">50</span>
+ </div>
+ </div>
+ 
+ <div class="points-summary">
+ <span>Pontos Distribuídos: <strong id="total-points">300</strong> / 300</span>
+ </div>
+ </div>
+ 
+ <div class="form-section full-width">
+ <h3> Seleção de Habilidades</h3>
+ <div class="skills-selection">
+ <div class="skill-category">
+ <h4>Habilidades Principais</h4>
+ <div class="skills-grid">
+ <label class="skill-checkbox">
+ <input type="checkbox" name="skills" value="habilidade1">
+ <span class="skill-name">️ Golpe Devastador</span>
+ <span class="skill-desc">Ataque poderoso que ignora parte da armadura</span>
+ </label>
+ 
+ <label class="skill-checkbox">
+ <input type="checkbox" name="skills" value="habilidade2">
+ <span class="skill-name">️ Escudo Protetor</span>
+ <span class="skill-desc">Aumenta defesa e reflete dano</span>
+ </label>
+ 
+ <label class="skill-checkbox">
+ <input type="checkbox" name="skills" value="habilidade3">
+ <span class="skill-name"> Investida Rápida</span>
+ <span class="skill-desc">Movimento rápido com dano aumentado</span>
+ </label>
+ 
+ <label class="skill-checkbox">
+ <input type="checkbox" name="skills" value="habilidade4">
+ <span class="skill-name"> Aura de Batalha</span>
+ <span class="skill-desc">Buff de grupo que aumenta dano</span>
+ </label>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="form-section full-width">
+ <h3>️ Equipamentos Principais</h3>
+ <div class="equipment-slots">
+ <div class="equipment-slot">
+ <label>Arma Principal</label>
+ <select name="weapon-main">
+ <option value="">Selecionar arma...</option>
+ <option value="espada-crepusculo">️ Espada do Crepúsculo</option>
+ <option value="machado-titas"> Machado dos Titãs</option>
+ </select>
+ </div>
+ 
+ <div class="equipment-slot">
+ <label>Armadura</label>
+ <select name="armor">
+ <option value="">Selecionar armadura...</option>
+ <option value="armadura-guardiao">️ Armadura do Guardião</option>
+ <option value="manto-sabio"> Manto do Sábio</option>
+ </select>
+ </div>
+ 
+ <div class="equipment-slot">
+ <label>Acessório 1</label>
+ <select name="accessory1">
+ <option value="">Selecionar acessório...</option>
+ <option value="anel-fortuna"> Anel da Fortuna</option>
+ <option value="amuleto-sombrio"> Amuleto Sombrio</option>
+ </select>
+ </div>
+ 
+ <div class="equipment-slot">
+ <label>Acessório 2</label>
+ <select name="accessory2">
+ <option value="">Selecionar acessório...</option>
+ <option value="orbe-conhecimento"> Orbe do Conhecimento</option>
+ <option value="escudo-sagrado">️ Escudo Sagrado</option>
+ </select>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="form-section full-width">
+ <h3> Estratégia e Observações</h3>
+ <div class="form-group">
+ <label for="build-strategy">Estratégia de Combate</label>
+ <textarea id="build-strategy" name="build-strategy" rows="4" placeholder="Descreva como usar esta build em combate, rotação de habilidades, timing, etc..."></textarea>
+ </div>
+ 
+ <div class="form-group">
+ <label for="build-notes">Observações Adicionais</label>
+ <textarea id="build-notes" name="build-notes" rows="3" placeholder="Dicas, truques, situações ideais, contra-indicações..."></textarea>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="form-actions">
+ <button type="button" class="btn btn-outline" data-action="cancel">Cancelar</button>
+ <button type="button" class="btn btn-secondary" data-action="save-draft">Salvar Rascunho</button>
+ <button type="submit" class="btn btn-primary" data-action="save-build"> Criar Build</button>
+ </div>
+ </form>
+ </div>
+ </section>
 
-      <!-- Tela 3: Classes e Habilidades -->
-      <section id="classes-page" class="page">
-        <div class="container">
-          <div class="page-header">
-            <h2>⚔️ Classes e Habilidades</h2>
-            <p>Explore as diferentes classes disponíveis e suas especialidades únicas</p>
-          </div>
-          
-          <div id="classes-container" class="classes-container">
-            <!-- Conteúdo será preenchido pelo JavaScript -->
-          </div>
-        </div>
-      </section>
+ <!-- Tela 3: Classes e Habilidades -->
+ <section id="classes-page" class="page">
+ <div class="container">
+ <div class="page-header">
+ <h2>️ Classes e Habilidades</h2>
+ <p>Explore as diferentes classes disponíveis e suas especialidades únicas</p>
+ </div>
+ 
+ <div id="classes-container" class="classes-container">
+ <!-- Conteúdo será preenchido pelo JavaScript -->
+ </div>
+ </div>
+ </section>
 
-      <!-- Tela 4: Builds da Comunidade -->
-      <section id="builds-page" class="page">
-        <div class="container">
-          <div class="content">
-            <!-- Conteúdo será preenchido pelo JavaScript -->
-          </div>
-        </div>
-      </section>
+ <!-- Tela 4: Builds da Comunidade -->
+ <section id="builds-page" class="page">
+ <div class="container">
+ <div class="content">
+ <!-- Conteúdo será preenchido pelo JavaScript -->
+ </div>
+ </div>
+ </section>
 
-      <!-- Tela 5: Equipamentos -->
-      <section id="equipment-page" class="page">
-        <div class="container">
-          <div class="content">
-            <!-- Conteúdo será preenchido pelo JavaScript -->
-          </div>
-        </div>
-      </section>
+ <!-- Tela 5: Equipamentos -->
+ <section id="equipment-page" class="page">
+ <div class="container">
+ <div class="content">
+ <!-- Conteúdo será preenchido pelo JavaScript -->
+ </div>
+ </div>
+ </section>
 
-      <!-- Tela 6: Detalhes da Build -->
-      <section id="build-detail-page" class="page">
-        <div class="container">
-          <div class="build-detail-header">
-            <div class="build-title-section">
-              <h2>🗡️ Guardião das Sombras</h2>
-              <span class="class-tag assassino">Assassino Sombrio</span>
-              <div class="build-meta">
-                <span class="build-author">Por: MestreAventureiro</span>
-                <span class="build-date">Criado em: 15 Mar 2026</span>
-                <span class="build-views">👁️ 1,247 visualizações</span>
-              </div>
-            </div>
-            
-            <div class="build-actions">
-              <button class="btn btn-primary" data-action="copy-build">📋 Copiar Build</button>
-              <button class="btn btn-outline" data-action="export-build">📁 Exportar</button>
-              <button class="btn btn-outline" data-action="share-build">🔗 Compartilhar</button>
-            </div>
-          </div>
-          
-          <div class="build-detail-content">
-            <div class="build-overview">
-              <div class="build-description-card">
-                <h3>📋 Descrição da Build</h3>
-                <p>Esta build é focada em eliminação rápida de alvos únicos, utilizando alta mobilidade e ataques críticos devastadores. Ideal para jogadores experientes que preferem um estilo de jogo arriscado mas recompensador.</p>
-                
-                <div class="build-tags">
-                  <span class="tag difficulty-hard">🔥 Difícil</span>
-                  <span class="tag playstyle-solo">👤 Solo</span>
-                  <span class="tag playstyle-pvp">⚔️ PvP</span>
-                  <span class="tag playstyle-boss">👑 Chefes</span>
-                </div>
-              </div>
-              
-              <div class="build-stats-overview">
-                <h3>📊 Estatísticas Gerais</h3>
-                <div class="stats-grid">
-                  <div class="stat-item">
-                    <span class="stat-icon">⚔️</span>
-                    <span class="stat-label">Ataque</span>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 89%"></div>
-                    </div>
-                    <span class="stat-value">89</span>
-                  </div>
-                  
-                  <div class="stat-item">
-                    <span class="stat-icon">🛡️</span>
-                    <span class="stat-label">Defesa</span>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 34%"></div>
-                    </div>
-                    <span class="stat-value">34</span>
-                  </div>
-                  
-                  <div class="stat-item">
-                    <span class="stat-icon">⚡</span>
-                    <span class="stat-label">Agilidade</span>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 97%"></div>
-                    </div>
-                    <span class="stat-value">97</span>
-                  </div>
-                  
-                  <div class="stat-item">
-                    <span class="stat-icon">💙</span>
-                    <span class="stat-label">Mana</span>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 45%"></div>
-                    </div>
-                    <span class="stat-value">45</span>
-                  </div>
-                  
-                  <div class="stat-item">
-                    <span class="stat-icon">❤️</span>
-                    <span class="stat-label">Vida</span>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 52%"></div>
-                    </div>
-                    <span class="stat-value">52</span>
-                  </div>
-                  
-                  <div class="stat-item">
-                    <span class="stat-icon">🎯</span>
-                    <span class="stat-label">Crítico</span>
-                    <div class="stat-bar">
-                      <div class="stat-fill" style="width: 78%"></div>
-                    </div>
-                    <span class="stat-value">78</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="build-details-grid">
-              <div class="attributes-section">
-                <h3>📊 Distribuição de Atributos</h3>
-                <div class="attributes-list">
-                  <div class="attribute-item">
-                    <span class="attr-name">Força</span>
-                    <div class="attr-bar">
-                      <div class="attr-fill strength" style="width: 65%"></div>
-                    </div>
-                    <span class="attr-value">65</span>
-                  </div>
-                  
-                  <div class="attribute-item">
-                    <span class="attr-name">Inteligência</span>
-                    <div class="attr-bar">
-                      <div class="attr-fill intelligence" style="width: 25%"></div>
-                    </div>
-                    <span class="attr-value">25</span>
-                  </div>
-                  
-                  <div class="attribute-item">
-                    <span class="attr-name">Agilidade</span>
-                    <div class="attr-bar">
-                      <div class="attr-fill agility" style="width: 95%"></div>
-                    </div>
-                    <span class="attr-value">95</span>
-                  </div>
-                  
-                  <div class="attribute-item">
-                    <span class="attr-name">Sabedoria</span>
-                    <div class="attr-bar">
-                      <div class="attr-fill wisdom" style="width: 20%"></div>
-                    </div>
-                    <span class="attr-value">20</span>
-                  </div>
-                  
-                  <div class="attribute-item">
-                    <span class="attr-name">Constituição</span>
-                    <div class="attr-bar">
-                      <div class="attr-fill constitution" style="width: 45%"></div>
-                    </div>
-                    <span class="attr-value">45</span>
-                  </div>
-                  
-                  <div class="attribute-item">
-                    <span class="attr-name">Carisma</span>
-                    <div class="attr-bar">
-                      <div class="attr-fill charisma" style="width: 30%"></div>
-                    </div>
-                    <span class="attr-value">30</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="skills-section">
-                <h3>🎯 Habilidades Selecionadas</h3>
-                <div class="selected-skills">
-                  <div class="skill-item active">
-                    <span class="skill-icon">🗡️</span>
-                    <div class="skill-info">
-                      <h4>Ataque Furtivo</h4>
-                      <p>Ataque surpresa que causa 200% de dano crítico</p>
-                    </div>
-                    <span class="skill-level">Nv. 5</span>
-                  </div>
-                  
-                  <div class="skill-item active">
-                    <span class="skill-icon">💀</span>
-                    <div class="skill-info">
-                      <h4>Envenenar Lâmina</h4>
-                      <p>Aplica veneno que causa dano contínuo por 10s</p>
-                    </div>
-                    <span class="skill-level">Nv. 4</span>
-                  </div>
-                  
-                  <div class="skill-item active">
-                    <span class="skill-icon">👤</span>
-                    <div class="skill-info">
-                      <h4>Passo Sombrio</h4>
-                      <p>Teleporte curto que garante invisibilidade por 3s</p>
-                    </div>
-                    <span class="skill-level">Nv. 3</span>
-                  </div>
-                  
-                  <div class="skill-item active">
-                    <span class="skill-icon">💥</span>
-                    <div class="skill-info">
-                      <h4>Golpe Mortal</h4>
-                      <p>Finalizador que causa dano baseado na vida perdida do alvo</p>
-                    </div>
-                    <span class="skill-level">Nv. 4</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="equipment-section">
-                <h3>⚔️ Equipamentos Recomendados</h3>
-                <div class="equipment-loadout">
-                  <div class="equipment-slot filled">
-                    <div class="slot-icon">⚔️</div>
-                    <div class="slot-info">
-                      <h4>Adaga Sombria Ancestral</h4>
-                      <span class="slot-bonus">+52 ATQ, +35 CRT, +20% Veneno</span>
-                      <span class="rarity-badge lendario">Lendário</span>
-                    </div>
-                  </div>
-                  
-                  <div class="equipment-slot filled">
-                    <div class="slot-icon">👘</div>
-                    <div class="slot-info">
-                      <h4>Armadura de Couro Sombrio</h4>
-                      <span class="slot-bonus">+25 DEF, +40 AGI, +15% Furtividade</span>
-                      <span class="rarity-badge epico">Épico</span>
-                    </div>
-                  </div>
-                  
-                  <div class="equipment-slot filled">
-                    <div class="slot-icon">💍</div>
-                    <div class="slot-info">
-                      <h4>Anel do Assassino</h4>
-                      <span class="slot-bonus">+25 AGI, +30% Dano Crítico</span>
-                      <span class="rarity-badge epico">Épico</span>
-                    </div>
-                  </div>
-                  
-                  <div class="equipment-slot filled">
-                    <div class="slot-icon">🔮</div>
-                    <div class="slot-info">
-                      <h4>Amuleto das Sombras</h4>
-                      <span class="slot-bonus">+20 AGI, +25% Velocidade Movimento</span>
-                      <span class="rarity-badge raro">Raro</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="strategy-section">
-                <h3>🧠 Estratégia de Combate</h3>
-                <div class="strategy-content">
-                  <div class="strategy-phase">
-                    <h4>1. Aproximação</h4>
-                    <p>Use <strong>Passo Sombrio</strong> para se posicionar atrás do inimigo, garantindo invisibilidade e bônus de posicionamento.</p>
-                  </div>
-                  
-                  <div class="strategy-phase">
-                    <h4>2. Primeiro Ataque</h4>
-                    <p>Execute <strong>Ataque Furtivo</strong> para máximo dano crítico. Aplique <strong>Envenenar Lâmina</strong> imediatamente.</p>
-                  </div>
-                  
-                  <div class="strategy-phase">
-                    <h4>3. Finalização</h4>
-                    <p>Quando o inimigo estiver com pouca vida, use <strong>Golpe Mortal</strong> para eliminar rapidamente.</p>
-                  </div>
-                  
-                  <div class="strategy-tips">
-                    <h4>💡 Dicas Importantes</h4>
-                    <ul>
-                      <li>Mantenha sempre distância dos inimigos quando em cooldown</li>
-                      <li>Priorize alvos isolados e magos/arqueiros fracos</li>
-                      <li>Use o terreno para quebrar linha de visão</li>
-                      <li>Em grupo, deixe o tank iniciar o combate</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="recommendations-section">
-                <h3>⚖️ Análise da Build</h3>
-                <div class="analysis-grid">
-                  <div class="analysis-item pros">
-                    <h4>✅ Vantagens</h4>
-                    <ul>
-                      <li>Eliminação rápida de alvos isolados</li>
-                      <li>Alta mobilidade e escape</li>
-                      <li>Excelente para PvP e bosses</li>
-                      <li>Dano crítico devastador</li>
-                    </ul>
-                  </div>
-                  
-                  <div class="analysis-item cons">
-                    <h4>⚠️ Desvantagens</h4>
-                    <ul>
-                      <li>Muito frágil em combate direto</li>
-                      <li>Dificuldade contra grupos grandes</li>
-                      <li>Depende de timing preciso</li>
-                      <li>Equipamentos caros</li>
-                    </ul>
-                  </div>
-                  
-                  <div class="analysis-item difficulty">
-                    <h4>🎯 Nível de Dificuldade</h4>
-                    <div class="difficulty-bar">
-                      <div class="difficulty-fill" style="width: 85%"></div>
-                    </div>
-                    <span class="difficulty-label">Muito Difícil (8.5/10)</span>
-                    <p>Requer experiência avançada e reflexos rápidos</p>
-                  </div>
-                  
-                  <div class="analysis-item recommendations">
-                    <h4>🎮 Recomendações de Uso</h4>
-                    <div class="recommendations-tags">
-                      <span class="rec-tag solo">👤 Ideal Solo</span>
-                      <span class="rec-tag pvp">⚔️ Excelente PvP</span>
-                      <span class="rec-tag boss">👑 Ótima p/ Chefes</span>
-                      <span class="rec-tag group">👥 Limitada em Grupo</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-  <script type="module" src="/src/main.js"></script>
+ <!-- Tela 6: Detalhes da Build -->
+ <section id="build-detail-page" class="page">
+ <div class="container">
+ <div class="build-detail-header">
+ <div class="build-title-section">
+ <h2>️ Guardião das Sombras</h2>
+ <span class="class-tag assassino">Assassino Sombrio</span>
+ <div class="build-meta">
+ <span class="build-author">Por: MestreAventureiro</span>
+ <span class="build-date">Criado em: 15 Mar 2026</span>
+ <span class="build-views">️ 1,247 visualizações</span>
+ </div>
+ </div>
+ 
+ <div class="build-actions">
+ <button class="btn btn-primary" data-action="copy-build"> Copiar Build</button>
+ <button class="btn btn-outline" data-action="export-build"> Exportar</button>
+ <button class="btn btn-outline" data-action="share-build"> Compartilhar</button>
+ </div>
+ </div>
+ 
+ <div class="build-detail-content">
+ <div class="build-overview">
+ <div class="build-description-card">
+ <h3> Descrição da Build</h3>
+ <p>Esta build é focada em eliminação rápida de alvos únicos, utilizando alta mobilidade e ataques críticos devastadores. Ideal para jogadores experientes que preferem um estilo de jogo arriscado mas recompensador.</p>
+ 
+ <div class="build-tags">
+ <span class="tag difficulty-hard"> Difícil</span>
+ <span class="tag playstyle-solo"> Solo</span>
+ <span class="tag playstyle-pvp">️ PvP</span>
+ <span class="tag playstyle-boss"> Chefes</span>
+ </div>
+ </div>
+ 
+ <div class="build-stats-overview">
+ <h3> Estatísticas Gerais</h3>
+ <div class="stats-grid">
+ <div class="stat-item">
+ <span class="stat-icon">️</span>
+ <span class="stat-label">Ataque</span>
+ <div class="stat-bar">
+ <div class="stat-fill" style="width: 89%"></div>
+ </div>
+ <span class="stat-value">89</span>
+ </div>
+ 
+ <div class="stat-item">
+ <span class="stat-icon">️</span>
+ <span class="stat-label">Defesa</span>
+ <div class="stat-bar">
+ <div class="stat-fill" style="width: 34%"></div>
+ </div>
+ <span class="stat-value">34</span>
+ </div>
+ 
+ <div class="stat-item">
+ <span class="stat-icon"></span>
+ <span class="stat-label">Agilidade</span>
+ <div class="stat-bar">
+ <div class="stat-fill" style="width: 97%"></div>
+ </div>
+ <span class="stat-value">97</span>
+ </div>
+ 
+ <div class="stat-item">
+ <span class="stat-icon"></span>
+ <span class="stat-label">Mana</span>
+ <div class="stat-bar">
+ <div class="stat-fill" style="width: 45%"></div>
+ </div>
+ <span class="stat-value">45</span>
+ </div>
+ 
+ <div class="stat-item">
+ <span class="stat-icon">️</span>
+ <span class="stat-label">Vida</span>
+ <div class="stat-bar">
+ <div class="stat-fill" style="width: 52%"></div>
+ </div>
+ <span class="stat-value">52</span>
+ </div>
+ 
+ <div class="stat-item">
+ <span class="stat-icon"></span>
+ <span class="stat-label">Crítico</span>
+ <div class="stat-bar">
+ <div class="stat-fill" style="width: 78%"></div>
+ </div>
+ <span class="stat-value">78</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="build-details-grid">
+ <div class="attributes-section">
+ <h3> Distribuição de Atributos</h3>
+ <div class="attributes-list">
+ <div class="attribute-item">
+ <span class="attr-name">Força</span>
+ <div class="attr-bar">
+ <div class="attr-fill strength" style="width: 65%"></div>
+ </div>
+ <span class="attr-value">65</span>
+ </div>
+ 
+ <div class="attribute-item">
+ <span class="attr-name">Inteligência</span>
+ <div class="attr-bar">
+ <div class="attr-fill intelligence" style="width: 25%"></div>
+ </div>
+ <span class="attr-value">25</span>
+ </div>
+ 
+ <div class="attribute-item">
+ <span class="attr-name">Agilidade</span>
+ <div class="attr-bar">
+ <div class="attr-fill agility" style="width: 95%"></div>
+ </div>
+ <span class="attr-value">95</span>
+ </div>
+ 
+ <div class="attribute-item">
+ <span class="attr-name">Sabedoria</span>
+ <div class="attr-bar">
+ <div class="attr-fill wisdom" style="width: 20%"></div>
+ </div>
+ <span class="attr-value">20</span>
+ </div>
+ 
+ <div class="attribute-item">
+ <span class="attr-name">Constituição</span>
+ <div class="attr-bar">
+ <div class="attr-fill constitution" style="width: 45%"></div>
+ </div>
+ <span class="attr-value">45</span>
+ </div>
+ 
+ <div class="attribute-item">
+ <span class="attr-name">Carisma</span>
+ <div class="attr-bar">
+ <div class="attr-fill charisma" style="width: 30%"></div>
+ </div>
+ <span class="attr-value">30</span>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="skills-section">
+ <h3> Habilidades Selecionadas</h3>
+ <div class="selected-skills">
+ <div class="skill-item active">
+ <span class="skill-icon">️</span>
+ <div class="skill-info">
+ <h4>Ataque Furtivo</h4>
+ <p>Ataque surpresa que causa 200% de dano crítico</p>
+ </div>
+ <span class="skill-level">Nv. 5</span>
+ </div>
+ 
+ <div class="skill-item active">
+ <span class="skill-icon"></span>
+ <div class="skill-info">
+ <h4>Envenenar Lâmina</h4>
+ <p>Aplica veneno que causa dano contínuo por 10s</p>
+ </div>
+ <span class="skill-level">Nv. 4</span>
+ </div>
+ 
+ <div class="skill-item active">
+ <span class="skill-icon"></span>
+ <div class="skill-info">
+ <h4>Passo Sombrio</h4>
+ <p>Teleporte curto que garante invisibilidade por 3s</p>
+ </div>
+ <span class="skill-level">Nv. 3</span>
+ </div>
+ 
+ <div class="skill-item active">
+ <span class="skill-icon"></span>
+ <div class="skill-info">
+ <h4>Golpe Mortal</h4>
+ <p>Finalizador que causa dano baseado na vida perdida do alvo</p>
+ </div>
+ <span class="skill-level">Nv. 4</span>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="equipment-section">
+ <h3>️ Equipamentos Recomendados</h3>
+ <div class="equipment-loadout">
+ <div class="equipment-slot filled">
+ <div class="slot-icon">️</div>
+ <div class="slot-info">
+ <h4>Adaga Sombria Ancestral</h4>
+ <span class="slot-bonus">+52 ATQ, +35 CRT, +20% Veneno</span>
+ <span class="rarity-badge lendario">Lendário</span>
+ </div>
+ </div>
+ 
+ <div class="equipment-slot filled">
+ <div class="slot-icon"></div>
+ <div class="slot-info">
+ <h4>Armadura de Couro Sombrio</h4>
+ <span class="slot-bonus">+25 DEF, +40 AGI, +15% Furtividade</span>
+ <span class="rarity-badge epico">Épico</span>
+ </div>
+ </div>
+ 
+ <div class="equipment-slot filled">
+ <div class="slot-icon"></div>
+ <div class="slot-info">
+ <h4>Anel do Assassino</h4>
+ <span class="slot-bonus">+25 AGI, +30% Dano Crítico</span>
+ <span class="rarity-badge epico">Épico</span>
+ </div>
+ </div>
+ 
+ <div class="equipment-slot filled">
+ <div class="slot-icon"></div>
+ <div class="slot-info">
+ <h4>Amuleto das Sombras</h4>
+ <span class="slot-bonus">+20 AGI, +25% Velocidade Movimento</span>
+ <span class="rarity-badge raro">Raro</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="strategy-section">
+ <h3> Estratégia de Combate</h3>
+ <div class="strategy-content">
+ <div class="strategy-phase">
+ <h4>1. Aproximação</h4>
+ <p>Use <strong>Passo Sombrio</strong> para se posicionar atrás do inimigo, garantindo invisibilidade e bônus de posicionamento.</p>
+ </div>
+ 
+ <div class="strategy-phase">
+ <h4>2. Primeiro Ataque</h4>
+ <p>Execute <strong>Ataque Furtivo</strong> para máximo dano crítico. Aplique <strong>Envenenar Lâmina</strong> imediatamente.</p>
+ </div>
+ 
+ <div class="strategy-phase">
+ <h4>3. Finalização</h4>
+ <p>Quando o inimigo estiver com pouca vida, use <strong>Golpe Mortal</strong> para eliminar rapidamente.</p>
+ </div>
+ 
+ <div class="strategy-tips">
+ <h4> Dicas Importantes</h4>
+ <ul>
+ <li>Mantenha sempre distância dos inimigos quando em cooldown</li>
+ <li>Priorize alvos isolados e magos/arqueiros fracos</li>
+ <li>Use o terreno para quebrar linha de visão</li>
+ <li>Em grupo, deixe o tank iniciar o combate</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+ 
+ <div class="recommendations-section">
+ <h3>️ Análise da Build</h3>
+ <div class="analysis-grid">
+ <div class="analysis-item pros">
+ <h4> Vantagens</h4>
+ <ul>
+ <li>Eliminação rápida de alvos isolados</li>
+ <li>Alta mobilidade e escape</li>
+ <li>Excelente para PvP e bosses</li>
+ <li>Dano crítico devastador</li>
+ </ul>
+ </div>
+ 
+ <div class="analysis-item cons">
+ <h4>️ Desvantagens</h4>
+ <ul>
+ <li>Muito frágil em combate direto</li>
+ <li>Dificuldade contra grupos grandes</li>
+ <li>Depende de timing preciso</li>
+ <li>Equipamentos caros</li>
+ </ul>
+ </div>
+ 
+ <div class="analysis-item difficulty">
+ <h4> Nível de Dificuldade</h4>
+ <div class="difficulty-bar">
+ <div class="difficulty-fill" style="width: 85%"></div>
+ </div>
+ <span class="difficulty-label">Muito Difícil (8.5/10)</span>
+ <p>Requer experiência avançada e reflexos rápidos</p>
+ </div>
+ 
+ <div class="analysis-item recommendations">
+ <h4> Recomendações de Uso</h4>
+ <div class="recommendations-tags">
+ <span class="rec-tag solo"> Ideal Solo</span>
+ <span class="rec-tag pvp">️ Excelente PvP</span>
+ <span class="rec-tag boss"> Ótima p/ Chefes</span>
+ <span class="rec-tag group"> Limitada em Grupo</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+ </main>
+ </div>
+ <script type="module" src="/src/main.js"></script>
 </body>
 </html>

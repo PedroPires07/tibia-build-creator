@@ -1,12 +1,68 @@
 import express from 'express'
+import { createClient } from '@supabase/supabase-js'
 import supabase from '../supabaseClient.js'
 
 const router = express.Router()
 
+// Cria cliente Supabase usando o access token do usuário autenticado.
+// Com esse cliente, as operações respeitam RLS como "dono do registro".
+function makeUserClient(accessToken) {
+  return createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY,
+    {
+      global: { headers: { Authorization: `Bearer ${accessToken}` } },
+      auth: { persistSession: false, autoRefreshToken: false }
+    }
+  )
+}
+
 async function getProfileByUserId(userId) {
-  const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single()
-  if (error) throw error
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    if (error.code === 'PGRST116') return null
+    throw error
+  }
   return data
+}
+
+// Busca o perfil ou cria um mínimo a partir dos metadados do auth.
+async function ensureProfile(userId, authUser, accessToken) {
+  // Tenta buscar com service role
+  let profile = await getProfileByUserId(userId)
+  if (profile) return profile
+
+  const meta = authUser?.user_metadata || {}
+  const timestamp = new Date().toISOString()
+  const payload = {
+    id: userId,
+    username: meta.username || authUser?.email?.split('@')[0],
+    email: authUser?.email,
+    main_class: meta.mainClass || '',
+    level: 1,
+    join_date: timestamp.slice(0, 10),
+    created_at: timestamp,
+    updated_at: timestamp
+  }
+
+  // Usa o cliente do usuário (respeita RLS de "inserir próprio perfil")
+  const userClient = makeUserClient(accessToken)
+  const { data: created, error: createError } = await userClient
+    .from('profiles')
+    .insert(payload)
+    .select()
+    .single()
+
+  if (!createError && created) return created
+
+  // Último recurso: retorna objeto baseado nos metadados do auth
+  console.warn('Não foi possível criar perfil na tabela, usando dados do auth:', createError?.message)
+  return payload
 }
 
 router.post('/register', async (req, res) => {
@@ -17,16 +73,21 @@ router.post('/register', async (req, res) => {
   }
 
   try {
-    const { data: existing, error: existingError } = await supabase.from('profiles').select('id').or(`username.eq.${username},email.eq.${email}`).limit(1)
-    if (existingError) {
-      console.error('Erro ao verificar usuário existente no Supabase:', existingError)
-      return res.status(500).json({ error: existingError.message })
-    }
+    // Verifica duplicidade
+    const { data: existing, error: existingError } = await supabase
+      .from('profiles')
+      .select('id')
+      .or(`username.eq.${username},email.eq.${email}`)
+      .limit(1)
 
-    if (existing?.length > 0) {
+    if (existingError) {
+      console.error('Erro ao verificar duplicidade:', existingError)
+      // Ignora erro de RLS na verificação; prossegue
+    } else if (existing?.length > 0) {
       return res.status(409).json({ error: 'Usuário ou email já cadastrado' })
     }
 
+    // Cria usuário no Supabase Auth (admin)
     const { data: createData, error: createError } = await supabase.auth.admin.createUser({
       email,
       password,
@@ -35,42 +96,16 @@ router.post('/register', async (req, res) => {
     })
 
     if (createError) {
-      console.error('Erro ao criar usuário no Supabase Auth:', createError)
+      console.error('Erro ao criar usuário:', createError)
+      if (createError.code === 'email_exists') {
+        return res.status(409).json({ error: 'Email já cadastrado' })
+      }
       return res.status(409).json({ error: createError.message })
     }
 
     const user = createData.user
-    const timestamp = new Date().toISOString()
-    const profilePayload = {
-      id: user.id,
-      username,
-      email,
-      main_class: mainClass || '',
-      level: 1,
-      join_date: timestamp.slice(0, 10),
-      created_at: timestamp,
-      updated_at: timestamp
-    }
 
-    const { data: profileData, error: profileError } = await supabase
-      .from('profiles')
-      .upsert(profilePayload, { onConflict: 'id' })
-      .select()
-
-    // Se houver erro, tenta buscar o perfil que pode ter sido criado por trigger
-    let profile
-    if (profileError) {
-      console.warn('Aviso ao upsert perfil:', profileError.message)
-      profile = await getProfileByUserId(user.id)
-    } else {
-      profile = profileData?.[0]
-    }
-
-    if (!profile) {
-      console.error('Perfil não encontrado após registro')
-      return res.status(500).json({ error: 'Perfil não pôde ser criado' })
-    }
-
+    // Autentica imediatamente para obter o access token
     const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -78,10 +113,42 @@ router.post('/register', async (req, res) => {
 
     if (loginError || !loginData.session) {
       console.error('Erro ao autenticar após registro:', loginError)
-      return res.status(500).json({ error: loginError?.message || 'Não foi possível autenticar o usuário' })
+      return res.status(500).json({
+        error: 'Conta criada! Faça login manualmente.'
+      })
     }
 
-    res.json({ token: loginData.session.access_token, user: profile })
+    const accessToken = loginData.session.access_token
+    const userClient = makeUserClient(accessToken)
+    const timestamp = new Date().toISOString()
+
+    // Tenta upsert usando o token do usuário (contorna RLS)
+    const { error: upsertError } = await userClient
+      .from('profiles')
+      .upsert(
+        {
+          id: user.id,
+          username,
+          email,
+          main_class: mainClass || '',
+          level: 1,
+          join_date: timestamp.slice(0, 10),
+          created_at: timestamp,
+          updated_at: timestamp
+        },
+        { onConflict: 'id' }
+      )
+
+    if (upsertError) {
+      console.warn('Upsert de perfil falhou, tentando update:', upsertError.message)
+      await userClient
+        .from('profiles')
+        .update({ username, email, main_class: mainClass || '', level: 1, updated_at: timestamp })
+        .eq('id', user.id)
+    }
+
+    const profile = await ensureProfile(user.id, loginData.user, accessToken)
+    res.json({ token: accessToken, user: profile })
   } catch (error) {
     console.error('Erro no registro:', error)
     res.status(500).json({ error: 'Erro ao registrar usuário' })
@@ -99,11 +166,16 @@ router.post('/login', async (req, res) => {
     let email = emailOrUsername
 
     if (!emailOrUsername.includes('@')) {
-      const { data: profile, error: profileError } = await supabase.from('profiles').select('email').eq('username', emailOrUsername).single()
-      if (profileError || !profile?.email) {
+      const { data: profileRow, error: profileError } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('username', emailOrUsername)
+        .single()
+
+      if (profileError || !profileRow?.email) {
         return res.status(401).json({ error: 'Credenciais inválidas' })
       }
-      email = profile.email
+      email = profileRow.email
     }
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
@@ -117,8 +189,9 @@ router.post('/login', async (req, res) => {
     }
 
     const userId = authData.user?.id
-    const profile = await getProfileByUserId(userId)
-    res.json({ token: authData.session.access_token, user: profile })
+    const accessToken = authData.session.access_token
+    const profile = await ensureProfile(userId, authData.user, accessToken)
+    res.json({ token: accessToken, user: profile })
   } catch (error) {
     console.error('Erro no login:', error)
     res.status(500).json({ error: 'Erro ao autenticar usuário' })

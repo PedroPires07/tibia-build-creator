@@ -73,13 +73,16 @@ body::before {
 }
 
 .main-header {
-  background: linear-gradient(135deg, #1A0F08 0%, #0D0D0D 100%);
+  background:
+    linear-gradient(135deg, rgba(13, 8, 2, 0.88) 0%, rgba(26, 10, 2, 0.82) 50%, rgba(10, 10, 10, 0.90) 100%),
+    url('https://www.tibiafanart.com/wp-content/uploads/photo-gallery/Header_Artwork_Winter_Update_2021.jpg') center center / cover no-repeat;
   border-bottom: 3px solid var(--color-secondary);
   padding: var(--spacing-md) 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: var(--shadow-large);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 215, 0, 0.1);
+  overflow-x: hidden;
 }
 
 .main-header .container {
@@ -95,15 +98,30 @@ body::before {
   font-size: 1.8rem;
   font-weight: 600;
   color: var(--color-secondary);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 2px 2px 6px rgba(0, 0, 0, 0.8);
   margin-bottom: var(--spacing-xs);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-char-icon {
+  height: 42px;
+  width: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
 }
 
 .logo .subtitle {
-  font-size: 0.9rem;
-  color: var(--color-text-light);
-  opacity: 0.9;
+  font-size: 0.85rem;
+  color: rgba(255, 237, 213, 0.75);
   font-style: italic;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .main-nav {
@@ -123,6 +141,8 @@ body::before {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
+  min-height: 40px;
 }
 
 .nav-btn::before {
@@ -144,8 +164,10 @@ body::before {
 .nav-btn.active {
   border-color: var(--color-secondary);
   color: var(--color-secondary);
-  box-shadow: var(--shadow-glow);
+  background: linear-gradient(135deg, rgba(42, 28, 10, 0.95) 0%, rgba(30, 18, 5, 0.95) 100%);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .search-container {
@@ -154,7 +176,7 @@ body::before {
 }
 
 .search-input {
-  background: rgba(15, 15, 15, 0.95);
+  background: rgba(10, 6, 2, 0.85);
   border: 2px solid var(--color-primary);
   color: var(--color-text-light);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -162,12 +184,18 @@ body::before {
   font-family: var(--font-body);
   min-width: 200px;
   transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 237, 213, 0.45);
 }
 
 .search-input:focus {
   outline: none;
   border-color: var(--color-secondary);
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+  background: rgba(10, 6, 2, 0.95);
 }
 
 .search-btn {
@@ -580,27 +608,47 @@ body::before {
   .main-header .container {
     flex-direction: column;
     gap: var(--spacing-md);
+    align-items: stretch;
   }
-  
+
   .main-nav {
-    flex-wrap: wrap;
-    justify-content: center;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-bottom: 2px;
   }
-  
+
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
   .search-container {
     order: -1;
     width: 100%;
   }
-  
+
   .search-input {
     flex: 1;
     min-width: auto;
   }
-  
+
   .hero-content h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
-  
+
+  .hero-stats {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    justify-content: center;
+  }
+
+  .stat-card {
+    min-width: 100px;
+    flex: 1 1 120px;
+  }
+
   .container {
     padding: 0 var(--spacing-md);
   }
@@ -610,18 +658,34 @@ body::before {
   .hero-section {
     padding: var(--spacing-lg);
   }
-  
+
+  .hero-content h2 {
+    font-size: 1.5rem;
+  }
+
   .content-grid section {
     padding: var(--spacing-lg);
   }
-  
+
   .build-actions {
     flex-direction: column;
   }
-  
+
   .nav-btn {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .logo h1 {
+    font-size: 1.4rem;
+  }
+
+  .logo .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .page-header h2 {
+    font-size: 1.6rem;
   }
 }
 
@@ -2004,6 +2068,8 @@ body::before {
   height: 100% !important;
   object-fit: contain !important;
   display: block !important;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .equipment-icon span, .class-icon span, .rarity-icon span,
